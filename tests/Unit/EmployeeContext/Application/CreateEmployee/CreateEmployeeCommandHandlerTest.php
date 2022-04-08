@@ -24,7 +24,7 @@ final class CreateEmployeeCommandHandlerTest extends TestCase
 
         // When
         $commad = new CreateEmployeeCommandHandler(
-            employeeCreator: new EmployeeCreator(
+            creator: new EmployeeCreator(
                 $this->employeeRepository()
             )
         );

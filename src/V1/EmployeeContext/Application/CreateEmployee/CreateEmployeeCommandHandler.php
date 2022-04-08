@@ -12,13 +12,13 @@ use Api\V1\SharedContext\Domain\Employee\EmployeeId;
 final class CreateEmployeeCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private EmployeeCreator $employeeCreator
+        private EmployeeCreator $creator
     ) {
     }
 
     public function __invoke(CreateEmployeeCommand $command): void
     {
-        $this->employeeCreator->__invoke(
+        $this->creator->__invoke(
             new EmployeeId($command->id()),
             new EmployeeName($command->name()),
             new EmployeeEmail($command->email()),
