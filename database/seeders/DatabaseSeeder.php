@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
                 DB::table('work_entries')->insert([
                     'id' => $faker->uuid(),
                     'employee_id' => $employeeId,
-                    'start_date' => $entry,
+                    'startDate' => $entry,
                     'end_date' => $entry->add(
                         DateInterval::createFromDateString(
                             $faker->numberBetween(60, 480) . ' minutes'

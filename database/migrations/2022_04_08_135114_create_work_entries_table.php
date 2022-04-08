@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('work_entries', function (Blueprint $table) {
             $table->uuid('id')->unique()->index();
             $table->uuid('employee_id')->index();
-            $table->timestamp('start_date');
+            $table->timestamp('startDate');
             $table->timestamp('end_date');
             $table->timestamps();
             $table->softDeletes();

@@ -12,7 +12,7 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
 {
     public function create(WorkEntry $workEntry): void
     {
-        $query = 'INSERT INTO work_entries (id, employee_id, start_date, end_date, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)';
+        $query = 'INSERT INTO work_entries (id, employee_id, startDate, end_date, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)';
 
         try {
             DB::insert(
@@ -46,7 +46,7 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
             fn ($workEntry) => WorkEntry::fromPrimitives(
                 id: $workEntry->id,
                 employeeId: $workEntry->employee_id,
-                startDate: $workEntry->start_date,
+                startDate: $workEntry->startDate,
                 endDate: $workEntry->end_date,
                 createdAt: $workEntry->created_at,
                 updatedAt: $workEntry->updated_at,
@@ -75,7 +75,7 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
         return WorkEntry::fromPrimitives(
             id: $workEntries[0]->id,
             employeeId: $workEntries[0]->employee_id,
-            startDate: $workEntries[0]->start_date,
+            startDate: $workEntries[0]->startDate,
             endDate: $workEntries[0]->end_date,
             createdAt: $workEntries[0]->created_at,
             updatedAt: $workEntries[0]->updated_at,
@@ -84,7 +84,7 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
 
     public function update(WorkEntry $workEntry): void
     {
-        $query = 'UPDATE work_entries SET start_date = ?, end_date = ?, updated_at = ? WHERE id = ? AND deleted_at IS NULL';
+        $query = 'UPDATE work_entries SET startDate = ?, end_date = ?, updated_at = ? WHERE id = ? AND deleted_at IS NULL';
 
         try {
             DB::update(

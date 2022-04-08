@@ -42,7 +42,7 @@ final class EloquentWorkEntryRepositoryTest extends TestCase
         // Then
         $this->assertDatabaseHas('work_entries', [
             'id' => $workEntry->id()->value(),
-            'start_date' => (string) $workEntry->startDate(),
+            'startDate' => (string) $workEntry->startDate(),
             'end_date' => (string) $workEntry->endDate(),
             'created_at' => (string) $workEntry->createdAt(),
             'updated_at' => (string) $workEntry->updatedAt(),
@@ -121,7 +121,7 @@ final class EloquentWorkEntryRepositoryTest extends TestCase
         $this->assertDatabaseHas('work_entries', [
             'id' => $workEntry->id()->value(),
             'employee_id' => $workEntry->employeeId()->value(),
-            'start_date' => (string) $workEntry->startDate(),
+            'startDate' => (string) $workEntry->startDate(),
             'end_date' => (string) $workEntry->endDate(),
             'created_at' => (string) $workEntry->createdAt(),
             'updated_at' => (string) $workEntry->updatedAt(),
@@ -148,7 +148,7 @@ final class EloquentWorkEntryRepositoryTest extends TestCase
         $this->assertDatabaseHas('work_entries', [
             'id' => $workEntry->id()->value(),
             'employee_id' => $workEntry->employeeId()->value(),
-            'start_date' => (string) $workEntry->startDate(),
+            'startDate' => (string) $workEntry->startDate(),
             'end_date' => (string) $workEntry->endDate(),
             'created_at' => (string) $workEntry->createdAt(),
             'updated_at' => (string) $workEntry->updatedAt(),
