@@ -47,7 +47,7 @@ final class CreateEmployeeController
             $employeeId = Uuid::v4()->toRfc4122();
 
             $this->commandBus->execute(
-                new CreateEmployeeCommand(
+                command: new CreateEmployeeCommand(
                     id: $employeeId,
                     name: $validator->validated()['name'],
                     email: $validator->validated()['email']
@@ -55,7 +55,7 @@ final class CreateEmployeeController
             );
 
             $employee = $this->queryBus->execute(
-                new FindEmployeeQuery(
+                query: new FindEmployeeQuery(
                     id: $employeeId
                 )
             );
