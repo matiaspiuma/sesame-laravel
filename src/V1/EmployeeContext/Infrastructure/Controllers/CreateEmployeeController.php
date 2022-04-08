@@ -8,9 +8,9 @@ use Api\V1\EmployeeContext\Application\CreateEmployee\CreateEmployeeCommand;
 use Api\V1\EmployeeContext\Application\FindEmployee\FindEmployeeQuery;
 use Api\V1\SharedContext\Application\CQRS\Command\CommandBusInterface;
 use Api\V1\SharedContext\Application\CQRS\Query\QueryBusInterface;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\Api\V1\Employees\CreateEmployeeRequest;
+use App\Http\Resources\EmployeeResource;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Uid\Uuid;
 
@@ -22,58 +22,27 @@ final class CreateEmployeeController
     ) {
     }
     public function __invoke(
-        Request $request
+        CreateEmployeeRequest $request
     ): JsonResponse {
-        $validator = Validator::make(
-            [
-                'name' => $request->get('name'),
-                'email' => $request->get('email'),
-            ],
-            [
-                'name' => 'required|string|max:100',
-                'email' => 'required|email|max:100',
-            ]
+        $employeeId = Uuid::v4()->toRfc4122();
+
+        $this->commandBus->execute(
+            command: new CreateEmployeeCommand(
+                id: $employeeId,
+                name: $request->name,
+                email: $request->email,
+            )
         );
 
-        if ($validator->fails()) {
-            return new JsonResponse(
-                data: $validator->errors(),
-                status: Response::HTTP_BAD_REQUEST
-            );
-        }
-
-        try {
-
-            $employeeId = Uuid::v4()->toRfc4122();
-
-            $this->commandBus->execute(
-                command: new CreateEmployeeCommand(
-                    id: $employeeId,
-                    name: $validator->validated()['name'],
-                    email: $validator->validated()['email']
+        return new JsonResponse(
+            data: new EmployeeResource(
+                resource: $this->queryBus->execute(
+                    query: new FindEmployeeQuery(
+                        id: $employeeId
+                    )
                 )
-            );
-
-            $employee = $this->queryBus->execute(
-                query: new FindEmployeeQuery(
-                    id: $employeeId
-                )
-            );
-
-            return new JsonResponse(
-                data: [
-                    'data' => $employee->toPrimitives(),
-                    'meta' => []
-                ],
-                status: Response::HTTP_CREATED
-            );
-        } catch (\Exception $exception) {
-            return new JsonResponse(
-                data: [
-                    'message' => $exception->getMessage()
-                ],
-                status: Response::HTTP_BAD_REQUEST
-            );
-        }
+            ),
+            status: Response::HTTP_CREATED
+        );
     }
 }

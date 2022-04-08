@@ -29,7 +29,9 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
 
     public function create(Employee $employee): void
     {
-        $query = 'INSERT INTO employees (id, name, email, created_at, updated_at) VALUES (?, ?, ?, ?, ?)';
+        $query = 'INSERT INTO 
+            employees (id, name, email, created_at, updated_at) 
+            VALUES (?, ?, ?, ?, ?)';
 
         try {
             DB::insert(
