@@ -81,8 +81,8 @@ final class DoctrineEmployeeRepository extends DoctrineRepository implements Emp
             WHERE id = :id'
         )->executeQuery(
             params: [
-                'name' => $employee->name()->value(),
-                'email' => $employee->email()->value(),
+                'name' => $employee->name(),
+                'email' => $employee->email(),
                 'updated_at' => (string) $employee->updatedAt(),
                 'id' => $employee->id()->value()
             ]

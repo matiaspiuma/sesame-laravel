@@ -79,8 +79,8 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
             DB::update(
                 query: $query,
                 bindings: [
-                    $employee->name()->value(),
-                    $employee->email()->value(),
+                    $employee->name(),
+                    $employee->email(),
                     (string) $employee->updatedAt(),
                     $employee->id()->value()
                 ]
