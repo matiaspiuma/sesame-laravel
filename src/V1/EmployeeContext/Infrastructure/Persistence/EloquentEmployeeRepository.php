@@ -8,6 +8,7 @@ use Api\V1\EmployeeContext\Domain\Employee;
 use Api\V1\EmployeeContext\Domain\EmployeeRepository;
 use Api\V1\SharedContext\Domain\Employee\EmployeeId;
 use Api\V1\SharedContext\Infrastructure\ORM\EloquentRepository;
+use App\Exceptions\RecordNotFoundException;
 use Illuminate\Support\Facades\DB;
 
 final class EloquentEmployeeRepository extends EloquentRepository implements EmployeeRepository
@@ -51,7 +52,8 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
 
     public function findById(EmployeeId $employeeId): ?Employee
     {
-        $query = 'SELECT * FROM employees WHERE id = ? AND deletedAt IS NULL LIMIT 1';
+        $query = 'SELECT * FROM employees 
+            WHERE id = ? AND deletedAt IS NULL LIMIT 1';
 
         $employees = DB::select(
             query: $query,
@@ -61,7 +63,7 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
         );
 
         if (\count($employees) === 0) {
-            return null;
+            throw new RecordNotFoundException('Error finding employee');
         }
 
         return Employee::fromPrimitives(

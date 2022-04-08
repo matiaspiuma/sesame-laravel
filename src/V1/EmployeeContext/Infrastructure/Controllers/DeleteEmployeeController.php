@@ -18,24 +18,15 @@ final class DeleteEmployeeController
     public function __invoke(
         string $employeeId
     ): JsonResponse {
-        try {
-            $this->commandBus->execute(
-                new DeleteEmployeeCommand(
-                    id: $employeeId
-                )
-            );
+        $this->commandBus->execute(
+            command: new DeleteEmployeeCommand(
+                id: $employeeId
+            )
+        );
 
-            return new JsonResponse(
-                data: null,
-                status: Response::HTTP_NO_CONTENT
-            );
-        } catch (\Exception $exception) {
-            return new JsonResponse(
-                [
-                    'error' => $exception->getMessage(),
-                ],
-                Response::HTTP_BAD_REQUEST
-            );
-        }
+        return new JsonResponse(
+            data: null,
+            status: Response::HTTP_NO_CONTENT
+        );
     }
 }

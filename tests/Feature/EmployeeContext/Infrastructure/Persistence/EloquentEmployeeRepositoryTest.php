@@ -7,6 +7,7 @@ namespace Tests\Feature\EmployeeContext\Infrastructure\Persistence;
 use Api\V1\EmployeeContext\Domain\ValueObjects\EmployeeEmail;
 use Api\V1\EmployeeContext\Domain\ValueObjects\EmployeeName;
 use Api\V1\EmployeeContext\Infrastructure\Persistence\EloquentEmployeeRepository;
+use App\Exceptions\RecordNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -71,6 +72,8 @@ final class EloquentEmployeeRepositoryTest extends TestCase
         // Given
         $employeeId = $this->makeAnEmployeeAsObject();
 
+        $this->expectException(RecordNotFoundException::class);
+
         // When
         $employeeFound = (new EloquentEmployeeRepository)
             ->findById(employeeId: $employeeId->id());
@@ -86,6 +89,8 @@ final class EloquentEmployeeRepositoryTest extends TestCase
         $employee = $this->makeAnEmployeeAsObject(
             $this->createAnEmployee(deleted: true)
         );
+
+        $this->expectException(RecordNotFoundException::class);
 
         // When
         $result = (new EloquentEmployeeRepository)
