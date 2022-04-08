@@ -23,7 +23,6 @@ abstract class TestCase extends BaseTestCase
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
         ];
- 
     }
     protected function makeAnEmployeeAsObject(?array $employee = null): Employee
     {
@@ -38,16 +37,18 @@ abstract class TestCase extends BaseTestCase
         );
     }
 
-    protected function createAnEmployee(): array
+    protected function createAnEmployee(bool $deleted = false): array
     {
         $employee = $this->makeAnEmployee();
 
-        DB::insert('insert into employees (id, name, email, created_at, updated_at) values (?, ?, ?, ?, ?)', [
+        DB::insert('INSERT INTO employees (id, name, email, created_at, updated_at, deleted_at) 
+            VALUES (?, ?, ?, ?, ?, ?)', [
             $employee['id'],
             $employee['name'],
             $employee['email'],
             now(),
             now(),
+            $deleted ? now() : null,
         ]);
 
         return $employee;
@@ -58,7 +59,7 @@ abstract class TestCase extends BaseTestCase
         if ($this->employeeRepository === null) {
             $this->employeeRepository = $this->mock(EmployeeRepository::class);
         }
-        
+
         return $this->employeeRepository;
     }
 }
