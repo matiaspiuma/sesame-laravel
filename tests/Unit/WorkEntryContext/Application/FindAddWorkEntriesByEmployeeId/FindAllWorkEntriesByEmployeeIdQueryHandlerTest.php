@@ -12,7 +12,7 @@ use Tests\TestCase;
 final class FindAllWorkEntriesByEmployeeIdQueryHandlerTest extends TestCase
 {
     /** @test */
-    public function it_should_find_all_work_entries_by_employee_id(): void
+    public function it_should_find_all_work_entries_by_employeeId(): void
     {
         // Given
         $workEntry = $this->makeAnWorkEntry();
@@ -29,7 +29,7 @@ final class FindAllWorkEntriesByEmployeeIdQueryHandlerTest extends TestCase
         );
 
         $query(new FindAllWorkEntriesByEmployeeIdQuery(
-            employeeId: $workEntry['employee_id']
+            employeeId: $workEntry['employeeId']
         ));
     }
 }

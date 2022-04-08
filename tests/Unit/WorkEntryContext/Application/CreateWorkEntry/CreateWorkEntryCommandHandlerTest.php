@@ -30,7 +30,7 @@ final class CreateWorkEntryCommandHandlerTest extends TestCase
         );
 
         $commad(new CreateWorkEntryCommand(
-            employeeId: $workEntry['employee_id'],
+            employeeId: $workEntry['employeeId'],
             id: $workEntry['id'],
             startDate: $workEntry['startDate'],
             endDate: $workEntry['endDate']

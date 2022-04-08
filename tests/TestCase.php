@@ -46,7 +46,7 @@ abstract class TestCase extends BaseTestCase
     {
         $employee = $this->makeAnEmployee();
 
-        DB::insert('INSERT INTO employees (id, name, email, created_at, updated_at, deleted_at) 
+        DB::insert('INSERT INTO employees (id, name, email, createdAt, updatedAt, deletedAt) 
             VALUES (?, ?, ?, ?, ?, ?)', [
             $employee['id'],
             $employee['name'],
@@ -69,7 +69,7 @@ abstract class TestCase extends BaseTestCase
 
         $workEntry = [
             'id' => $this->faker->uuid(),
-            'employee_id' => $employee['id'],
+            'employeeId' => $employee['id'],
             'startDate' => $entry->format('Y-m-d H:i:s'),
             'endDate' => $entry->add(
                 \DateInterval::createFromDateString(
@@ -87,7 +87,7 @@ abstract class TestCase extends BaseTestCase
     {
         return WorkEntry::fromPrimitives(
             id: $workEntry['id'],
-            employeeId: $workEntry['employee_id'],
+            employeeId: $workEntry['employeeId'],
             startDate: $workEntry['startDate'],
             endDate: $workEntry['endDate'],
             createdAt: now(),
@@ -99,10 +99,10 @@ abstract class TestCase extends BaseTestCase
     {
         $workEntry = $this->makeAnWorkEntry();
 
-        DB::insert('INSERT INTO work_entries (id, employee_id, startDate, endDate, created_at, updated_at, deleted_at) 
+        DB::insert('INSERT INTO work_entries (id, employeeId, startDate, endDate, createdAt, updatedAt, deletedAt) 
             VALUES (?, ?, ?, ?, ?, ?, ?)', [
             $workEntry['id'],
-            $workEntry['employee_id'],
+            $workEntry['employeeId'],
             $workEntry['startDate'],
             $workEntry['endDate'],
             now(),

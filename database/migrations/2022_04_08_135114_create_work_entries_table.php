@@ -10,11 +10,12 @@ return new class extends Migration
     {
         Schema::create('work_entries', function (Blueprint $table) {
             $table->uuid('id')->unique()->index();
-            $table->uuid('employee_id')->index();
+            $table->uuid('employeeId')->index();
             $table->timestamp('startDate');
-            $table->timestamp('endDate');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->timestamp('endDate')->nullable();
+            $table->timestamp('createdAt');
+            $table->timestamp('updatedAt');
+            $table->timestamp('deletedAt')->nullable();
         });
     }
     

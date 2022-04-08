@@ -21,23 +21,23 @@ class DatabaseSeeder extends Seeder
                 'id' => $employeeId,
                 'name' => $faker->name(),
                 'email' => $faker->unique()->safeEmail(),
-                'created_at' => now(),
-                'updated_at' => now(),
+                'createdAt' => now(),
+                'updatedAt' => now(),
             ]);
 
             for ($j = 0; $j < 10; $j++) {
                 $entry = $faker->dateTimeBetween('-1 years', 'now');
                 DB::table('work_entries')->insert([
                     'id' => $faker->uuid(),
-                    'employee_id' => $employeeId,
+                    'employeeId' => $employeeId,
                     'startDate' => $entry,
                     'endDate' => $entry->add(
                         DateInterval::createFromDateString(
                             $faker->numberBetween(60, 480) . ' minutes'
                         )
                     ),
-                    'created_at' => now(),
-                    'updated_at' => now(),
+                    'createdAt' => now(),
+                    'updatedAt' => now(),
                 ]);
             }
         }

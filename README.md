@@ -24,8 +24,8 @@ Response
       "id": "f281fd8c-5948-404a-9470-dfb6dd4dcf0f",
       "name": "John Doe",
       "email": "johndoe@example.test",
-      "created_at": "2022-04-08 10:15:00",
-      "updated_at": "2022-04-08 10:15:00",
+      "createdAt": "2022-04-08 10:15:00",
+      "updatedAt": "2022-04-08 10:15:00",
     }
   ]
 }
@@ -49,8 +49,8 @@ response
     "id": "f281fd8c-5948-404a-9470-dfb6dd4dcf0f",
     "name": "John Doe",
     "email": "johndoe@example.test",
-    "created_at": "2022-04-08 10:15:00",
-    "updated_at": "2022-04-08 10:15:00",
+    "createdAt": "2022-04-08 10:15:00",
+    "updatedAt": "2022-04-08 10:15:00",
   }
 }
 ```
@@ -65,8 +65,8 @@ response
     "id": "f281fd8c-5948-404a-9470-dfb6dd4dcf0f",
     "name": "John Doe",
     "email": "johndoe@example.test",
-    "created_at": "2022-04-08 10:15:00",
-    "updated_at": "2022-04-08 10:15:00",
+    "createdAt": "2022-04-08 10:15:00",
+    "updatedAt": "2022-04-08 10:15:00",
   }
 }
 ```
@@ -89,8 +89,8 @@ response
     "id": "f281fd8c-5948-404a-9470-dfb6dd4dcf0f",
     "name": "John Doe",
     "email": "johndoe@example.test",
-    "created_at": "2022-04-08 10:15:00",
-    "updated_at": "2022-04-08 10:15:00",
+    "createdAt": "2022-04-08 10:15:00",
+    "updatedAt": "2022-04-08 10:15:00",
   }
 }
 ```
@@ -111,11 +111,11 @@ response
   [
     "data": {
       "id": "f281fd8c-5948-404a-9470-dfb6dd4dcf0f",
-      "employee_id": "f281fd8c-5948-404a-9470-dfb6dd4dcf0f",
+      "employeeId": "f281fd8c-5948-404a-9470-dfb6dd4dcf0f",
       "startDate": "2022-04-08 10:15:00",
       "endDate": "2022-04-08 11:15:00",
-      "created_at": "2022-04-08 10:15:00",
-      "updated_at": "2022-04-08 10:15:00",
+      "createdAt": "2022-04-08 10:15:00",
+      "updatedAt": "2022-04-08 10:15:00",
     }
   ]
 }
@@ -137,11 +137,11 @@ response
 {
   "data": {
     "id": "f281fd8c-5948-404a-9470-dfb6dd4dcf0f",
-    "employee_id": "f281fd8c-5948-404a-9470-dfb6dd4dcf0f",
+    "employeeId": "f281fd8c-5948-404a-9470-dfb6dd4dcf0f",
     "startDate": "2022-04-08 10:15:00",
     "endDate": "2022-04-08 11:15:00",
-    "created_at": "2022-04-08 10:15:00",
-    "updated_at": "2022-04-08 10:15:00",
+    "createdAt": "2022-04-08 10:15:00",
+    "updatedAt": "2022-04-08 10:15:00",
   }
 }
 ```
@@ -154,11 +154,11 @@ response
 {
   "data": {
     "id": "f281fd8c-5948-404a-9470-dfb6dd4dcf0f",
-    "employee_id": "f281fd8c-5948-404a-9470-dfb6dd4dcf0f",
+    "employeeId": "f281fd8c-5948-404a-9470-dfb6dd4dcf0f",
     "startDate": "2022-04-08 10:15:00",
     "endDate": "2022-04-08 11:15:00",
-    "created_at": "2022-04-08 10:15:00",
-    "updated_at": "2022-04-08 10:15:00",
+    "createdAt": "2022-04-08 10:15:00",
+    "updatedAt": "2022-04-08 10:15:00",
   }
 }
 ```
@@ -180,11 +180,11 @@ response
 {
   "data": {
     "id": "f281fd8c-5948-404a-9470-dfb6dd4dcf0f",
-    "employee_id": "f281fd8c-5948-404a-9470-dfb6dd4dcf0f",
+    "employeeId": "f281fd8c-5948-404a-9470-dfb6dd4dcf0f",
     "startDate": "2022-04-08 10:15:00",
     "endDate": "2022-04-08 11:15:00",
-    "created_at": "2022-04-08 10:15:00",
-    "updated_at": "2022-04-08 10:15:00",
+    "createdAt": "2022-04-08 10:15:00",
+    "updatedAt": "2022-04-08 10:15:00",
   }
 }
 ```

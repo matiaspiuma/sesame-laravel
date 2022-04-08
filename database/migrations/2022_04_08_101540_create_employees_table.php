@@ -14,8 +14,9 @@ return new class extends Migration
             $table->uuid('id')->index();
             $table->string('name', 100);
             $table->string('email', 100)->unique();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->timestamp('createdAt');
+            $table->timestamp('updatedAt');
+            $table->timestamp('deletedAt')->nullable();
         });
     }
     

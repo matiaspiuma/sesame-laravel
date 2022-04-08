@@ -27,9 +27,9 @@ final class DoctrineEmployeeRepository extends DoctrineRepository implements Emp
                 id: $employee['id'],
                 name: $employee['name'],
                 email: $employee['email'],
-                createdAt: $employee['created_at'],
-                updatedAt: $employee['updated_at'],
-                deletedAt: $employee['deleted_at']
+                createdAt: $employee['createdAt'],
+                updatedAt: $employee['updatedAt'],
+                deletedAt: $employee['deletedAt']
             ),
             $employees
         );
@@ -40,9 +40,9 @@ final class DoctrineEmployeeRepository extends DoctrineRepository implements Emp
         $this->connection->prepare(
             sql: 'INSERT INTO 
                 employees 
-                (id, name, email, created_at, updated_at, deleted_at) 
+                (id, name, email, createdAt, updatedAt, deletedAt) 
             VALUES 
-                (:id, :name, :email, :created_at, :updated_at, :deleted_at)'
+                (:id, :name, :email, :createdAt, :updatedAt, :deletedAt)'
         )->executeQuery(
             params: $employee->toPrimitives()
         );
@@ -51,7 +51,7 @@ final class DoctrineEmployeeRepository extends DoctrineRepository implements Emp
     public function findById(EmployeeId $employeeId): ?Employee
     {
         $employee = $this->connection->prepare(
-            sql: 'SELECT * FROM employees WHERE id = :id AND deleted_at IS NULL LIMIT 1',
+            sql: 'SELECT * FROM employees WHERE id = :id AND deletedAt IS NULL LIMIT 1',
         )->executeQuery(
             params: ['id' => $employeeId->value()]
         )->fetchAllAssociative();
@@ -64,9 +64,9 @@ final class DoctrineEmployeeRepository extends DoctrineRepository implements Emp
             id: $employee[0]['id'],
             name: $employee[0]['name'],
             email: $employee[0]['email'],
-            createdAt: $employee[0]['created_at'],
-            updatedAt: $employee[0]['updated_at'],
-            deletedAt: $employee[0]['deleted_at']
+            createdAt: $employee[0]['createdAt'],
+            updatedAt: $employee[0]['updatedAt'],
+            deletedAt: $employee[0]['deletedAt']
         );
     }
 
@@ -77,13 +77,13 @@ final class DoctrineEmployeeRepository extends DoctrineRepository implements Emp
             sql: 'UPDATE employees SET 
                 name = :name, 
                 email = :email, 
-                updated_at = :updated_at 
+                updatedAt = :updatedAt 
             WHERE id = :id'
         )->executeQuery(
             params: [
                 'name' => $employee->name(),
                 'email' => $employee->email(),
-                'updated_at' => (string) $employee->updatedAt(),
+                'updatedAt' => (string) $employee->updatedAt(),
                 'id' => $employee->id()->value()
             ]
         );
@@ -94,11 +94,11 @@ final class DoctrineEmployeeRepository extends DoctrineRepository implements Emp
         // if not exists then throw exception
         $this->connection->prepare(
             sql: 'UPDATE employees SET 
-                deleted_at = :deleted_at 
+                deletedAt = :deletedAt 
             WHERE id = :id'
         )->executeQuery(
             params: [
-                'deleted_at' => (string) $employee->deletedAt(),
+                'deletedAt' => (string) $employee->deletedAt(),
                 'id' => $employee->id()->value()
             ]
         );

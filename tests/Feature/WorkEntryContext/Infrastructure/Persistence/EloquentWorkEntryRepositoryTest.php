@@ -16,14 +16,14 @@ final class EloquentWorkEntryRepositoryTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_should_find_all_work_entries_by_employee_id(): void
+    public function it_should_find_all_work_entries_by_employeeId(): void
     {
         // Given
         $workEntry = $this->createAnWorkEntry();
 
         // When
         $workEntries = (new EloquentWorkEntryRepository)->findAllByEmployeeId(
-            employeeId: new EmployeeId($workEntry['employee_id'])
+            employeeId: new EmployeeId($workEntry['employeeId'])
         );
 
         // Then
@@ -44,8 +44,8 @@ final class EloquentWorkEntryRepositoryTest extends TestCase
             'id' => $workEntry->id()->value(),
             'startDate' => (string) $workEntry->startDate(),
             'endDate' => (string) $workEntry->endDate(),
-            'created_at' => (string) $workEntry->createdAt(),
-            'updated_at' => (string) $workEntry->updatedAt(),
+            'createdAt' => (string) $workEntry->createdAt(),
+            'updatedAt' => (string) $workEntry->updatedAt(),
         ]);
     }
 
@@ -120,12 +120,12 @@ final class EloquentWorkEntryRepositoryTest extends TestCase
         // Then
         $this->assertDatabaseHas('work_entries', [
             'id' => $workEntry->id()->value(),
-            'employee_id' => $workEntry->employeeId()->value(),
+            'employeeId' => $workEntry->employeeId()->value(),
             'startDate' => (string) $workEntry->startDate(),
             'endDate' => (string) $workEntry->endDate(),
-            'created_at' => (string) $workEntry->createdAt(),
-            'updated_at' => (string) $workEntry->updatedAt(),
-            'deleted_at' => null,
+            'createdAt' => (string) $workEntry->createdAt(),
+            'updatedAt' => (string) $workEntry->updatedAt(),
+            'deletedAt' => null,
         ]);
     }
 
@@ -147,12 +147,12 @@ final class EloquentWorkEntryRepositoryTest extends TestCase
         // Then
         $this->assertDatabaseHas('work_entries', [
             'id' => $workEntry->id()->value(),
-            'employee_id' => $workEntry->employeeId()->value(),
+            'employeeId' => $workEntry->employeeId()->value(),
             'startDate' => (string) $workEntry->startDate(),
             'endDate' => (string) $workEntry->endDate(),
-            'created_at' => (string) $workEntry->createdAt(),
-            'updated_at' => (string) $workEntry->updatedAt(),
-            'deleted_at' => (string) $workEntry->deletedAt(),
+            'createdAt' => (string) $workEntry->createdAt(),
+            'updatedAt' => (string) $workEntry->updatedAt(),
+            'deletedAt' => (string) $workEntry->deletedAt(),
         ]);
     }
 }

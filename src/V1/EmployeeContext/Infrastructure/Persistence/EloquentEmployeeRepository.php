@@ -21,8 +21,8 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
                 id: $employee->id,
                 name: $employee->name,
                 email: $employee->email,
-                createdAt: $employee->created_at,
-                updatedAt: $employee->updated_at
+                createdAt: $employee->createdAt,
+                updatedAt: $employee->updatedAt
             ),
         )->toArray();
     }
@@ -30,7 +30,7 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
     public function create(Employee $employee): void
     {
         $query = 'INSERT INTO 
-            employees (id, name, email, created_at, updated_at) 
+            employees (id, name, email, createdAt, updatedAt) 
             VALUES (?, ?, ?, ?, ?)';
 
         try {
@@ -51,7 +51,7 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
 
     public function findById(EmployeeId $employeeId): ?Employee
     {
-        $query = 'SELECT * FROM employees WHERE id = ? AND deleted_at IS NULL LIMIT 1';
+        $query = 'SELECT * FROM employees WHERE id = ? AND deletedAt IS NULL LIMIT 1';
 
         $employees = DB::select(
             query: $query,
@@ -68,14 +68,14 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
             id: $employees[0]->id,
             name: $employees[0]->name,
             email: $employees[0]->email,
-            createdAt: $employees[0]->created_at,
-            updatedAt: $employees[0]->updated_at,
+            createdAt: $employees[0]->createdAt,
+            updatedAt: $employees[0]->updatedAt,
         );
     }
 
     public function update(Employee $employee): void
     {
-        $query = 'UPDATE employees SET name = ?, email = ?, updated_at = ? WHERE id = ? AND deleted_at IS NULL';
+        $query = 'UPDATE employees SET name = ?, email = ?, updatedAt = ? WHERE id = ? AND deletedAt IS NULL';
 
         try {
             DB::update(
@@ -94,7 +94,7 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
 
     public function delete(Employee $employee): void
     {
-        $query = 'UPDATE employees SET deleted_at = ? WHERE id = ? AND deleted_at IS NULL';
+        $query = 'UPDATE employees SET deletedAt = ? WHERE id = ? AND deletedAt IS NULL';
 
         try {
             DB::update(

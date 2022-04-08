@@ -12,7 +12,7 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
 {
     public function create(WorkEntry $workEntry): void
     {
-        $query = 'INSERT INTO work_entries (id, employee_id, startDate, endDate, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)';
+        $query = 'INSERT INTO work_entries (id, employeeId, startDate, endDate, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?)';
 
         try {
             DB::insert(
@@ -33,7 +33,7 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
 
     public function findAllByEmployeeId(EmployeeId $employeeId): array
     {
-        $query = 'SELECT * FROM work_entries WHERE employee_id = ? AND deleted_at IS NULL';
+        $query = 'SELECT * FROM work_entries WHERE employeeId = ? AND deletedAt IS NULL';
 
         $workEntries = DB::select(
             query: $query,
@@ -45,11 +45,11 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
         return \array_map(
             fn ($workEntry) => WorkEntry::fromPrimitives(
                 id: $workEntry->id,
-                employeeId: $workEntry->employee_id,
+                employeeId: $workEntry->employeeId,
                 startDate: $workEntry->startDate,
                 endDate: $workEntry->endDate,
-                createdAt: $workEntry->created_at,
-                updatedAt: $workEntry->updated_at,
+                createdAt: $workEntry->createdAt,
+                updatedAt: $workEntry->updatedAt,
             ),
             $workEntries
         );
@@ -57,7 +57,7 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
 
     public function findById(WorkEntryId $workEntryId): WorkEntry
     {
-        $query = 'SELECT * FROM work_entries WHERE id = ? AND deleted_at IS NULL LIMIT 1';
+        $query = 'SELECT * FROM work_entries WHERE id = ? AND deletedAt IS NULL LIMIT 1';
 
         $workEntries = DB::select(
             query: $query,
@@ -74,17 +74,17 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
 
         return WorkEntry::fromPrimitives(
             id: $workEntries[0]->id,
-            employeeId: $workEntries[0]->employee_id,
+            employeeId: $workEntries[0]->employeeId,
             startDate: $workEntries[0]->startDate,
             endDate: $workEntries[0]->endDate,
-            createdAt: $workEntries[0]->created_at,
-            updatedAt: $workEntries[0]->updated_at,
+            createdAt: $workEntries[0]->createdAt,
+            updatedAt: $workEntries[0]->updatedAt,
         );
     }
 
     public function update(WorkEntry $workEntry): void
     {
-        $query = 'UPDATE work_entries SET startDate = ?, endDate = ?, updated_at = ? WHERE id = ? AND deleted_at IS NULL';
+        $query = 'UPDATE work_entries SET startDate = ?, endDate = ?, updatedAt = ? WHERE id = ? AND deletedAt IS NULL';
 
         try {
             DB::update(
@@ -103,7 +103,7 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
 
     public function delete(WorkEntry $workEntry): void
     {
-        $query = 'UPDATE work_entries SET deleted_at = ? WHERE id = ? AND deleted_at IS NULL';
+        $query = 'UPDATE work_entries SET deletedAt = ? WHERE id = ? AND deletedAt IS NULL';
 
         try {
             DB::update(

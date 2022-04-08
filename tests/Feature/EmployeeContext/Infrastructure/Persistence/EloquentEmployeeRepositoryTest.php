@@ -41,8 +41,8 @@ final class EloquentEmployeeRepositoryTest extends TestCase
             'id' => $employee->id(),
             'name' => $employee->name(),
             'email' => $employee->email(),
-            'created_at' => $employee->createdAt(),
-            'updated_at' => $employee->updatedAt(),
+            'createdAt' => $employee->createdAt(),
+            'updatedAt' => $employee->updatedAt(),
         ]);
     }
 
@@ -119,8 +119,8 @@ final class EloquentEmployeeRepositoryTest extends TestCase
             'id' => $employee->id(),
             'name' => $employee->name(),
             'email' => $employee->email(),
-            'created_at' => $employee->createdAt(),
-            'updated_at' => $employee->updatedAt(),
+            'createdAt' => $employee->createdAt(),
+            'updatedAt' => $employee->updatedAt(),
         ]);
     }
 
@@ -143,9 +143,9 @@ final class EloquentEmployeeRepositoryTest extends TestCase
             'id' => $employee->id(),
             'name' => $employee->name(),
             'email' => $employee->email(),
-            'created_at' => $employee->createdAt(),
-            'updated_at' => $employee->updatedAt(),
-            'deleted_at' => $employee->deletedAt(),
+            'createdAt' => $employee->createdAt(),
+            'updatedAt' => $employee->updatedAt(),
+            'deletedAt' => $employee->deletedAt(),
         ]);
     }
 }
