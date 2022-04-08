@@ -9,12 +9,12 @@ use Api\V1\SharedContext\Application\CQRS\Query\QueryHandlerInterface;
 final class SearchEmployeesQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
-        private EmployeesFinder $employeeFinder
+        private EmployeesFinder $employeesFinder
     ) {
     }
 
     public function __invoke(SearchEmployeesQuery $query): mixed
     {
-        return $this->employeeFinder->__invoke();
+        return $this->employeesFinder->__invoke();
     }
 }
