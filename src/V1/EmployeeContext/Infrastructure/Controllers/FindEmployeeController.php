@@ -24,6 +24,15 @@ final class FindEmployeeController
             )
         );
 
+        if (!$employee) {
+            return new JsonResponse(
+                [
+                    'error' => 'Employee not found',
+                ],
+                Response::HTTP_NOT_FOUND
+            );
+        }
+
         return new JsonResponse(
             data: [
                 'data' => $employee->toPrimitives(),
