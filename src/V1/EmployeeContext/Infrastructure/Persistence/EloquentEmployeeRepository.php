@@ -92,16 +92,18 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
 
     public function delete(Employee $employee): void
     {
-        // if not exists then throw exception
-        $this->connection->prepare(
-            sql: 'UPDATE employees SET 
-                deleted_at = :deleted_at 
-            WHERE id = :id'
-        )->executeQuery(
-            params: [
-                'deleted_at' => $employee->deletedAt()->__toString(),
-                'id' => $employee->id()->value()
-            ]
-        );
+        $query = 'UPDATE employees SET deleted_at = ? WHERE id = ? AND deleted_at IS NULL';
+
+        try {
+            DB::update(
+                query: $query,
+                bindings: [
+                    $employee->deletedAt()->__toString(),
+                    $employee->id()->value()
+                ]
+            );
+        } catch (\Exception $e) {
+            throw new \Exception('Error deleting employee');
+        }
     }
 }
