@@ -15,7 +15,7 @@ use Api\V1\WorkEntryContext\Domain\ValueObjects\WorkEntryUpdatedAt;
 final class WorkEntry
 {
     public function __construct(
-        private EmployeeId $employeeId,
+        public readonly EmployeeId $employeeId,
         private WorkEntryId  $id,
         private WorkEntryStartDate $startDate,
         private WorkEntryEndDate $endDate,

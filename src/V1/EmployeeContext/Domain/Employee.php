@@ -15,7 +15,7 @@ use DateTimeImmutable;
 final class Employee
 {
     public function __construct(
-        private EmployeeId $id,
+        public readonly EmployeeId $id,
         private EmployeeName $name,
         private EmployeeEmail $email,
         private EmployeeCreatedAt $createdAt,
@@ -75,8 +75,8 @@ final class Employee
     {
         return [
             'id' => $this->id->value(),
-            'name' => $this->name->value(),
-            'email' => $this->email->value(),
+            'name' => $this->name,
+            'email' => $this->email,
             'created_at' => (string) $this->createdAt,
             'updated_at' => (string) $this->updatedAt,
         ];
