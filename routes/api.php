@@ -5,6 +5,7 @@ use Api\V1\EmployeeContext\Infrastructure\Controllers\DeleteEmployeeController;
 use Api\V1\EmployeeContext\Infrastructure\Controllers\FindEmployeeController;
 use Api\V1\EmployeeContext\Infrastructure\Controllers\GetAllEmployeesController;
 use Api\V1\EmployeeContext\Infrastructure\Controllers\UpdateEmployeeController;
+use Api\V1\WorkEntryContext\Infrastructure\Controllers\CreateWorkEntryController;
 use Api\V1\WorkEntryContext\Infrastructure\Controllers\SearchWorkEntriesController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,5 @@ Route::delete(uri: '/employees/{employeeId}', action: DeleteEmployeeController::
  * Work Entries API
  */
 Route::get(uri: '/employees/{employeeId}/workentries', action: SearchWorkEntriesController::class);
+
+Route::post(uri: '/employees/{employeeId}/workentries', action: CreateWorkEntryController::class);

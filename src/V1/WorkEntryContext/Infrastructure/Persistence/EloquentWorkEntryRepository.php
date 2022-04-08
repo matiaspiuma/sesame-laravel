@@ -3,6 +3,7 @@
 namespace Api\V1\WorkEntryContext\Infrastructure\Persistence;
 
 use Api\V1\SharedContext\Domain\Employee\EmployeeId;
+use Api\V1\WorkEntryContext\Domain\ValueObjects\WorkEntryId;
 use Api\V1\WorkEntryContext\Domain\WorkEntry;
 use Api\V1\WorkEntryContext\Domain\WorkEntryRepository;
 use Illuminate\Support\Facades\DB;
@@ -11,7 +12,23 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
 {
     public function create(WorkEntry $workEntry): void
     {
-        //
+        $query = 'INSERT INTO work_entries (id, employee_id, start_date, end_date, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)';
+
+        try {
+            DB::insert(
+                query: $query,
+                bindings: [
+                    $workEntry->id()->value(),
+                    $workEntry->employeeId()->value(),
+                    $workEntry->startDate()->__toString(),
+                    $workEntry->endDate()->__toString(),
+                    $workEntry->createdAt()->__toString(),
+                    $workEntry->updatedAt()->__toString(),
+                ]
+            );
+        } catch (\Exception $e) {
+            throw new \Exception('Error creating work entry');
+        }
     }
 
     public function findAllByEmployeeId(EmployeeId $employeeId): array
@@ -35,6 +52,33 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
                 updatedAt: $workEntry->updated_at,
             ),
             $workEntries
+        );
+    }
+
+    public function findById(WorkEntryId $workEntryId): WorkEntry
+    {
+        $query = 'SELECT * FROM work_entries WHERE id = ? AND deleted_at IS NULL LIMIT 1';
+
+        $workEntries = DB::select(
+            query: $query,
+            bindings: [
+                $workEntryId->value(),
+            ]
+        );
+
+        if (\count($workEntries) === 0) {
+            throw new \InvalidArgumentException(
+                \sprintf('Work entry with id "%s" does not exist.', $workEntryId->value())
+            );
+        }
+
+        return WorkEntry::fromPrimitives(
+            id: $workEntries[0]->id,
+            employeeId: $workEntries[0]->employee_id,
+            startDate: $workEntries[0]->start_date,
+            endDate: $workEntries[0]->end_date,
+            createdAt: $workEntries[0]->created_at,
+            updatedAt: $workEntries[0]->updated_at,
         );
     }
 }
