@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\EmployeeContext\Application\DeleteEmployee;
+namespace Tests\Unit\EmployeeContext\Application\SearchEmployees;
 
 use Api\V1\EmployeeContext\Application\SearchEmployees\EmployeesFinder;
 use Api\V1\EmployeeContext\Application\SearchEmployees\SearchEmployeesQuery;
