@@ -10,6 +10,8 @@ use Api\V1\SharedContext\Application\RequestInterface;
 use Api\V1\SharedContext\Infrastructure\CQRS\Command\LaravelCommandBus;
 use Api\V1\SharedContext\Infrastructure\CQRS\Query\LaravelQueryBus;
 use Api\V1\SharedContext\Infrastructure\Request\LaravelRequest;
+use Api\V1\WorkEntryContext\Domain\WorkEntryRepository;
+use Api\V1\WorkEntryContext\Infrastructure\Persistence\EloquentWorkEntryRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -34,6 +36,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             abstract: EmployeeRepository::class,
             concrete: EloquentEmployeeRepository::class
+        );
+
+        $this->app->bind(
+            abstract: WorkEntryRepository::class,
+            concrete: EloquentWorkEntryRepository::class
         );
     }
     

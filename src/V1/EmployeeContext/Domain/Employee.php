@@ -63,11 +63,11 @@ final class Employee
         string $updatedAt
     ): Employee {
         return new self(
-            new EmployeeId($id),
-            new EmployeeName($name),
-            new EmployeeEmail($email),
-            new EmployeeCreatedAt(new DateTimeImmutable($createdAt)),
-            new EmployeeUpdatedAt(new DateTimeImmutable($updatedAt))
+            id: new EmployeeId($id),
+            name: new EmployeeName($name),
+            email: new EmployeeEmail($email),
+            createdAt: new EmployeeCreatedAt(new DateTimeImmutable($createdAt)),
+            updatedAt: new EmployeeUpdatedAt(new DateTimeImmutable($updatedAt))
         );
     }
 
