@@ -83,7 +83,7 @@ final class DoctrineEmployeeRepository extends DoctrineRepository implements Emp
             params: [
                 'name' => $employee->name()->value(),
                 'email' => $employee->email()->value(),
-                'updated_at' => $employee->updatedAt()->__toString(),
+                'updated_at' => (string) $employee->updatedAt(),
                 'id' => $employee->id()->value()
             ]
         );
@@ -98,7 +98,7 @@ final class DoctrineEmployeeRepository extends DoctrineRepository implements Emp
             WHERE id = :id'
         )->executeQuery(
             params: [
-                'deleted_at' => $employee->deletedAt()->__toString(),
+                'deleted_at' => (string) $employee->deletedAt(),
                 'id' => $employee->id()->value()
             ]
         );

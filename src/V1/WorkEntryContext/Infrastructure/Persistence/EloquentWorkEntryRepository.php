@@ -20,10 +20,10 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
                 bindings: [
                     $workEntry->id()->value(),
                     $workEntry->employeeId()->value(),
-                    $workEntry->startDate()->__toString(),
-                    $workEntry->endDate()->__toString(),
-                    $workEntry->createdAt()->__toString(),
-                    $workEntry->updatedAt()->__toString(),
+                    (string) $workEntry->startDate(),
+                    (string) $workEntry->endDate(),
+                    (string) $workEntry->createdAt(),
+                    (string) $workEntry->updatedAt(),
                 ]
             );
         } catch (\Exception $e) {
@@ -90,9 +90,9 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
             DB::update(
                 query: $query,
                 bindings: [
-                    $workEntry->startDate()->__toString(),
-                    $workEntry->endDate()->__toString(),
-                    $workEntry->updatedAt()->__toString(),
+                    (string) $workEntry->startDate(),
+                    (string) $workEntry->endDate(),
+                    (string) $workEntry->updatedAt(),
                     $workEntry->id()->value(),
                 ]
             );
@@ -109,7 +109,7 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
             DB::update(
                 query: $query,
                 bindings: [
-                    $workEntry->deletedAt()->__toString(),
+                    (string) $workEntry->deletedAt(),
                     $workEntry->id()->value()
                 ]
             );

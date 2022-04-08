@@ -81,7 +81,7 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
                 bindings: [
                     $employee->name()->value(),
                     $employee->email()->value(),
-                    $employee->updatedAt()->__toString(),
+                    (string) $employee->updatedAt(),
                     $employee->id()->value()
                 ]
             );
@@ -98,7 +98,7 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
             DB::update(
                 query: $query,
                 bindings: [
-                    $employee->deletedAt()->__toString(),
+                    (string) $employee->deletedAt(),
                     $employee->id()->value()
                 ]
             );

@@ -92,10 +92,10 @@ final class WorkEntry
         return [
             'id' => $this->id->value(),
             'employeeId' => $this->employeeId()->value(),
-            'startDate' => $this->startDate->__toString(),
-            'endDate' => $this->endDate->__toString(),
-            'createdAt' => $this->createdAt->__toString(),
-            'updatedAt' => $this->updatedAt->__toString(),
+            'startDate' => (string) $this->startDate,
+            'endDate' => (string) $this->endDate,
+            'createdAt' => (string) $this->createdAt,
+            'updatedAt' => (string) $this->updatedAt,
         ];
     }
 

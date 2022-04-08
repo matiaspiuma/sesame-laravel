@@ -77,8 +77,8 @@ final class Employee
             'id' => $this->id->value(),
             'name' => $this->name->value(),
             'email' => $this->email->value(),
-            'created_at' => $this->createdAt->__toString(),
-            'updated_at' => $this->updatedAt->__toString(),
+            'created_at' => (string) $this->createdAt,
+            'updated_at' => (string) $this->updatedAt,
         ];
     }
 
