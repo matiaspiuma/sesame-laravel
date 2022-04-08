@@ -81,4 +81,23 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
             updatedAt: $workEntries[0]->updated_at,
         );
     }
+
+    public function update(WorkEntry $workEntry): void
+    {
+        $query = 'UPDATE work_entries SET start_date = ?, end_date = ?, updated_at = ? WHERE id = ? AND deleted_at IS NULL';
+
+        try {
+            DB::update(
+                query: $query,
+                bindings: [
+                    $workEntry->startDate()->__toString(),
+                    $workEntry->endDate()->__toString(),
+                    $workEntry->updatedAt()->__toString(),
+                    $workEntry->id()->value(),
+                ]
+            );
+        } catch (\Exception $e) {
+            throw new \Exception('Error updating work entry');
+        }
+    }
 }

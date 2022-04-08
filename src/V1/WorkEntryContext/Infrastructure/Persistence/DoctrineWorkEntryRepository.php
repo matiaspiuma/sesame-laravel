@@ -23,4 +23,9 @@ final class DoctrineWorkEntryRepository implements WorkEntryRepository
     {
         return null;
     }
+
+    public function update(WorkEntry $workEntry): void
+    {
+        //
+    }
 }

@@ -43,6 +43,15 @@ final class WorkEntry
         );
     }
 
+    public function update(
+        WorkEntryStartDate $startDate,
+        WorkEntryEndDate $endDate,
+    ): void {
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
+        $this->updatedAt = new WorkEntryUpdatedAt(new \DateTimeImmutable());
+    }
+
     public static function fromPrimitives(
         string $id,
         string $employeeId,
@@ -57,16 +66,16 @@ final class WorkEntry
                 id: $employeeId
             ),
             startDate: new WorkEntryStartDate(
-                value: new \DateTimeImmutable($startDate)
+                value: \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $startDate)
             ),
             endDate: new WorkEntryEndDate(
-                value: new \DateTimeImmutable($endDate)
+                value: \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $endDate)
             ),
             createdAt: new WorkEntryCreatedAt(
-                value: new \DateTimeImmutable($createdAt)
+                value: \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $createdAt)
             ),
             updatedAt: new WorkEntryUpdatedAt(
-                value: new \DateTimeImmutable($updatedAt)
+                value: \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $updatedAt)
             )
         );
     }
@@ -76,10 +85,10 @@ final class WorkEntry
         return [
             'id' => $this->id->value(),
             'employeeId' => $this->employeeId()->value(),
-            'startDate' => $this->createdAt->__toString(),
-            'endDate' => $this->updatedAt->__toString(),
+            'startDate' => $this->startDate->__toString(),
+            'endDate' => $this->endDate->__toString(),
             'createdAt' => $this->createdAt->__toString(),
-            'endDate' => $this->updatedAt->__toString(),
+            'updatedAt' => $this->updatedAt->__toString(),
         ];
     }
 
