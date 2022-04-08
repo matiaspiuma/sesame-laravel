@@ -14,7 +14,7 @@ use Api\V1\WorkEntryContext\Domain\WorkEntryRepository;
 final class WorkEntryCreator
 {
     public function __construct(
-        private WorkEntryRepository $workEntryRepository
+        private WorkEntryRepository $repository
     ) {
     }
 
@@ -24,7 +24,7 @@ final class WorkEntryCreator
         WorkEntryStartDate $workEntryStartDate,
         WorkEntryEndDate   $workEntryEndDate,
     ): void {
-        $this->workEntryRepository->create(
+        $this->repository->create(
             workEntry: WorkEntry::create(
                 employeeId: $employeeId,
                 id: $workEntryId,

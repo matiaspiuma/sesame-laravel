@@ -11,12 +11,12 @@ use Api\V1\EmployeeContext\Domain\EmployeeRepository;
 final class EmployeeFinder
 {
     public function __construct(
-        private EmployeeRepository $employeeRepository
+        private EmployeeRepository $repository
     ) {
     }
 
     public function __invoke(EmployeeId $employeeId): Employee
     {
-        return $this->employeeRepository->findById($employeeId);
+        return $this->repository->findById($employeeId);
     }
 }

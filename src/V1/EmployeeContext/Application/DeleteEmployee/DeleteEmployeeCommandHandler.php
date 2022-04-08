@@ -10,13 +10,13 @@ use Api\V1\SharedContext\Domain\Employee\EmployeeId;
 final class DeleteEmployeeCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private EmployeeDeletor $employeeDelector
+        private EmployeeDeletor $delector
     ) {
     }
 
     public function __invoke(DeleteEmployeeCommand $command): void
     {
-        $this->employeeDelector->__invoke(
+        $this->delector->__invoke(
             employeeId: new EmployeeId($command->id()),
         );
     }

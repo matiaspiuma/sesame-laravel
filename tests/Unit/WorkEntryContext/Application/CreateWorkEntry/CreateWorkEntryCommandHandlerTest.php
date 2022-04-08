@@ -25,7 +25,7 @@ final class CreateWorkEntryCommandHandlerTest extends TestCase
         // When
         $commad = new CreateWorkEntryCommandHandler(
             creator: new WorkEntryCreator(
-                $this->workEntryRepository()
+                repository: $this->workEntryRepository()
             )
         );
 

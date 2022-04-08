@@ -9,12 +9,12 @@ use Api\V1\EmployeeContext\Domain\EmployeeRepository;
 final class EmployeesFinder
 {
     public function __construct(
-        private EmployeeRepository $employeeRepository
+        private EmployeeRepository $repository
     ) {
     }
 
     public function __invoke(): array
     {
-        return $this->employeeRepository->findAll();
+        return $this->repository->findAll();
     }
 }

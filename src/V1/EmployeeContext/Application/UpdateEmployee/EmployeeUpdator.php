@@ -12,7 +12,7 @@ use Api\V1\SharedContext\Domain\Employee\EmployeeId;
 final class EmployeeUpdator
 {
     public function __construct(
-        private EmployeeRepository $employeeRepository
+        private EmployeeRepository $repository
     ) {
     }
 
@@ -21,13 +21,13 @@ final class EmployeeUpdator
         EmployeeName $employeeName,
         EmployeeEmail $employeeEmail
     ): void {
-        $employee = $this->employeeRepository->findById($employeeId);
+        $employee = $this->repository->findById($employeeId);
 
         $employee->update(
             name: $employeeName,
             email: $employeeEmail,
         );
 
-        $this->employeeRepository->update($employee);
+        $this->repository->update($employee);
     }
 }

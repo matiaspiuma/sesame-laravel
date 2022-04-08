@@ -31,7 +31,7 @@ final class DeleteEmployeeCommandHandlerTest extends TestCase
 
         // When
         $commad = new DeleteEmployeeCommandHandler(
-            employeeDelector: new EmployeeDeletor(
+            delector: new EmployeeDeletor(
                 $this->employeeRepository()
             )
         );

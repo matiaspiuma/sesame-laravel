@@ -30,7 +30,7 @@ final class UpdateWorkEntryCommandHandlerTest extends TestCase
         // When
         $commad = new UpdateWorkEntryCommandHandler(
             updator: new WorkEntryUpdator(
-                $this->workEntryRepository()
+                repository: $this->workEntryRepository()
             )
         );
 

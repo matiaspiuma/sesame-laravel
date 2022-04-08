@@ -11,12 +11,12 @@ use Api\V1\WorkEntryContext\Domain\WorkEntryRepository;
 final class WorkEntryFinder
 {
     public function __construct(
-        private WorkEntryRepository $workEntryRepository
+        private WorkEntryRepository $repository
     ) {
     }
 
     public function __invoke(WorkEntryId $workEntryId): WorkEntry
     {
-        return $this->workEntryRepository->findById($workEntryId);
+        return $this->repository->findById($workEntryId);
     }
 }

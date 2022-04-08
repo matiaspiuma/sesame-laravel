@@ -10,17 +10,17 @@ use Api\V1\EmployeeContext\Domain\EmployeeRepository;
 final class EmployeeDeletor
 {
     public function __construct(
-        private EmployeeRepository $employeeRepository
+        private EmployeeRepository $repository
     ) {
     }
 
     public function __invoke(
         EmployeeId $employeeId,
     ): void {
-        $employee = $this->employeeRepository->findById($employeeId);
+        $employee = $this->repository->findById($employeeId);
 
         $employee->delete();
 
-        $this->employeeRepository->delete($employee);
+        $this->repository->delete($employee);
     }
 }

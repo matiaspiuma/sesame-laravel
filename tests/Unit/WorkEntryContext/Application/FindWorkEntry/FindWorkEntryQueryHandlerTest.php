@@ -25,7 +25,7 @@ final class FindWorkEntryQueryHandlerTest extends TestCase
         // When
         $query = new FindWorkEntryQueryHandler(
             finder: new WorkEntryFinder(
-                $this->workEntryRepository()
+                repository: $this->workEntryRepository()
             )
         );
 

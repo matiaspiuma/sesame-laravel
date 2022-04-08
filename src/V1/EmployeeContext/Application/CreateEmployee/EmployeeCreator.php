@@ -13,7 +13,7 @@ use Api\V1\SharedContext\Domain\Employee\EmployeeId;
 final class EmployeeCreator
 {
     public function __construct(
-        private EmployeeRepository $employeeRepository
+        private EmployeeRepository $repository
     ) {
     }
 
@@ -28,6 +28,6 @@ final class EmployeeCreator
             $employeeEmail
         );
 
-        $this->employeeRepository->create($employee);
+        $this->repository->create($employee);
     }
 }

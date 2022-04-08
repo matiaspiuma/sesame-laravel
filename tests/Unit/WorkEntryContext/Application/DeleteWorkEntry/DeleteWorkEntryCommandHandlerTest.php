@@ -30,7 +30,7 @@ final class DeleteWorkEntryCommandHandlerTest extends TestCase
         // When
         $commad = new DeleteWorkEntryCommandHandler(
             workEntryDelector: new WorkEntryDeletor(
-                $this->workEntryRepository()
+                repository: $this->workEntryRepository()
             )
         );
 

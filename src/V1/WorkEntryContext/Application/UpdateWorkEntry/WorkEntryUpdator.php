@@ -12,22 +12,22 @@ use Api\V1\WorkEntryContext\Domain\ValueObjects\WorkEntryStartDate;
 final class WorkEntryUpdator
 {
     public function __construct(
-        private WorkEntryRepository $workDateRepository
+        private WorkEntryRepository $repository
     ) {
     }
 
     public function __invoke(
         WorkEntryId $workDateId,
-        WorkEntryStartDate $workDateStartDate,
+        WorkEntryStartDate $workEntryStartDate,
         WorkEntryEndDate $workDateEndDate
     ): void {
-        $workDate = $this->workDateRepository->findById($workDateId);
+        $workDate = $this->repository->findById($workDateId);
 
         $workDate->update(
-            startDate: $workDateStartDate,
+            startDate: $workEntryStartDate,
             endDate: $workDateEndDate,
         );
 
-        $this->workDateRepository->update($workDate);
+        $this->repository->update($workDate);
     }
 }

@@ -10,17 +10,17 @@ use Api\V1\WorkEntryContext\Domain\WorkEntryRepository;
 final class WorkEntryDeletor
 {
     public function __construct(
-        private WorkEntryRepository $workEntryRepository
+        private WorkEntryRepository $repository
     ) {
     }
 
     public function __invoke(
         WorkEntryId $workEntryId,
     ): void {
-        $workEntry = $this->workEntryRepository->findById($workEntryId);
+        $workEntry = $this->repository->findById($workEntryId);
 
         $workEntry->delete();
 
-        $this->workEntryRepository->delete($workEntry);
+        $this->repository->delete($workEntry);
     }
 }
