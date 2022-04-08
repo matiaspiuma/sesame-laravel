@@ -4,6 +4,8 @@ namespace Tests;
 
 use Api\V1\EmployeeContext\Domain\Employee;
 use Api\V1\EmployeeContext\Domain\EmployeeRepository;
+use Api\V1\WorkEntryContext\Domain\WorkEntry;
+use Api\V1\WorkEntryContext\Domain\WorkEntryRepository;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +18,8 @@ abstract class TestCase extends BaseTestCase
 
     private $employeeRepository;
 
+    private $workEntryRepository;
+
     protected function makeAnEmployee(): array
     {
         return [
@@ -24,6 +28,7 @@ abstract class TestCase extends BaseTestCase
             'email' => $this->faker->unique()->safeEmail(),
         ];
     }
+
     protected function makeAnEmployeeAsObject(?array $employee = null): Employee
     {
         $employee = $employee ?? $this->makeAnEmployee();
@@ -54,6 +59,62 @@ abstract class TestCase extends BaseTestCase
         return $employee;
     }
 
+    protected function makeAnWorkEntry(
+        ?array $employee = null,
+        bool $asObject = false,
+    ): array|WorkEntry {
+        $employee = $employee ?? $this->makeAnEmployee();
+
+        $entry = $this->faker->dateTimeBetween('-1 years', 'now');
+
+        $workEntry = [
+            'id' => $this->faker->uuid(),
+            'employee_id' => $employee['id'],
+            'start_date' => $entry->format('Y-m-d H:i:s'),
+            'end_date' => $entry->add(
+                \DateInterval::createFromDateString(
+                    $this->faker->numberBetween(60, 600) . ' minutes'
+                )
+            )->format('Y-m-d H:i:s'),
+        ];
+
+        return $asObject
+            ? $this->convertWorkEntryToObject($workEntry)
+            : $workEntry;
+    }
+
+    protected function convertWorkEntryToObject(array $workEntry): WorkEntry
+    {
+        return WorkEntry::fromPrimitives(
+            id: $workEntry['id'],
+            employeeId: $workEntry['employee_id'],
+            startDate: $workEntry['start_date'],
+            endDate: $workEntry['end_date'],
+            createdAt: now(),
+            updatedAt: now(),
+        );
+    }
+
+    protected function createAnWorkEntry(bool $deleted = false, bool $asObject = false): array|WorkEntry
+    {
+        $workEntry = $this->makeAnWorkEntry();
+
+        DB::insert('INSERT INTO work_entries (id, employee_id, start_date, end_date, created_at, updated_at, deleted_at) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)', [
+            $workEntry['id'],
+            $workEntry['employee_id'],
+            $workEntry['start_date'],
+            $workEntry['end_date'],
+            now(),
+            now(),
+            $deleted ? now() : null,
+        ]);
+
+        return $asObject
+            ? $this->convertWorkEntryToObject($workEntry)
+            : $workEntry;
+    }
+
     protected function employeeRepository(): EmployeeRepository|MockInterface|null
     {
         if ($this->employeeRepository === null) {
@@ -61,5 +122,14 @@ abstract class TestCase extends BaseTestCase
         }
 
         return $this->employeeRepository;
+    }
+
+    protected function workEntryRepository(): WorkEntryRepository|MockInterface|null
+    {
+        if ($this->workEntryRepository === null) {
+            $this->workEntryRepository = $this->mock(WorkEntryRepository::class);
+        }
+
+        return $this->workEntryRepository;
     }
 }

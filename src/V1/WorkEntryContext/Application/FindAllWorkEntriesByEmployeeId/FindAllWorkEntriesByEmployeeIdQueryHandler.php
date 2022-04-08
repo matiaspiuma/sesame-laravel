@@ -10,14 +10,14 @@ use Api\V1\SharedContext\Domain\Employee\EmployeeId;
 final class FindAllWorkEntriesByEmployeeIdQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
-        private WorkEntriesByEmployeeIdFinder $workEntriesByEmployeeIdFinder
+        private WorkEntriesByEmployeeIdFinder $finder
     ) {
     }
 
-    public function __invoke(FindAllWorkEntriesByEmployeeIdQuery $findAllWorkEntriesByEmployeeIdQuery): array
+    public function __invoke(FindAllWorkEntriesByEmployeeIdQuery $query): array
     {
-        return $this->workEntriesByEmployeeIdFinder->__invoke(
-            employeeId: new EmployeeId($findAllWorkEntriesByEmployeeIdQuery->employeeId())
+        return $this->finder->__invoke(
+            employeeId: new EmployeeId($query->employeeId())
         );
     }
 }

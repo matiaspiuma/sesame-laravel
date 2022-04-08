@@ -67,7 +67,7 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
         );
 
         if (\count($workEntries) === 0) {
-            throw new \InvalidArgumentException(
+            throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException(
                 \sprintf('Work entry with id "%s" does not exist.', $workEntryId->value())
             );
         }

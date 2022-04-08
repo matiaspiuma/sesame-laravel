@@ -10,13 +10,13 @@ use Api\V1\WorkEntryContext\Domain\ValueObjects\WorkEntryId;
 final class FindWorkEntryQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
-        private WorkEntryFinder $workEntryFinder
+        private WorkEntryFinder $finder
     ) {
     }
 
     public function __invoke(FindWorkEntryQuery $query): mixed
     {
-        return $this->workEntryFinder->__invoke(
+        return $this->finder->__invoke(
             workEntryId: new WorkEntryId($query->id()),
         );
     }

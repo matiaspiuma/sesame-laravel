@@ -13,13 +13,13 @@ use Api\V1\WorkEntryContext\Domain\ValueObjects\WorkEntryStartDate;
 final class UpdateWorkEntryCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private WorkEntryUpdator $workEntryUpdator
+        private WorkEntryUpdator $updator
     ) {
     }
 
     public function __invoke(UpdateWorkEntryCommand $command): void
     {
-        $this->workEntryUpdator->__invoke(
+        $this->updator->__invoke(
             new WorkEntryId($command->id()),
             new WorkEntryStartDate(
                 value: \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $command->startDate())

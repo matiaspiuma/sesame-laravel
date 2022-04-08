@@ -10,14 +10,14 @@ use Api\V1\WorkEntryContext\Domain\WorkEntryRepository;
 class WorkEntriesByEmployeeIdFinder
 {
     public function __construct(
-        private WorkEntryRepository $workEntryRepository
+        private WorkEntryRepository $repository
     )
     {
     }
 
     public function __invoke(EmployeeId $employeeId): array
     {
-        return $this->workEntryRepository->findAllByEmployeeId(
+        return $this->repository->findAllByEmployeeId(
             employeeId: $employeeId
         );
     }

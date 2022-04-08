@@ -13,13 +13,13 @@ use Api\V1\WorkEntryContext\Domain\ValueObjects\WorkEntryStartDate;
 final class CreateWorkEntryCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private WorkEntryCreator $employeeCreator
+        private WorkEntryCreator $creator
     ) {
     }
 
     public function __invoke(CreateWorkEntryCommand $command): void
     {
-        $this->employeeCreator->__invoke(
+        $this->creator->__invoke(
             employeeId: new EmployeeId(id: $command->employeeId()),
             workEntryId: new WorkEntryId(id: $command->id()),
             workEntryStartDate: new WorkEntryStartDate(
