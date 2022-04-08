@@ -11,7 +11,7 @@ docker-compose up -d
 ./vendor/bin/sail artisan tests
 ```
 
-## Endpoints
+## Endpoints (http://localhost)
 
 ### [GET] /api/v1/employees
 
