@@ -73,21 +73,21 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
 
     public function update(Employee $employee): void
     {
-        // if not exists then throw exception
-        $this->connection->prepare(
-            sql: 'UPDATE employees SET 
-                name = :name, 
-                email = :email, 
-                updated_at = :updated_at 
-            WHERE id = :id'
-        )->executeQuery(
-            params: [
-                'name' => $employee->name()->value(),
-                'email' => $employee->email()->value(),
-                'updated_at' => $employee->updatedAt()->__toString(),
-                'id' => $employee->id()->value()
-            ]
-        );
+        $query = 'UPDATE employees SET name = ?, email = ?, updated_at = ? WHERE id = ? AND deleted_at IS NULL';
+
+        try {
+            DB::update(
+                query: $query,
+                bindings: [
+                    $employee->name()->value(),
+                    $employee->email()->value(),
+                    $employee->updatedAt()->__toString(),
+                    $employee->id()->value()
+                ]
+            );
+        } catch (\Exception $e) {
+            throw new \Exception('Error updating employee');
+        }
     }
 
     public function delete(Employee $employee): void
