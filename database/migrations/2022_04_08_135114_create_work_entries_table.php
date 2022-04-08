@@ -12,7 +12,7 @@ return new class extends Migration
             $table->uuid('id')->unique()->index();
             $table->uuid('employee_id')->index();
             $table->timestamp('startDate');
-            $table->timestamp('end_date');
+            $table->timestamp('endDate');
             $table->timestamps();
             $table->softDeletes();
         });

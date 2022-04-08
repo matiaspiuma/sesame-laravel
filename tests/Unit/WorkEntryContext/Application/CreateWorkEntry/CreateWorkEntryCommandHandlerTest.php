@@ -33,7 +33,7 @@ final class CreateWorkEntryCommandHandlerTest extends TestCase
             employeeId: $workEntry['employee_id'],
             id: $workEntry['id'],
             startDate: $workEntry['startDate'],
-            endDate: $workEntry['end_date']
+            endDate: $workEntry['endDate']
         ));
     }
 }

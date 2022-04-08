@@ -71,7 +71,7 @@ abstract class TestCase extends BaseTestCase
             'id' => $this->faker->uuid(),
             'employee_id' => $employee['id'],
             'startDate' => $entry->format('Y-m-d H:i:s'),
-            'end_date' => $entry->add(
+            'endDate' => $entry->add(
                 \DateInterval::createFromDateString(
                     $this->faker->numberBetween(60, 600) . ' minutes'
                 )
@@ -89,7 +89,7 @@ abstract class TestCase extends BaseTestCase
             id: $workEntry['id'],
             employeeId: $workEntry['employee_id'],
             startDate: $workEntry['startDate'],
-            endDate: $workEntry['end_date'],
+            endDate: $workEntry['endDate'],
             createdAt: now(),
             updatedAt: now(),
         );
@@ -99,12 +99,12 @@ abstract class TestCase extends BaseTestCase
     {
         $workEntry = $this->makeAnWorkEntry();
 
-        DB::insert('INSERT INTO work_entries (id, employee_id, startDate, end_date, created_at, updated_at, deleted_at) 
+        DB::insert('INSERT INTO work_entries (id, employee_id, startDate, endDate, created_at, updated_at, deleted_at) 
             VALUES (?, ?, ?, ?, ?, ?, ?)', [
             $workEntry['id'],
             $workEntry['employee_id'],
             $workEntry['startDate'],
-            $workEntry['end_date'],
+            $workEntry['endDate'],
             now(),
             now(),
             $deleted ? now() : null,

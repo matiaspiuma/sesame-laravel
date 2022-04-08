@@ -43,7 +43,7 @@ final class EloquentWorkEntryRepositoryTest extends TestCase
         $this->assertDatabaseHas('work_entries', [
             'id' => $workEntry->id()->value(),
             'startDate' => (string) $workEntry->startDate(),
-            'end_date' => (string) $workEntry->endDate(),
+            'endDate' => (string) $workEntry->endDate(),
             'created_at' => (string) $workEntry->createdAt(),
             'updated_at' => (string) $workEntry->updatedAt(),
         ]);
@@ -122,7 +122,7 @@ final class EloquentWorkEntryRepositoryTest extends TestCase
             'id' => $workEntry->id()->value(),
             'employee_id' => $workEntry->employeeId()->value(),
             'startDate' => (string) $workEntry->startDate(),
-            'end_date' => (string) $workEntry->endDate(),
+            'endDate' => (string) $workEntry->endDate(),
             'created_at' => (string) $workEntry->createdAt(),
             'updated_at' => (string) $workEntry->updatedAt(),
             'deleted_at' => null,
@@ -149,7 +149,7 @@ final class EloquentWorkEntryRepositoryTest extends TestCase
             'id' => $workEntry->id()->value(),
             'employee_id' => $workEntry->employeeId()->value(),
             'startDate' => (string) $workEntry->startDate(),
-            'end_date' => (string) $workEntry->endDate(),
+            'endDate' => (string) $workEntry->endDate(),
             'created_at' => (string) $workEntry->createdAt(),
             'updated_at' => (string) $workEntry->updatedAt(),
             'deleted_at' => (string) $workEntry->deletedAt(),
