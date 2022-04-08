@@ -13,11 +13,24 @@ final class LaravelCommandBus implements CommandBusInterface
 {
     public function execute(CommandInterface $command): void
     {
-        // resolve handler
-        $reflection = new ReflectionClass($command);
-        $handlerName = str_replace("Command", "Handler", $reflection->getShortName());
-        $handlerName = str_replace($reflection->getShortName(), $handlerName, $reflection->getName());
-        $handler = App::make($handlerName);
+        $reflection = new ReflectionClass(
+            objectOrClass: $command
+        );
+
+        $handlerName = str_replace(
+            search: "Command",
+            replace: "CommandHandler",
+            subject: $reflection->getShortName()
+        );
+
+        $handlerName = str_replace(
+            search: $reflection->getShortName(),
+            replace: $handlerName,
+            subject: $reflection->getName()
+        );
+
+        $handler = App::make(abstract: $handlerName);
+        
         $handler($command);
     }
 }

@@ -13,7 +13,7 @@ return new class extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->uuid('id')->index();
             $table->string('name', 100);
-            $table->string('email', 100);
+            $table->string('email', 100)->unique();
             $table->timestamps();
             $table->softDeletes();
         });

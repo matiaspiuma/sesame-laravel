@@ -60,16 +60,14 @@ final class Employee
         string $name,
         string $email,
         string $createdAt,
-        string $updatedAt,
-        ?string $deletedAt = null
+        string $updatedAt
     ): Employee {
         return new self(
             new EmployeeId($id),
             new EmployeeName($name),
             new EmployeeEmail($email),
             new EmployeeCreatedAt(new DateTimeImmutable($createdAt)),
-            new EmployeeUpdatedAt(new DateTimeImmutable($updatedAt)),
-            new EmployeeDeletedAt($deletedAt ? new DateTimeImmutable($deletedAt) : null)
+            new EmployeeUpdatedAt(new DateTimeImmutable($updatedAt))
         );
     }
 
@@ -81,9 +79,6 @@ final class Employee
             'email' => $this->email->value(),
             'created_at' => $this->createdAt->__toString(),
             'updated_at' => $this->updatedAt->__toString(),
-            'deleted_at' => $this->deletedAt->value()
-                ? $this->deletedAt->__toString()
-                : null,
         ];
     }
 
