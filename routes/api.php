@@ -7,6 +7,7 @@ use Api\V1\EmployeeContext\Infrastructure\Controllers\GetAllEmployeesController;
 use Api\V1\EmployeeContext\Infrastructure\Controllers\UpdateEmployeeController;
 
 use Api\V1\WorkEntryContext\Infrastructure\Controllers\CreateWorkEntryController;
+use Api\V1\WorkEntryContext\Infrastructure\Controllers\DeleteWorkEntryController;
 use Api\V1\WorkEntryContext\Infrastructure\Controllers\SearchWorkEntriesController;
 use Api\V1\WorkEntryContext\Infrastructure\Controllers\UpdateWorkEntryController;
 
@@ -33,3 +34,5 @@ Route::get(uri: '/employees/{employeeId}/workentries', action: SearchWorkEntries
 Route::post(uri: '/employees/{employeeId}/workentries', action: CreateWorkEntryController::class);
 
 Route::put(uri: '/employees/{employeeId}/workentries/{workEntryId}', action: UpdateWorkEntryController::class);
+
+Route::delete(uri: '/employees/{employeeId}/workentries/{workEntryId}', action: DeleteWorkEntryController::class);

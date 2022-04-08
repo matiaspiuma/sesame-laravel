@@ -100,4 +100,21 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
             throw new \Exception('Error updating work entry');
         }
     }
+
+    public function delete(WorkEntry $workEntry): void
+    {
+        $query = 'UPDATE work_entries SET deleted_at = ? WHERE id = ? AND deleted_at IS NULL';
+
+        try {
+            DB::update(
+                query: $query,
+                bindings: [
+                    $workEntry->deletedAt()->__toString(),
+                    $workEntry->id()->value()
+                ]
+            );
+        } catch (\Exception $e) {
+            throw new \Exception('Error deleting work entry');
+        }
+    }
 }

@@ -80,6 +80,13 @@ final class WorkEntry
         );
     }
 
+    public function delete(): void
+    {
+        $this->deletedAt = new WorkEntryDeletedAt(
+            value: new \DateTimeImmutable()
+        );
+    }
+
     public function toPrimitives(): array
     {
         return [

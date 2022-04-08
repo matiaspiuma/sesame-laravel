@@ -28,4 +28,8 @@ final class DoctrineWorkEntryRepository implements WorkEntryRepository
     {
         //
     }
+
+    public function delete(WorkEntry $workEntry): void
+    {
+    }
 }

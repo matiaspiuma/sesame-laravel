@@ -16,4 +16,6 @@ interface WorkEntryRepository
     public function findById(WorkEntryId $workEntryId): ?WorkEntry;
 
     public function update(WorkEntry $workEntry): void;
+
+    public function delete(WorkEntry $workEntry): void;
 }
