@@ -13,6 +13,7 @@ final class CreateWorkEntryCommand implements CommandInterface
         public readonly string $startDate,
         public readonly string $endDate,
         public readonly string $employeeId,
-    ) {
+    )
+    {
     }
 }

@@ -11,7 +11,8 @@ final class FindAllWorkEntriesByEmployeeIdQueryHandler implements QueryHandlerIn
 {
     public function __construct(
         private WorkEntriesByEmployeeIdFinder $finder
-    ) {
+    )
+    {
     }
 
     public function __invoke(FindAllWorkEntriesByEmployeeIdQuery $query): array

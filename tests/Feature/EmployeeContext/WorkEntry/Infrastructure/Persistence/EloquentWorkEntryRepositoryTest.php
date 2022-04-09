@@ -57,7 +57,7 @@ final class EloquentWorkEntryRepositoryTest extends TestCase
 
         // When
         $workEntryFound = (new EloquentWorkEntryRepository)
-            ->findById(workEntryId: $workEntry->id);
+            ->findByIdAndEmployeeId(workEntryId: $workEntry->id, employeeId: $workEntry->employeeId);
 
         // Then
         $this->assertEquals(
@@ -72,11 +72,9 @@ final class EloquentWorkEntryRepositoryTest extends TestCase
         // Given
         $workEntry = $this->makeAnWorkEntry(asObject: true);
 
-        $this->expectException('\Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
-
         // When
         $workEntryFound = (new EloquentWorkEntryRepository)
-            ->findById(workEntryId: $workEntry->id);
+            ->findByIdAndEmployeeId(workEntryId: $workEntry->id, employeeId: $workEntry->employeeId);
 
         // Then
         $this->assertNull($workEntryFound);
@@ -90,14 +88,13 @@ final class EloquentWorkEntryRepositoryTest extends TestCase
             deleted: true,
             asObject: true
         );
-        $this->expectException('\Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
 
         // When
-
-        (new EloquentWorkEntryRepository)
-            ->findById(workEntryId: $workEntry->id);
+        $workEntryFound = (new EloquentWorkEntryRepository)
+            ->findByIdAndEmployeeId(workEntryId: $workEntry->id, employeeId: $workEntry->employeeId);
 
         // Then
+        $this->assertNull($workEntryFound);
     }
 
     /** @test */

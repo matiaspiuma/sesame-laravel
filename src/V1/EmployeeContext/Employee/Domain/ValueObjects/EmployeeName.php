@@ -8,4 +8,10 @@ use Api\V1\SharedContext\Domain\ValueObjects\StringValueObject;
 
 final class EmployeeName extends StringValueObject
 {
+    public function validate(): void
+    {
+        if (!strlen($this->value)) {
+            throw new \InvalidArgumentException('Invalid value');
+        }
+    }
 }

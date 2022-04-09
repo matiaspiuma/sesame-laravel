@@ -11,12 +11,14 @@ final class WorkEntryDeletor
 {
     public function __construct(
         private WorkEntryRepository $repository
-    ) {
+    )
+    {
     }
 
     public function __invoke(
         WorkEntryId $workEntryId,
-    ): void {
+    ): void
+    {
         $workEntry = $this->repository->findById($workEntryId);
 
         $workEntry->delete();

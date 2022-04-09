@@ -13,7 +13,7 @@ interface WorkEntryRepository
 
     public function findAllByEmployeeId(EmployeeId $employeeId): array;
 
-    public function findById(WorkEntryId $workEntryId): ?WorkEntry;
+    public function findByIdAndEmployeeId(WorkEntryId $workEntryId, EmployeeId $employeeId): ?WorkEntry;
 
     public function update(WorkEntry $workEntry): void;
 

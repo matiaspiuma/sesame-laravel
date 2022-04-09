@@ -7,6 +7,7 @@ namespace Api\V1\EmployeeContext\WorkEntry\Application\CreateWorkEntry;
 use Api\V1\EmployeeContext\WorkEntry\Domain\ValueObjects\WorkEntryEndDate;
 use Api\V1\EmployeeContext\WorkEntry\Domain\ValueObjects\WorkEntryId;
 use Api\V1\EmployeeContext\WorkEntry\Domain\ValueObjects\WorkEntryStartDate;
+use Api\V1\EmployeeContext\WorkEntry\Domain\WorkEntry;
 use Api\V1\SharedContext\Application\CQRS\Command\CommandHandlerInterface;
 use Api\V1\EmployeeContext\Shared\Domain\Employee\EmployeeId;
 
@@ -17,10 +18,9 @@ final class CreateWorkEntryCommandHandler implements CommandHandlerInterface
     ) {
     }
 
-    public function __invoke(CreateWorkEntryCommand $command): void
+    public function __invoke(CreateWorkEntryCommand $command): WorkEntry
     {
-        $this->creator->__invoke(
-            employeeId: new EmployeeId(id: $command->employeeId),
+        return $this->creator->__invoke(
             workEntryId: new WorkEntryId(id: $command->id),
             workEntryStartDate: new WorkEntryStartDate(
                 value: new \DateTimeImmutable(
@@ -32,6 +32,7 @@ final class CreateWorkEntryCommandHandler implements CommandHandlerInterface
                     datetime: $command->endDate
                 )
             ),
+            employeeId: new EmployeeId(id: $command->employeeId),
         );
     }
 }

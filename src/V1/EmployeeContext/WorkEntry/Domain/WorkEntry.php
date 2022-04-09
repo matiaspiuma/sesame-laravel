@@ -15,22 +15,24 @@ use Api\V1\EmployeeContext\Shared\Domain\Employee\EmployeeId;
 final class WorkEntry
 {
     public function __construct(
-        public readonly WorkEntryId  $id,
-        public readonly EmployeeId $employeeId,
-        private WorkEntryStartDate $startDate,
-        private WorkEntryEndDate $endDate,
-        public readonly WorkEntryCreatedAt $createdAt,
-        private WorkEntryUpdatedAt $updatedAt,
+        public                      readonly WorkEntryId $id,
+        public                      readonly EmployeeId $employeeId,
+        private WorkEntryStartDate  $startDate,
+        private WorkEntryEndDate    $endDate,
+        public                      readonly WorkEntryCreatedAt $createdAt,
+        private WorkEntryUpdatedAt  $updatedAt,
         private ?WorkEntryDeletedAt $deletedAt = null
-    ) {
+    )
+    {
     }
 
     public static function create(
-        EmployeeId $employeeId,
-        WorkEntryId $id,
+        WorkEntryId        $id,
         WorkEntryStartDate $startDate,
-        WorkEntryEndDate $endDate,
-    ): WorkEntry {
+        WorkEntryEndDate   $endDate,
+        EmployeeId         $employeeId,
+    ): WorkEntry
+    {
         $now = new \DateTimeImmutable();
 
         return new WorkEntry(
@@ -38,18 +40,21 @@ final class WorkEntry
             employeeId: $employeeId,
             startDate: $startDate,
             endDate: $endDate,
-            createdAt: new WorkEntryCreatedAt($now),
-            updatedAt: new WorkEntryUpdatedAt($now)
+            createdAt: new WorkEntryCreatedAt(value: $now),
+            updatedAt: new WorkEntryUpdatedAt(value: $now)
         );
     }
 
     public function update(
         WorkEntryStartDate $startDate,
-        WorkEntryEndDate $endDate,
-    ): void {
+        WorkEntryEndDate   $endDate,
+    ): void
+    {
         $this->startDate = $startDate;
         $this->endDate = $endDate;
-        $this->updatedAt = new WorkEntryUpdatedAt(new \DateTimeImmutable());
+        $this->updatedAt = new WorkEntryUpdatedAt(
+            value: new \DateTimeImmutable()
+        );
     }
 
     public static function fromPrimitives(
@@ -59,7 +64,8 @@ final class WorkEntry
         string $endDate,
         string $createdAt,
         string $updatedAt
-    ): WorkEntry {
+    ): WorkEntry
+    {
         return new self(
             id: new WorkEntryId($id),
             employeeId: new EmployeeId(
@@ -90,12 +96,12 @@ final class WorkEntry
     public function toPrimitives(): array
     {
         return [
-            'id' => (string) $this->id,
-            'employeeId' => (string) $this->employeeId,
-            'startDate' => (string) $this->startDate,
-            'endDate' => (string) $this->endDate,
-            'createdAt' => (string) $this->createdAt,
-            'updatedAt' => (string) $this->updatedAt,
+            'id' => (string)$this->id,
+            'employeeId' => (string)$this->employeeId,
+            'startDate' => (string)$this->startDate,
+            'endDate' => (string)$this->endDate,
+            'createdAt' => (string)$this->createdAt,
+            'updatedAt' => (string)$this->updatedAt,
         ];
     }
 

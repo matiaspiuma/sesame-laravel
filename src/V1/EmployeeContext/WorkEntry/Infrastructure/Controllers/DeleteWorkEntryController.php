@@ -13,30 +13,24 @@ final class DeleteWorkEntryController
 {
     public function __construct(
         private CommandBusInterface $commandBus
-    ) {
+    )
+    {
     }
+
     public function __invoke(
         string $employeeId,
         string $workEntryId
-    ): JsonResponse {
-        try {
-            $this->commandBus->execute(
-                new DeleteWorkEntryCommand(
-                    id: $workEntryId
-                )
-            );
+    ): JsonResponse
+    {
+        $this->commandBus->execute(
+            command: new DeleteWorkEntryCommand(
+                id: $workEntryId
+            )
+        );
 
-            return new JsonResponse(
-                data: null,
-                status: Response::HTTP_NO_CONTENT
-            );
-        } catch (\Exception $exception) {
-            return new JsonResponse(
-                [
-                    'error' => $exception->getMessage(),
-                ],
-                Response::HTTP_BAD_REQUEST
-            );
-        }
+        return new JsonResponse(
+            data: null,
+            status: Response::HTTP_NO_CONTENT
+        );
     }
 }

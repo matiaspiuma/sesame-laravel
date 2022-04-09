@@ -16,44 +16,50 @@ use DateTimeImmutable;
 final class Employee implements Arrayable
 {
     public function __construct(
-        public readonly EmployeeId $id,
-        private EmployeeName $name,
-        private EmployeeEmail $email,
-        public readonly EmployeeCreatedAt $createdAt,
-        private EmployeeUpdatedAt $updatedAt,
+        public                     readonly EmployeeId $id,
+        private EmployeeName       $name,
+        private EmployeeEmail      $email,
+        public                     readonly EmployeeCreatedAt $createdAt,
+        private EmployeeUpdatedAt  $updatedAt,
         private ?EmployeeDeletedAt $deletedAt = null
-    ) {
+    )
+    {
     }
 
     public static function create(
-        EmployeeId $id,
-        EmployeeName $name,
+        EmployeeId    $id,
+        EmployeeName  $name,
         EmployeeEmail $email
-    ): Employee {
-
+    ): Employee
+    {
         $now = new DateTimeImmutable();
 
         return new self(
-            $id,
-            $name,
-            $email,
-            new EmployeeCreatedAt($now),
-            new EmployeeUpdatedAt($now),
+            id: $id,
+            name: $name,
+            email: $email,
+            createdAt: new EmployeeCreatedAt($now),
+            updatedAt: new EmployeeUpdatedAt($now),
         );
     }
 
     public function update(
-        EmployeeName $name,
+        EmployeeName  $name,
         EmployeeEmail $email,
-    ): void {
+    ): void
+    {
         $this->name = $name;
         $this->email = $email;
-        $this->updatedAt = new EmployeeUpdatedAt(new DateTimeImmutable());
+        $this->updatedAt = new EmployeeUpdatedAt(
+            value: new DateTimeImmutable()
+        );
     }
 
     public function delete(): void
     {
-        $this->deletedAt = new EmployeeDeletedAt(new DateTimeImmutable());
+        $this->deletedAt = new EmployeeDeletedAt(
+            value: new DateTimeImmutable()
+        );
     }
 
     public static function fromPrimitives(
@@ -62,7 +68,8 @@ final class Employee implements Arrayable
         string $email,
         string $createdAt,
         string $updatedAt
-    ): Employee {
+    ): Employee
+    {
         return new self(
             id: new EmployeeId($id),
             name: new EmployeeName($name),
@@ -109,8 +116,8 @@ final class Employee implements Arrayable
             'id' => $this->id->value(),
             'name' => $this->name()->value(),
             'email' => $this->email()->value(),
-            'createdAt' => (string) $this->createdAt,
-            'updatedAt' => (string) $this->updatedAt,
+            'createdAt' => $this->createdAt->value(),
+            'updatedAt' => $this->updatedAt()->value(),
         ];
     }
 }

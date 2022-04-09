@@ -15,12 +15,14 @@ final class SearchWorkEntriesController
 {
     public function __construct(
         private QueryBusInterface $queryBus
-    ) {
+    )
+    {
     }
 
     public function __invoke(
         string $employeeId,
-    ): JsonResponse {
+    ): JsonResponse
+    {
         $employee = $this->queryBus->execute(
             query: new FindEmployeeByIdQuery(
                 id: $employeeId,
@@ -34,7 +36,7 @@ final class SearchWorkEntriesController
         );
 
         $employee['workEntries'] = \array_map(
-            fn (WorkEntry $workEntry): array => $workEntry->toPrimitives(),
+            fn(WorkEntry $workEntry): array => $workEntry->toPrimitives(),
             $workEntries
         );
 

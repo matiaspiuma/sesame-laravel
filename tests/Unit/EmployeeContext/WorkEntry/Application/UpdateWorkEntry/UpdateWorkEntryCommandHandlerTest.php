@@ -18,7 +18,7 @@ final class UpdateWorkEntryCommandHandlerTest extends TestCase
         $workEntry = $this->makeAnWorkEntry(asObject: true);
 
         $this->workEntryRepository()
-            ->shouldReceive('findById')
+            ->shouldReceive('findByIdAndEmployeeId')
             ->once()
             ->andReturn($workEntry);
 
@@ -28,16 +28,17 @@ final class UpdateWorkEntryCommandHandlerTest extends TestCase
             ->andReturnNull();
 
         // When
-        $commad = new UpdateWorkEntryCommandHandler(
+        $command = new UpdateWorkEntryCommandHandler(
             updator: new WorkEntryUpdator(
                 repository: $this->workEntryRepository()
             )
         );
 
-        $commad(new UpdateWorkEntryCommand(
-            (string) $workEntry->id,
-            (string) $workEntry->startDate(),
-            (string) $workEntry->endDate(),
+        $command(new UpdateWorkEntryCommand(
+            id: (string) $workEntry->id,
+            startDate: (string) $workEntry->startDate(),
+            endDate: (string) $workEntry->endDate(),
+            employeeId: (string) $workEntry->employeeId
         ));
     }
 }

@@ -10,7 +10,10 @@ abstract class StringValueObject implements \Stringable
         public readonly string $value
     )
     {
+        $this->validate($value);
     }
+
+    abstract public function validate(): void;
 
     public function value(): string
     {

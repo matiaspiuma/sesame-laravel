@@ -15,22 +15,28 @@ final class WorkEntryCreator
 {
     public function __construct(
         private WorkEntryRepository $repository
-    ) {
+    )
+    {
     }
 
     public function __invoke(
-        EmployeeId         $employeeId,
         WorkEntryId        $workEntryId,
         WorkEntryStartDate $workEntryStartDate,
         WorkEntryEndDate   $workEntryEndDate,
-    ): void {
-        $this->repository->create(
-            workEntry: WorkEntry::create(
-                employeeId: $employeeId,
-                id: $workEntryId,
-                startDate: $workEntryStartDate,
-                endDate: $workEntryEndDate
-            )
+        EmployeeId         $employeeId,
+    ): WorkEntry
+    {
+        $workEntry = WorkEntry::create(
+            id: $workEntryId,
+            startDate: $workEntryStartDate,
+            endDate: $workEntryEndDate,
+            employeeId: $employeeId,
         );
+
+        $this->repository->create(
+            workEntry: $workEntry
+        );
+
+        return $workEntry;
     }
 }

@@ -11,7 +11,8 @@ final class DeleteWorkEntryCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private WorkEntryDeletor $workEntryDelector
-    ) {
+    )
+    {
     }
 
     public function __invoke(DeleteWorkEntryCommand $command): void

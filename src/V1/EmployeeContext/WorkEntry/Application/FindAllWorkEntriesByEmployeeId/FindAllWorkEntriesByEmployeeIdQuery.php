@@ -11,6 +11,7 @@ final class FindAllWorkEntriesByEmployeeIdQuery implements QueryInterface
 {
     public function __construct(
         public readonly string $employeeId
-    ) {
+    )
+    {
     }
 }

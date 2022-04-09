@@ -59,10 +59,10 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
         );
     }
 
-    public function findById(WorkEntryId $workEntryId): WorkEntry
+    public function findByIdAndEmployeeId(WorkEntryId $workEntryId, EmployeeId $employeeId): ?WorkEntry
     {
         $query = sprintf(
-            "SELECT * FROM %s WHERE id = ? AND deletedAt IS NULL LIMIT 1",
+            "SELECT * FROM %s WHERE id = ? AND employeeId = ? AND deletedAt IS NULL LIMIT 1",
             $this->table
         );
 
@@ -70,13 +70,12 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
             query: $query,
             bindings: [
                 $workEntryId,
+                $employeeId
             ]
         );
 
         if (\count($workEntries) === 0) {
-            throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException(
-                \sprintf('Work entry with id "%s" does not exist.', $workEntryId)
-            );
+            return null;
         }
 
         return WorkEntry::fromPrimitives(

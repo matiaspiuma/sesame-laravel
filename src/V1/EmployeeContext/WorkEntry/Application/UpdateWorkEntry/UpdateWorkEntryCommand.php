@@ -11,7 +11,8 @@ final class UpdateWorkEntryCommand implements CommandInterface
     public function __construct(
         public readonly string $id,
         public readonly string $startDate,
-        public readonly string $endDate
+        public readonly string $endDate,
+        public readonly string $employeeId
     ) {
     }
 }

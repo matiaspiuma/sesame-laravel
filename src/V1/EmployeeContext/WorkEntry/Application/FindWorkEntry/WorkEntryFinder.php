@@ -12,11 +12,12 @@ final class WorkEntryFinder
 {
     public function __construct(
         private WorkEntryRepository $repository
-    ) {
+    )
+    {
     }
 
     public function __invoke(WorkEntryId $workEntryId): WorkEntry
     {
-        return $this->repository->findById($workEntryId);
+        return $this->repository->findById(workEntryId: $workEntryId);
     }
 }

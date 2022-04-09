@@ -10,6 +10,7 @@ final class DeleteWorkEntryCommand implements CommandInterface
 {
     public function __construct(
         public readonly string $id
-    ) {
+    )
+    {
     }
 }

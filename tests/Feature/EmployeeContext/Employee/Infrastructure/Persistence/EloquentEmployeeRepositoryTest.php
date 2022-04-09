@@ -111,7 +111,7 @@ final class EloquentEmployeeRepositoryTest extends TestCase
         );
         $employee->update(
             name: new EmployeeName(value: $this->faker->name),
-            email: new EmployeeEmail(email: $this->faker->email)
+            email: new EmployeeEmail(value: $this->faker->email)
         );
 
         // When
