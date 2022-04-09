@@ -21,11 +21,11 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
     public function findAll(): EmployeeCollection
     {
         $employees = DB::select(
-            query: "SELECT * FROM {$this->table} WHERE deletedAt IS NULL"
+            query: sprintf("SELECT * FROM %s WHERE deletedAt IS NULL", $this->table)
         );
 
         return new EmployeeCollection(array_map(
-            fn ($employee) => Employee::fromPrimitives(
+            fn($employee) => Employee::fromPrimitives(
                 id: $employee->id,
                 name: $employee->name,
                 email: $employee->email,
@@ -38,7 +38,10 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
 
     public function create(Employee $employee): void
     {
-        $query = "INSERT INTO {$this->table} (id, name, email, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?)";
+        $query = sprintf(
+            "INSERT INTO %s (id, name, email, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?)",
+            $this->table
+        );
 
         DB::insert(
             query: $query,
@@ -54,7 +57,10 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
 
     public function findById(EmployeeId $employeeId): ?Employee
     {
-        $query = "SELECT * FROM {$this->table} WHERE id = ? AND deletedAt IS NULL LIMIT 1";
+        $query = sprintf(
+            "SELECT * FROM %s WHERE id = ? AND deletedAt IS NULL LIMIT 1",
+            $this->table
+        );
 
         $employees = DB::select(
             query: $query,
@@ -78,7 +84,10 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
 
     public function update(Employee $employee): void
     {
-        $query = "UPDATE {$this->table} SET name = ?, email = ?, updatedAt = ? WHERE id = ? AND deletedAt IS NULL";
+        $query = sprintf(
+            "UPDATE %s SET name = ?, email = ?, updatedAt = ? WHERE id = ? AND deletedAt IS NULL",
+            $this->table
+        );
 
 
         DB::update(
@@ -86,7 +95,7 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
             bindings: [
                 $employee->name(),
                 $employee->email(),
-                (string) $employee->updatedAt(),
+                (string)$employee->updatedAt(),
                 $employee->id,
             ]
         );
@@ -94,13 +103,16 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
 
     public function delete(Employee $employee): void
     {
-        $query = "UPDATE {$this->table} SET deletedAt = ? WHERE id = ? AND deletedAt IS NULL";
+        $query = sprintf(
+            "UPDATE %s SET deletedAt = ? WHERE id = ? AND deletedAt IS NULL",
+            $this->table
+        );
 
 
         DB::update(
             query: $query,
             bindings: [
-                (string) $employee->deletedAt(),
+                (string)$employee->deletedAt(),
                 $employee->id,
             ]
         );
