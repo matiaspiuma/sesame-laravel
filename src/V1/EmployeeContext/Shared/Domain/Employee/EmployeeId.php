@@ -15,6 +15,18 @@ final class EmployeeId implements \Stringable
         $this->validate($id);
     }
 
+    public static function make(): self
+    {
+        return new self(
+            id: Uuid::v4()->toRfc4122()
+        );
+    }
+
+    public function value(): string
+    {
+        return $this->id;
+    }
+
     private function validate(string $id): void
     {
         if (!Uuid::isValid($id)) {

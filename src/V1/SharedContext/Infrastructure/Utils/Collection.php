@@ -45,7 +45,7 @@ class Collection implements \ArrayAccess, \Countable
         return new static(array_combine($keys, $items));
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return \array_map(
             fn ($value) => $value instanceof Arrayable ? $value->toArray() : $value,

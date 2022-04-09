@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Api\V1\Employees;
+namespace App\Http\Requests\Api\V1\EmployeeContext\Employee\Infrastructure\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -12,7 +12,7 @@ final class CreateEmployeeRequest extends FormRequest
     {
         return true;
     }
-    
+
     public function rules(): array
     {
         return [

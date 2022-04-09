@@ -11,7 +11,7 @@ use ReflectionClass;
 
 final class LaravelCommandBus implements CommandBusInterface
 {
-    public function execute(CommandInterface $command): void
+    public function execute(CommandInterface $command): mixed
     {
         $reflection = new ReflectionClass(
             objectOrClass: $command
@@ -30,7 +30,7 @@ final class LaravelCommandBus implements CommandBusInterface
         );
 
         $handler = App::make(abstract: $handlerName);
-        
-        $handler($command);
+
+        return $handler($command);
     }
 }

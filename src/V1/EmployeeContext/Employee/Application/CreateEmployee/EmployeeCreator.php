@@ -21,7 +21,7 @@ final class EmployeeCreator
         EmployeeId $employeeId,
         EmployeeName $employeeName,
         EmployeeEmail $employeeEmail
-    ): void {
+    ): Employee {
         $employee = Employee::create(
             $employeeId,
             $employeeName,
@@ -29,5 +29,7 @@ final class EmployeeCreator
         );
 
         $this->repository->create($employee);
+
+        return $employee;
     }
 }

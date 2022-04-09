@@ -13,11 +13,14 @@ final class DeleteEmployeeController
 {
     public function __construct(
         private CommandBusInterface $commandBus
-    ) {
+    )
+    {
     }
+
     public function __invoke(
         string $employeeId
-    ): JsonResponse {
+    ): JsonResponse
+    {
         $this->commandBus->execute(
             command: new DeleteEmployeeCommand(
                 id: $employeeId

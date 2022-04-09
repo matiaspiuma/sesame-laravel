@@ -10,30 +10,34 @@ use Illuminate\Support\Facades\DB;
 
 final class EloquentWorkEntryRepository implements WorkEntryRepository
 {
+    private string $table = 'work_entries';
+
     public function create(WorkEntry $workEntry): void
     {
-        $query = 'INSERT INTO work_entries (id, employeeId, startDate, endDate, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?)';
+        $query = sprintf(
+            "INSERT INTO %s (id, employeeId, startDate, endDate, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?)",
+            $this->table
+        );
 
-        try {
-            DB::insert(
-                query: $query,
-                bindings: [
-                    $workEntry->id,
-                    $workEntry->employeeId,
-                    (string) $workEntry->startDate(),
-                    (string) $workEntry->endDate(),
-                    (string) $workEntry->createdAt,
-                    (string) $workEntry->updatedAt(),
-                ]
-            );
-        } catch (\Exception $e) {
-            throw new \Exception('Error creating work entry');
-        }
+        DB::insert(
+            query: $query,
+            bindings: [
+                $workEntry->id,
+                $workEntry->employeeId,
+                (string) $workEntry->startDate(),
+                (string) $workEntry->endDate(),
+                (string) $workEntry->createdAt,
+                (string) $workEntry->updatedAt(),
+            ]
+        );
     }
 
     public function findAllByEmployeeId(EmployeeId $employeeId): array
     {
-        $query = 'SELECT * FROM work_entries WHERE employeeId = ? AND deletedAt IS NULL';
+        $query = sprintf(
+            "SELECT * FROM %s WHERE employeeId = ? AND deletedAt IS NULL",
+            $this->table
+        );
 
         $workEntries = DB::select(
             query: $query,
@@ -57,7 +61,10 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
 
     public function findById(WorkEntryId $workEntryId): WorkEntry
     {
-        $query = 'SELECT * FROM work_entries WHERE id = ? AND deletedAt IS NULL LIMIT 1';
+        $query = sprintf(
+            "SELECT * FROM %s WHERE id = ? AND deletedAt IS NULL LIMIT 1",
+            $this->table
+        );
 
         $workEntries = DB::select(
             query: $query,
@@ -84,37 +91,35 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
 
     public function update(WorkEntry $workEntry): void
     {
-        $query = 'UPDATE work_entries SET startDate = ?, endDate = ?, updatedAt = ? WHERE id = ? AND deletedAt IS NULL';
+        $query = sprintf(
+            "UPDATE %s SET startDate = ?, endDate = ?, updatedAt = ? WHERE id = ? AND deletedAt IS NULL",
+            $this->table
+        );
 
-        try {
-            DB::update(
-                query: $query,
-                bindings: [
-                    (string) $workEntry->startDate(),
-                    (string) $workEntry->endDate(),
-                    (string) $workEntry->updatedAt(),
-                    $workEntry->id,
-                ]
-            );
-        } catch (\Exception $e) {
-            throw new \Exception('Error updating work entry');
-        }
+        DB::update(
+            query: $query,
+            bindings: [
+                (string) $workEntry->startDate(),
+                (string) $workEntry->endDate(),
+                (string) $workEntry->updatedAt(),
+                $workEntry->id,
+            ]
+        );
     }
 
     public function delete(WorkEntry $workEntry): void
     {
-        $query = 'UPDATE work_entries SET deletedAt = ? WHERE id = ? AND deletedAt IS NULL';
+        $query = sprintf(
+            "UPDATE %s SET deletedAt = ? WHERE id = ? AND deletedAt IS NULL",
+            $this->table
+        );
 
-        try {
-            DB::update(
-                query: $query,
-                bindings: [
-                    (string) $workEntry->deletedAt(),
-                    $workEntry->id
-                ]
-            );
-        } catch (\Exception $e) {
-            throw new \Exception('Error deleting work entry');
-        }
+        DB::update(
+            query: $query,
+            bindings: [
+                (string) $workEntry->deletedAt(),
+                $workEntry->id
+            ]
+        );
     }
 }

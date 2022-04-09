@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Api\V1\EmployeeContext\Employee\Infrastructure\Controllers;
 
-use Api\V1\EmployeeContext\Employee\Application\FindEmployeeById\FindEmployeeByIdQuery;
 use Api\V1\EmployeeContext\Employee\Application\UpdateEmployee\UpdateEmployeeCommand;
+use Api\V1\EmployeeContext\Employee\Domain\Employee;
 use Api\V1\SharedContext\Application\CQRS\Command\CommandBusInterface;
 use Api\V1\SharedContext\Application\CQRS\Query\QueryBusInterface;
-use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,60 +16,28 @@ final class UpdateEmployeeController
 {
     public function __construct(
         private CommandBusInterface $commandBus,
-        private QueryBusInterface $queryBus
-    ) {
+        private QueryBusInterface   $queryBus
+    )
+    {
     }
+
     public function __invoke(
         Request $request,
-        string $employeeId
-    ): JsonResponse {
-        $validator = Validator::make(
-            [
-                'name' => $request->get('name'),
-                'email' => $request->get('email'),
-            ],
-            [
-                'name' => 'required|string|max:100',
-                'email' => 'required|email|max:100',
-            ]
+        string  $employeeId
+    ): JsonResponse
+    {
+        /** @var Employee $employee */
+        $employee = $this->commandBus->execute(
+            command: new UpdateEmployeeCommand(
+                id: $employeeId,
+                name: $request->name,
+                email: $request->email
+            )
         );
 
-        if ($validator->fails()) {
-            return new JsonResponse(
-                data: $validator->errors(),
-                status: Response::HTTP_BAD_REQUEST
-            );
-        }
-
-        try {
-            $this->commandBus->execute(
-                new UpdateEmployeeCommand(
-                    id: $employeeId,
-                    name: $validator->validated()['name'],
-                    email: $validator->validated()['email']
-                )
-            );
-
-            $employee = $this->queryBus->execute(
-                new FindEmployeeByIdQuery(
-                    id: $employeeId
-                )
-            );
-
-            return new JsonResponse(
-                data: [
-                    'data' => $employee->toPrimitives(),
-                    'meta' => []
-                ],
-                status: Response::HTTP_OK
-            );
-        } catch (\Exception $exception) {
-            return new JsonResponse(
-                [
-                    'error' => $exception->getMessage(),
-                ],
-                Response::HTTP_BAD_REQUEST
-            );
-        }
+        return (new EmployeeResponse(
+            data: $employee->toPrimitives(),
+            status: Response::HTTP_OK
+        ))->response();
     }
 }

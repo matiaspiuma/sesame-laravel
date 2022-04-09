@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Api\V1\EmployeeContext\Employee\Application\UpdateEmployee;
 
+use Api\V1\EmployeeContext\Employee\Domain\Employee;
 use Api\V1\EmployeeContext\Employee\Domain\EmployeeRepository;
 use Api\V1\EmployeeContext\Employee\Domain\ValueObjects\EmployeeEmail;
 use Api\V1\EmployeeContext\Employee\Domain\ValueObjects\EmployeeName;
@@ -20,7 +21,7 @@ final class EmployeeUpdator
         EmployeeId $employeeId,
         EmployeeName $employeeName,
         EmployeeEmail $employeeEmail
-    ): void {
+    ): Employee {
         $employee = $this->repository->findById($employeeId);
 
         $employee->update(
@@ -29,5 +30,7 @@ final class EmployeeUpdator
         );
 
         $this->repository->update($employee);
+
+        return $employee;
     }
 }

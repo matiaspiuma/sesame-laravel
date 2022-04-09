@@ -6,5 +6,5 @@ namespace Api\V1\SharedContext\Application\CQRS\Command;
 
 interface CommandBusInterface
 {
-    public function execute(CommandInterface $command): void;
+    public function execute(CommandInterface $command): mixed;
 }

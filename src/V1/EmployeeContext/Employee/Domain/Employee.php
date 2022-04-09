@@ -75,11 +75,11 @@ final class Employee implements Arrayable
     public function toPrimitives(): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'createdAt' => (string) $this->createdAt,
-            'updatedAt' => (string) $this->updatedAt,
+            'id' => $this->id->value(),
+            'name' => $this->name()->value(),
+            'email' => $this->email()->value(),
+            'createdAt' => (string)$this->createdAt,
+            'updatedAt' => (string)$this->updatedAt,
         ];
     }
 
@@ -106,9 +106,9 @@ final class Employee implements Arrayable
     public function toArray(): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
+            'id' => $this->id->value(),
+            'name' => $this->name()->value(),
+            'email' => $this->email()->value(),
             'createdAt' => (string) $this->createdAt,
             'updatedAt' => (string) $this->updatedAt,
         ];

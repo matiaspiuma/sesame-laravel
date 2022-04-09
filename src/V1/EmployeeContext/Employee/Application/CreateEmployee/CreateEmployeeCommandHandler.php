@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Api\V1\EmployeeContext\Employee\Application\CreateEmployee;
 
+use Api\V1\EmployeeContext\Employee\Domain\Employee;
 use Api\V1\EmployeeContext\Employee\Domain\ValueObjects\EmployeeEmail;
 use Api\V1\EmployeeContext\Employee\Domain\ValueObjects\EmployeeName;
 use Api\V1\SharedContext\Application\CQRS\Command\CommandHandlerInterface;
@@ -16,9 +17,9 @@ final class CreateEmployeeCommandHandler implements CommandHandlerInterface
     ) {
     }
 
-    public function __invoke(CreateEmployeeCommand $command): void
+    public function __invoke(CreateEmployeeCommand $command): Employee
     {
-        $this->creator->__invoke(
+        return $this->creator->__invoke(
             new EmployeeId($command->id),
             new EmployeeName($command->name),
             new EmployeeEmail($command->email),
