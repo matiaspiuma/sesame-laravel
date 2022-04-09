@@ -7,7 +7,7 @@ namespace Api\V1\EmployeeContext\Employee\Application\CreateEmployee;
 use Api\V1\EmployeeContext\Employee\Domain\ValueObjects\EmployeeEmail;
 use Api\V1\EmployeeContext\Employee\Domain\ValueObjects\EmployeeName;
 use Api\V1\SharedContext\Application\CQRS\Command\CommandHandlerInterface;
-use Api\V1\SharedContext\Domain\Employee\EmployeeId;
+use Api\V1\EmployeeContext\Shared\Domain\Employee\EmployeeId;
 
 final class CreateEmployeeCommandHandler implements CommandHandlerInterface
 {

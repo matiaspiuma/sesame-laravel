@@ -8,7 +8,7 @@ use Api\V1\EmployeeContext\WorkEntry\Domain\ValueObjects\WorkEntryEndDate;
 use Api\V1\EmployeeContext\WorkEntry\Domain\ValueObjects\WorkEntryId;
 use Api\V1\EmployeeContext\WorkEntry\Domain\ValueObjects\WorkEntryStartDate;
 use Api\V1\SharedContext\Application\CQRS\Command\CommandHandlerInterface;
-use Api\V1\SharedContext\Domain\Employee\EmployeeId;
+use Api\V1\EmployeeContext\Shared\Domain\Employee\EmployeeId;
 
 final class CreateWorkEntryCommandHandler implements CommandHandlerInterface
 {

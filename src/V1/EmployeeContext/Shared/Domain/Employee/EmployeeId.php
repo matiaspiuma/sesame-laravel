@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Api\V1\SharedContext\Domain\Employee;
+namespace Api\V1\EmployeeContext\Shared\Domain\Employee;
 
 use Symfony\Component\Uid\Uuid;
 use function PHPUnit\Framework\throwException;

@@ -9,7 +9,7 @@ use Api\V1\EmployeeContext\Employee\Domain\ValueObjects\EmployeeDeletedAt;
 use Api\V1\EmployeeContext\Employee\Domain\ValueObjects\EmployeeEmail;
 use Api\V1\EmployeeContext\Employee\Domain\ValueObjects\EmployeeName;
 use Api\V1\EmployeeContext\Employee\Domain\ValueObjects\EmployeeUpdatedAt;
-use Api\V1\SharedContext\Domain\Employee\EmployeeId;
+use Api\V1\EmployeeContext\Shared\Domain\Employee\EmployeeId;
 use Api\V1\SharedContext\Infrastructure\Utils\Arrayable;
 use DateTimeImmutable;
 

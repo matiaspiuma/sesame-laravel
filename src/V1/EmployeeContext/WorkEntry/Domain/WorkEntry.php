@@ -10,7 +10,7 @@ use Api\V1\EmployeeContext\WorkEntry\Domain\ValueObjects\WorkEntryEndDate;
 use Api\V1\EmployeeContext\WorkEntry\Domain\ValueObjects\WorkEntryId;
 use Api\V1\EmployeeContext\WorkEntry\Domain\ValueObjects\WorkEntryStartDate;
 use Api\V1\EmployeeContext\WorkEntry\Domain\ValueObjects\WorkEntryUpdatedAt;
-use Api\V1\SharedContext\Domain\Employee\EmployeeId;
+use Api\V1\EmployeeContext\Shared\Domain\Employee\EmployeeId;
 
 final class WorkEntry
 {
@@ -90,8 +90,8 @@ final class WorkEntry
     public function toPrimitives(): array
     {
         return [
-            'id' => $this->id,
-            'employeeId' => $this->employeeId,
+            'id' => (string) $this->id,
+            'employeeId' => (string) $this->employeeId,
             'startDate' => (string) $this->startDate,
             'endDate' => (string) $this->endDate,
             'createdAt' => (string) $this->createdAt,

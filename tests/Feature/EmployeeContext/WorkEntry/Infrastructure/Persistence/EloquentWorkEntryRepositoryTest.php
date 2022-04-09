@@ -7,7 +7,7 @@ namespace Tests\Feature\WorkEntry\Infrastructure\Persistence;
 use Api\V1\EmployeeContext\WorkEntry\Domain\ValueObjects\WorkEntryEndDate;
 use Api\V1\EmployeeContext\WorkEntry\Domain\ValueObjects\WorkEntryStartDate;
 use Api\V1\EmployeeContext\WorkEntry\Infrastructure\Persistence\EloquentWorkEntryRepository;
-use Api\V1\SharedContext\Domain\Employee\EmployeeId;
+use Api\V1\EmployeeContext\Shared\Domain\Employee\EmployeeId;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

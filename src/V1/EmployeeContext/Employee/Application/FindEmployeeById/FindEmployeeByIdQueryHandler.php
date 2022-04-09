@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Api\V1\EmployeeContext\Employee\Application\FindEmployeeById;
 
 use Api\V1\SharedContext\Application\CQRS\Query\QueryHandlerInterface;
-use Api\V1\SharedContext\Domain\Employee\EmployeeId;
+use Api\V1\EmployeeContext\Shared\Domain\Employee\EmployeeId;
 
 final class FindEmployeeByIdQueryHandler implements QueryHandlerInterface
 {

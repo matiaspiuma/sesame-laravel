@@ -5,7 +5,7 @@ namespace Api\V1\EmployeeContext\WorkEntry\Infrastructure\Persistence;
 use Api\V1\EmployeeContext\WorkEntry\Domain\ValueObjects\WorkEntryId;
 use Api\V1\EmployeeContext\WorkEntry\Domain\WorkEntry;
 use Api\V1\EmployeeContext\WorkEntry\Domain\WorkEntryRepository;
-use Api\V1\SharedContext\Domain\Employee\EmployeeId;
+use Api\V1\EmployeeContext\Shared\Domain\Employee\EmployeeId;
 
 final class DoctrineWorkEntryRepository implements WorkEntryRepository
 {

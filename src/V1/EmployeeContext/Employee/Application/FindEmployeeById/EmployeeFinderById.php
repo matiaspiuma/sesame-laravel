@@ -6,7 +6,7 @@ namespace Api\V1\EmployeeContext\Employee\Application\FindEmployeeById;
 
 use Api\V1\EmployeeContext\Employee\Domain\Employee;
 use Api\V1\EmployeeContext\Employee\Domain\EmployeeRepository;
-use Api\V1\SharedContext\Domain\Employee\EmployeeId;
+use Api\V1\EmployeeContext\Shared\Domain\Employee\EmployeeId;
 
 final class EmployeeFinderById
 {
