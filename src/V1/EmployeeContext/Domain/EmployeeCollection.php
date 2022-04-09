@@ -11,7 +11,7 @@ class EmployeeCollection extends Collection
 {
     public function __construct(array $employees = [])
     {
-        $this->items = $employees;
+        parent::__construct(items: $employees);
     }
 
 }

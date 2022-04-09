@@ -8,7 +8,7 @@ use Api\V1\SharedContext\Infrastructure\Utils\CollectionProxy;
 
 class Collection implements \ArrayAccess, \Countable
 {
-    protected $items = [];
+    protected array $items = [];
 
     public function __construct(array $items = [])
     {
