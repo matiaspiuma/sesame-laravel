@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Api\V1\EmployeeContext\Infrastructure\Controllers;
 
-use Api\V1\EmployeeContext\Application\FindEmployee\FindEmployeeQuery;
+use Api\V1\EmployeeContext\Application\FindEmployeeById\FindEmployeeByIdQuery;
 use Api\V1\SharedContext\Application\CQRS\Query\QueryBusInterface;
 use App\Http\Resources\EmployeeResource;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,7 +20,7 @@ final class FindEmployeeController
         string $employeeId
     ): JsonResponse {
         $employee = $this->queryBus->execute(
-            new FindEmployeeQuery(
+            new FindEmployeeByIdQuery(
                 id: $employeeId
             )
         );

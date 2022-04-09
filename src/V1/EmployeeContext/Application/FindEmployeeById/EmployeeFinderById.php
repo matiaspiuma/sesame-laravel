@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Api\V1\EmployeeContext\Application\FindEmployee;
+namespace Api\V1\EmployeeContext\Application\FindEmployeeById;
 
 use Api\V1\SharedContext\Domain\Employee\EmployeeId;
 use Api\V1\EmployeeContext\Domain\Employee;
 use Api\V1\EmployeeContext\Domain\EmployeeRepository;
 
-final class EmployeeFinder
+final class EmployeeFinderById
 {
     public function __construct(
         private EmployeeRepository $repository

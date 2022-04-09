@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Api\V1\EmployeeContext\Infrastructure\Controllers;
 
-use Api\V1\EmployeeContext\Application\FindEmployee\FindEmployeeQuery;
+use Api\V1\EmployeeContext\Application\FindEmployeeById\FindEmployeeByIdQuery;
 use Api\V1\EmployeeContext\Application\UpdateEmployee\UpdateEmployeeCommand;
 use Api\V1\SharedContext\Application\CQRS\Command\CommandBusInterface;
 use Api\V1\SharedContext\Application\CQRS\Query\QueryBusInterface;
@@ -52,7 +52,7 @@ final class UpdateEmployeeController
             );
 
             $employee = $this->queryBus->execute(
-                new FindEmployeeQuery(
+                new FindEmployeeByIdQuery(
                     id: $employeeId
                 )
             );

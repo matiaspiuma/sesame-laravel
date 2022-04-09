@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Api\V1\EmployeeContext\Infrastructure\Controllers;
 
 use Api\V1\EmployeeContext\Application\CreateEmployee\CreateEmployeeCommand;
-use Api\V1\EmployeeContext\Application\FindEmployee\FindEmployeeQuery;
+use Api\V1\EmployeeContext\Application\FindEmployeeById\FindEmployeeByIdQuery;
 use Api\V1\SharedContext\Application\CQRS\Command\CommandBusInterface;
 use Api\V1\SharedContext\Application\CQRS\Query\QueryBusInterface;
 use App\Http\Requests\Api\V1\Employees\CreateEmployeeRequest;
@@ -37,7 +37,7 @@ final class CreateEmployeeController
         return new JsonResponse(
             data: new EmployeeResource(
                 resource: $this->queryBus->execute(
-                    query: new FindEmployeeQuery(
+                    query: new FindEmployeeByIdQuery(
                         id: $employeeId
                     )
                 )

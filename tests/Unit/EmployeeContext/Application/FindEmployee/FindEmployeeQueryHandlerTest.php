@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\EmployeeContext\Application\FindEmployee;
 
-use Api\V1\EmployeeContext\Application\FindEmployee\EmployeeFinder;
-use Api\V1\EmployeeContext\Application\FindEmployee\FindEmployeeQuery;
-use Api\V1\EmployeeContext\Application\FindEmployee\FindEmployeeQueryHandler;
+use Api\V1\EmployeeContext\Application\FindEmployeeById\EmployeeFinderById;
+use Api\V1\EmployeeContext\Application\FindEmployeeById\FindEmployeeByIdQuery;
+use Api\V1\EmployeeContext\Application\FindEmployeeById\FindEmployeeByIdQueryHandler;
 use Tests\TestCase;
 
 final class FindEmployeeQueryHandlerTest extends TestCase
@@ -25,13 +25,13 @@ final class FindEmployeeQueryHandlerTest extends TestCase
             );
 
         // When
-        $query = new FindEmployeeQueryHandler(
-            employeeFinder: new EmployeeFinder(
+        $query = new FindEmployeeByIdQueryHandler(
+            employeeFinder: new EmployeeFinderById(
                 $this->employeeRepository()
             )
         );
 
-        $query(new FindEmployeeQuery(
+        $query(new FindEmployeeByIdQuery(
             id: $employee['id']
         ));
     }
