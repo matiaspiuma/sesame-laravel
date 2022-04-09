@@ -35,7 +35,7 @@ final class DeleteWorkEntryCommandHandlerTest extends TestCase
         );
 
         $commad(new DeleteWorkEntryCommand(
-            id: $workEntry->id()->value()
+            id: (string) $workEntry->id
         ));
     }
 }

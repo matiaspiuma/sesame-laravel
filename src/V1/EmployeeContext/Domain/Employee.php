@@ -18,7 +18,7 @@ final class Employee
         public readonly EmployeeId $id,
         private EmployeeName $name,
         private EmployeeEmail $email,
-        private EmployeeCreatedAt $createdAt,
+        public readonly EmployeeCreatedAt $createdAt,
         private EmployeeUpdatedAt $updatedAt,
         private ?EmployeeDeletedAt $deletedAt = null
     ) {
@@ -74,17 +74,12 @@ final class Employee
     public function toPrimitives(): array
     {
         return [
-            'id' => $this->id->value(),
+            'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
             'createdAt' => (string) $this->createdAt,
             'updatedAt' => (string) $this->updatedAt,
         ];
-    }
-
-    public function id(): EmployeeId
-    {
-        return $this->id;
     }
 
     public function name(): EmployeeName
@@ -95,11 +90,6 @@ final class Employee
     public function email(): EmployeeEmail
     {
         return $this->email;
-    }
-
-    public function createdAt(): EmployeeCreatedAt
-    {
-        return $this->createdAt;
     }
 
     public function updatedAt(): EmployeeUpdatedAt

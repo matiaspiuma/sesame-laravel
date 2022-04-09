@@ -38,10 +38,10 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
             DB::insert(
                 query: $query,
                 bindings: [
-                    $employee->id(),
+                    $employee->id,
                     $employee->name(),
                     $employee->email(),
-                    $employee->createdAt(),
+                    $employee->createdAt,
                     $employee->updatedAt(),
                 ]
             );
@@ -58,7 +58,7 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
         $employees = DB::select(
             query: $query,
             bindings: [
-                $employeeId->value(),
+                $employeeId,
             ]
         );
 
@@ -86,7 +86,7 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
                     $employee->name(),
                     $employee->email(),
                     (string) $employee->updatedAt(),
-                    $employee->id()->value()
+                    $employee->id,
                 ]
             );
         } catch (\Exception $e) {
@@ -103,7 +103,7 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
                 query: $query,
                 bindings: [
                     (string) $employee->deletedAt(),
-                    $employee->id()->value()
+                    $employee->id,
                 ]
             );
         } catch (\Exception $e) {

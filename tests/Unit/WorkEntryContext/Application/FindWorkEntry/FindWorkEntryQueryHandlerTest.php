@@ -30,7 +30,7 @@ final class FindWorkEntryQueryHandlerTest extends TestCase
         );
 
         $query(new FindWorkEntryQuery(
-            id: $workEntry->id()->value()
+            id: (string) $workEntry->id
         ));
     }
 }

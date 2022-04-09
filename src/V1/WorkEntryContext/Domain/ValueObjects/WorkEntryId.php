@@ -4,17 +4,12 @@ declare(strict_types=1);
 
 namespace Api\V1\WorkEntryContext\Domain\ValueObjects;
 
-final class WorkEntryId
+final class WorkEntryId implements \Stringable
 {
     public function __construct(
-        private string $id
+        public readonly string $id
     ) {
         $this->validate($id);
-    }
-
-    public function value(): string
-    {
-        return $this->id;
     }
 
     private function validate(string $id): void
@@ -22,5 +17,10 @@ final class WorkEntryId
         if (empty($id)) {
             throw new \InvalidArgumentException('WorkEntryId cannot be empty');
         }
+    }
+
+    public function __toString(): string
+    {
+        return $this->id;
     }
 }

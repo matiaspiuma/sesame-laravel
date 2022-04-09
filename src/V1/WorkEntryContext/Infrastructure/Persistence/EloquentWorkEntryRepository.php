@@ -18,11 +18,11 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
             DB::insert(
                 query: $query,
                 bindings: [
-                    $workEntry->id()->value(),
-                    $workEntry->employeeId()->value(),
+                    $workEntry->id,
+                    $workEntry->employeeId,
                     (string) $workEntry->startDate(),
                     (string) $workEntry->endDate(),
-                    (string) $workEntry->createdAt(),
+                    (string) $workEntry->createdAt,
                     (string) $workEntry->updatedAt(),
                 ]
             );
@@ -38,7 +38,7 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
         $workEntries = DB::select(
             query: $query,
             bindings: [
-                $employeeId->value(),
+                $employeeId,
             ]
         );
 
@@ -62,13 +62,13 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
         $workEntries = DB::select(
             query: $query,
             bindings: [
-                $workEntryId->value(),
+                $workEntryId,
             ]
         );
 
         if (\count($workEntries) === 0) {
             throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException(
-                \sprintf('Work entry with id "%s" does not exist.', $workEntryId->value())
+                \sprintf('Work entry with id "%s" does not exist.', $workEntryId)
             );
         }
 
@@ -93,7 +93,7 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
                     (string) $workEntry->startDate(),
                     (string) $workEntry->endDate(),
                     (string) $workEntry->updatedAt(),
-                    $workEntry->id()->value(),
+                    $workEntry->id,
                 ]
             );
         } catch (\Exception $e) {
@@ -110,7 +110,7 @@ final class EloquentWorkEntryRepository implements WorkEntryRepository
                 query: $query,
                 bindings: [
                     (string) $workEntry->deletedAt(),
-                    $workEntry->id()->value()
+                    $workEntry->id
                 ]
             );
         } catch (\Exception $e) {

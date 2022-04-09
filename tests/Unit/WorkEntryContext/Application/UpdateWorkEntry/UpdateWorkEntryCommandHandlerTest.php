@@ -35,7 +35,7 @@ final class UpdateWorkEntryCommandHandlerTest extends TestCase
         );
 
         $commad(new UpdateWorkEntryCommand(
-            $workEntry->id()->value(),
+            (string) $workEntry->id,
             (string) $workEntry->startDate(),
             (string) $workEntry->endDate(),
         ));

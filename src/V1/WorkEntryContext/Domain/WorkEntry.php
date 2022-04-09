@@ -15,11 +15,11 @@ use Api\V1\WorkEntryContext\Domain\ValueObjects\WorkEntryUpdatedAt;
 final class WorkEntry
 {
     public function __construct(
+        public readonly WorkEntryId  $id,
         public readonly EmployeeId $employeeId,
-        private WorkEntryId  $id,
         private WorkEntryStartDate $startDate,
         private WorkEntryEndDate $endDate,
-        private WorkEntryCreatedAt $createdAt,
+        public readonly WorkEntryCreatedAt $createdAt,
         private WorkEntryUpdatedAt $updatedAt,
         private ?WorkEntryDeletedAt $deletedAt = null
     ) {
@@ -34,12 +34,12 @@ final class WorkEntry
         $now = new \DateTimeImmutable();
 
         return new WorkEntry(
-            $employeeId,
-            $id,
-            $startDate,
-            $endDate,
-            new WorkEntryCreatedAt($now),
-            new WorkEntryUpdatedAt($now)
+            id: $id,
+            employeeId: $employeeId,
+            startDate: $startDate,
+            endDate: $endDate,
+            createdAt: new WorkEntryCreatedAt($now),
+            updatedAt: new WorkEntryUpdatedAt($now)
         );
     }
 
@@ -90,23 +90,13 @@ final class WorkEntry
     public function toPrimitives(): array
     {
         return [
-            'id' => $this->id->value(),
-            'employeeId' => $this->employeeId()->value(),
+            'id' => $this->id,
+            'employeeId' => $this->employeeId,
             'startDate' => (string) $this->startDate,
             'endDate' => (string) $this->endDate,
             'createdAt' => (string) $this->createdAt,
             'updatedAt' => (string) $this->updatedAt,
         ];
-    }
-
-    public function employeeId(): EmployeeId
-    {
-        return $this->employeeId;
-    }
-
-    public function id(): WorkEntryId
-    {
-        return $this->id;
     }
 
     public function startDate(): WorkEntryStartDate
@@ -117,11 +107,6 @@ final class WorkEntry
     public function endDate(): WorkEntryEndDate
     {
         return $this->endDate;
-    }
-
-    public function createdAt(): WorkEntryCreatedAt
-    {
-        return $this->createdAt;
     }
 
     public function updatedAt(): WorkEntryUpdatedAt

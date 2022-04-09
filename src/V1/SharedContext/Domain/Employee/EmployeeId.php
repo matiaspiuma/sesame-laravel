@@ -7,17 +7,12 @@ namespace Api\V1\SharedContext\Domain\Employee;
 use Symfony\Component\Uid\Uuid;
 use function PHPUnit\Framework\throwException;
 
-final class EmployeeId
+final class EmployeeId implements \Stringable
 {
     public function __construct(
-        private string $id
+        public readonly string $id
     ) {
         $this->validate($id);
-    }
-
-    public function value(): string
-    {
-        return $this->id;
     }
 
     private function validate(string $id): void

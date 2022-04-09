@@ -84,7 +84,7 @@ final class DoctrineEmployeeRepository extends DoctrineRepository implements Emp
                 'name' => $employee->name(),
                 'email' => $employee->email(),
                 'updatedAt' => (string) $employee->updatedAt(),
-                'id' => $employee->id()->value()
+                'id' => $employee->id,
             ]
         );
     }
@@ -99,7 +99,7 @@ final class DoctrineEmployeeRepository extends DoctrineRepository implements Emp
         )->executeQuery(
             params: [
                 'deletedAt' => (string) $employee->deletedAt(),
-                'id' => $employee->id()->value()
+                'id' => $employee->id
             ]
         );
     }

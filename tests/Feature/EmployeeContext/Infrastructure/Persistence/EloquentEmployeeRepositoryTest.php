@@ -39,10 +39,10 @@ final class EloquentEmployeeRepositoryTest extends TestCase
 
         // Then
         $this->assertDatabaseHas('employees', [
-            'id' => $employee->id(),
+            'id' => $employee->id,
             'name' => $employee->name(),
             'email' => $employee->email(),
-            'createdAt' => $employee->createdAt(),
+            'createdAt' => $employee->createdAt,
             'updatedAt' => $employee->updatedAt(),
         ]);
     }
@@ -57,12 +57,12 @@ final class EloquentEmployeeRepositoryTest extends TestCase
 
         // When
         $employeeFound = (new EloquentEmployeeRepository)
-            ->findById(employeeId: $employee->id());
+            ->findById(employeeId: $employee->id);
 
         // Then
         $this->assertEquals(
-            expected: $employee->id(),
-            actual: $employeeFound->id()
+            expected: $employee->id,
+            actual: $employeeFound->id,
         );
     }
 
@@ -70,13 +70,13 @@ final class EloquentEmployeeRepositoryTest extends TestCase
     public function it_should_not_find_an_employee_by_id(): void
     {
         // Given
-        $employeeId = $this->makeAnEmployeeAsObject();
+        $employee = $this->makeAnEmployeeAsObject();
 
         $this->expectException(RecordNotFoundException::class);
 
         // When
         $employeeFound = (new EloquentEmployeeRepository)
-            ->findById(employeeId: $employeeId->id());
+            ->findById(employeeId: $employee->id);
 
         // Then
         $this->assertNull($employeeFound);
@@ -95,7 +95,7 @@ final class EloquentEmployeeRepositoryTest extends TestCase
         // When
         $result = (new EloquentEmployeeRepository)
             ->findById(
-                employeeId: $employee->id()
+                employeeId: $employee->id
             );
 
         // Then
@@ -121,10 +121,10 @@ final class EloquentEmployeeRepositoryTest extends TestCase
 
         // Then
         $this->assertDatabaseHas('employees', [
-            'id' => $employee->id(),
+            'id' => $employee->id,
             'name' => $employee->name(),
             'email' => $employee->email(),
-            'createdAt' => $employee->createdAt(),
+            'createdAt' => $employee->createdAt,
             'updatedAt' => $employee->updatedAt(),
         ]);
     }
@@ -145,12 +145,12 @@ final class EloquentEmployeeRepositoryTest extends TestCase
 
         // Then
         $this->assertDatabaseHas('employees', [
-            'id' => $employee->id(),
+            'id' => $employee->id,
             'name' => $employee->name(),
             'email' => $employee->email(),
-            'createdAt' => $employee->createdAt(),
-            'updatedAt' => $employee->updatedAt(),
-            'deletedAt' => $employee->deletedAt(),
+            'createdAt' => (string) $employee->createdAt,
+            'updatedAt' => (string) $employee->updatedAt(),
+            'deletedAt' => (string) $employee->deletedAt(),
         ]);
     }
 }

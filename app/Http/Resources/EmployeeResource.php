@@ -12,10 +12,10 @@ final class EmployeeResource extends JsonResource
     {
         return [
             'data' => [
-                'id' => (string) $this->id(),
+                'id' => (string) $this->id,
                 'name' => (string) $this->name(),
                 'email' => (string) $this->email(),
-                'createdAt' => (string) $this->createdAt(),
+                'createdAt' => (string) $this->createdAt,
                 'updatedAt' => (string) $this->updatedAt(),
             ],
         ];
