@@ -25,11 +25,9 @@ final class CreateEmployeeControllerTest extends TestCase
         ]);
 
         $response->assertStatus(201);
-        $response->assertJson([
-            'data' => [
-                'name' => $name,
-                'email' => $email,
-            ],
+        $response->assertJsonFragment([
+            'name' => $name,
+            'email' => $email,
         ]);
     }
 }

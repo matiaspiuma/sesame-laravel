@@ -11,13 +11,11 @@ final class EmployeeResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'data' => [
-                'id' => (string) $this->id,
-                'name' => (string) $this->name(),
-                'email' => (string) $this->email(),
-                'createdAt' => (string) $this->createdAt,
-                'updatedAt' => (string) $this->updatedAt(),
-            ],
+            'id' => (string) $this->id,
+            'name' => (string) $this->name(),
+            'email' => (string) $this->email(),
+            'createdAt' => (string) $this->createdAt,
+            'updatedAt' => (string) $this->updatedAt(),
         ];
     }
 }

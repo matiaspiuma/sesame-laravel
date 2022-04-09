@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Api\V1\EmployeeContext\Infrastructure\Persistence;
 
 use Api\V1\EmployeeContext\Domain\Employee;
+use Api\V1\EmployeeContext\Domain\EmployeeCollection;
 use Api\V1\EmployeeContext\Domain\EmployeeRepository;
 use Api\V1\SharedContext\Domain\Employee\EmployeeId;
 use Api\V1\SharedContext\Infrastructure\ORM\EloquentRepository;
@@ -13,11 +14,13 @@ use Illuminate\Support\Facades\DB;
 
 final class EloquentEmployeeRepository extends EloquentRepository implements EmployeeRepository
 {
-    public function findAll(): array
+    public function findAll(): EmployeeCollection
     {
-        $employees = DB::table('employees')->get();
+        $employees = DB::select(
+            query: 'SELECT * FROM employees WHERE deletedAt IS NULL'
+        );
 
-        return $employees->map(
+        return new EmployeeCollection(\array_map(
             fn ($employee) => Employee::fromPrimitives(
                 id: $employee->id,
                 name: $employee->name,
@@ -25,7 +28,8 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
                 createdAt: $employee->createdAt,
                 updatedAt: $employee->updatedAt
             ),
-        )->toArray();
+            $employees
+        ));
     }
 
     public function create(Employee $employee): void

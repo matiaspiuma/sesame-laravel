@@ -10,9 +10,10 @@ use Api\V1\EmployeeContext\Domain\ValueObjects\EmployeeDeletedAt;
 use Api\V1\EmployeeContext\Domain\ValueObjects\EmployeeEmail;
 use Api\V1\EmployeeContext\Domain\ValueObjects\EmployeeName;
 use Api\V1\EmployeeContext\Domain\ValueObjects\EmployeeUpdatedAt;
+use Api\V1\SharedContext\Infrastructure\Utils\Arrayable;
 use DateTimeImmutable;
 
-final class Employee
+final class Employee implements Arrayable
 {
     public function __construct(
         public readonly EmployeeId $id,
@@ -100,5 +101,16 @@ final class Employee
     public function deletedAt(): ?EmployeeDeletedAt
     {
         return $this->deletedAt;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'createdAt' => (string) $this->createdAt,
+            'updatedAt' => (string) $this->updatedAt,
+        ];
     }
 }

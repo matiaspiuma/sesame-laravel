@@ -8,7 +8,7 @@ use Api\V1\SharedContext\Domain\Employee\EmployeeId;
 
 interface EmployeeRepository
 {
-    public function findAll(): array;
+    public function findAll(): EmployeeCollection;
 
     public function create(Employee $employee): void;
 

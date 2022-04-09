@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Api\V1\EmployeeContext\Application\SearchEmployees;
 
+use Api\V1\EmployeeContext\Domain\EmployeeCollection;
 use Api\V1\EmployeeContext\Domain\EmployeeRepository;
 
 final class EmployeesFinder
@@ -13,7 +14,7 @@ final class EmployeesFinder
     ) {
     }
 
-    public function __invoke(): array
+    public function __invoke(): EmployeeCollection
     {
         return $this->repository->findAll();
     }

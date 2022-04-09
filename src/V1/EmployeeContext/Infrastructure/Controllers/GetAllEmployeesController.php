@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Api\V1\EmployeeContext\Infrastructure\Controllers;
 
 use Api\V1\EmployeeContext\Application\SearchEmployees\SearchEmployeesQuery;
-use Api\V1\EmployeeContext\Domain\Employee;
 use Api\V1\SharedContext\Application\CQRS\Query\QueryBusInterface;
+use App\Http\Resources\EmployeeResource;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class GetAllEmployeesController
@@ -18,18 +17,16 @@ final class GetAllEmployeesController
     ) {
     }
 
-    public function __invoke(
-        Request $request
-    ): JsonResponse {
+    public function __invoke(): JsonResponse
+    {
         $employees = $this->queryBus->execute(
             query: new SearchEmployeesQuery()
         );
 
         return new JsonResponse(
             data: [
-                'data' => \array_map(
-                    fn (Employee $employee): array => $employee->toPrimitives(),
-                    $employees
+                'data' => EmployeeResource::collection(
+                    resource: $employees
                 ),
                 'meta' => []
             ],
