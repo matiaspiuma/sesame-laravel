@@ -10,6 +10,5 @@ final class SearchEmployeesQuery implements QueryInterface
 {
     public function __construct()
     {
-        # code...
     }
 }

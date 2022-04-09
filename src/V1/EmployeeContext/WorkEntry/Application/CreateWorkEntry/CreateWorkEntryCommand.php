@@ -9,30 +9,10 @@ use Api\V1\SharedContext\Application\CQRS\Command\CommandInterface;
 final class CreateWorkEntryCommand implements CommandInterface
 {
     public function __construct(
-        private string $employeeId,
-        private string $id,
-        private string $startDate,
-        private string $endDate,
+        public readonly string $employeeId,
+        public readonly string $id,
+        public readonly string $startDate,
+        public readonly string $endDate,
     ) {
-    }
-
-    public function EmployeeId(): string
-    {
-        return $this->employeeId;
-    }
-
-    public function id(): string
-    {
-        return $this->id;
-    }
-
-    public function startDate(): string
-    {
-        return $this->startDate;
-    }
-
-    public function endDate(): string
-    {
-        return $this->endDate;
     }
 }

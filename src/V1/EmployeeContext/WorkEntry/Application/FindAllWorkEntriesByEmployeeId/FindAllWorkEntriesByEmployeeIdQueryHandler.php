@@ -17,7 +17,7 @@ final class FindAllWorkEntriesByEmployeeIdQueryHandler implements QueryHandlerIn
     public function __invoke(FindAllWorkEntriesByEmployeeIdQuery $query): array
     {
         return $this->finder->__invoke(
-            employeeId: new EmployeeId($query->employeeId())
+            employeeId: new EmployeeId($query->employeeId)
         );
     }
 }

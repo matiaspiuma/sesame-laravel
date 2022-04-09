@@ -9,24 +9,9 @@ use Api\V1\SharedContext\Application\CQRS\Command\CommandInterface;
 final class UpdateWorkEntryCommand implements CommandInterface
 {
     public function __construct(
-        private string $id,
-        private string $startDate,
-        private string $endDate
+        public readonly string $id,
+        public readonly string $startDate,
+        public readonly string $endDate
     ) {
-    }
-
-    public function id(): string
-    {
-        return $this->id;
-    }
-
-    public function startDate(): string
-    {
-        return $this->startDate;
-    }
-
-    public function endDate(): string
-    {
-        return $this->endDate;
     }
 }

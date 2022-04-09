@@ -20,16 +20,16 @@ final class CreateWorkEntryCommandHandler implements CommandHandlerInterface
     public function __invoke(CreateWorkEntryCommand $command): void
     {
         $this->creator->__invoke(
-            employeeId: new EmployeeId(id: $command->employeeId()),
-            workEntryId: new WorkEntryId(id: $command->id()),
+            employeeId: new EmployeeId(id: $command->employeeId),
+            workEntryId: new WorkEntryId(id: $command->id),
             workEntryStartDate: new WorkEntryStartDate(
                 value: new \DateTimeImmutable(
-                    datetime: $command->startDate()
+                    datetime: $command->startDate
                 )
             ),
             workEntryEndDate: new WorkEntryEndDate(
                 value: new \DateTimeImmutable(
-                    datetime: $command->endDate()
+                    datetime: $command->endDate
                 )
             ),
         );

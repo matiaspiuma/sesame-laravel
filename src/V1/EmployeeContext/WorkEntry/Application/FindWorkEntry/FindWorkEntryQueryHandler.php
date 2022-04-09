@@ -17,7 +17,7 @@ final class FindWorkEntryQueryHandler implements QueryHandlerInterface
     public function __invoke(FindWorkEntryQuery $query): mixed
     {
         return $this->finder->__invoke(
-            workEntryId: new WorkEntryId($query->id()),
+            workEntryId: new WorkEntryId($query->id),
         );
     }
 }

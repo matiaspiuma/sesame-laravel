@@ -17,7 +17,7 @@ final class DeleteWorkEntryCommandHandler implements CommandHandlerInterface
     public function __invoke(DeleteWorkEntryCommand $command): void
     {
         $this->workEntryDelector->__invoke(
-            workEntryId: new WorkEntryId($command->id()),
+            workEntryId: new WorkEntryId($command->id),
         );
     }
 }

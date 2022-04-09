@@ -9,24 +9,9 @@ use Api\V1\SharedContext\Application\CQRS\Command\CommandInterface;
 final class UpdateEmployeeCommand implements CommandInterface
 {
     public function __construct(
-        private string $id,
-        private string $name,
-        private string $email
+        public readonly string $id,
+        public readonly string $name,
+        public readonly string $email
     ) {
-    }
-
-    public function id(): string
-    {
-        return $this->id;
-    }
-
-    public function name(): string
-    {
-        return $this->name;
-    }
-
-    public function email(): string
-    {
-        return $this->email;
     }
 }

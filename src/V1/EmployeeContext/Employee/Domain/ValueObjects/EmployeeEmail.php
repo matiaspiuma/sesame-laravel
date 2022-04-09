@@ -4,28 +4,22 @@ declare(strict_types=1);
 
 namespace Api\V1\EmployeeContext\Employee\Domain\ValueObjects;
 
-final class EmployeeEmail implements \Stringable
+use Api\V1\SharedContext\Domain\ValueObjects\StringValueObject;
+
+final class EmployeeEmail extends StringValueObject
 {
     public function __construct(
         private string $email
     ) {
-        $this->validate($email);
+        $this->validate(value: $email);
+
+        parent::__construct($email);
     }
 
-    public function value(): string
+    private function validate(string $value): void
     {
-        return $this->email;
-    }
-
-    public function __toString(): string
-    {
-        return $this->email;
-    }
-
-    private function validate(string $email): void
-    {
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new \InvalidArgumentException('Employee email is not valid');
+        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+            throw new \InvalidArgumentException('Email is not valid');
         }
     }
 }

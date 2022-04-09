@@ -19,9 +19,9 @@ final class CreateEmployeeCommandHandler implements CommandHandlerInterface
     public function __invoke(CreateEmployeeCommand $command): void
     {
         $this->creator->__invoke(
-            new EmployeeId($command->id()),
-            new EmployeeName($command->name()),
-            new EmployeeEmail($command->email()),
+            new EmployeeId($command->id),
+            new EmployeeName($command->name),
+            new EmployeeEmail($command->email),
         );
     }
 }

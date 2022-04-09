@@ -19,9 +19,9 @@ final class UpdateEmployeeCommandHandler implements CommandHandlerInterface
     public function __invoke(UpdateEmployeeCommand $command): void
     {
         $this->employeeUpdator->__invoke(
-            new EmployeeId($command->id()),
-            new EmployeeName($command->name()),
-            new EmployeeEmail($command->email()),
+            new EmployeeId($command->id),
+            new EmployeeName($command->name),
+            new EmployeeEmail($command->email),
         );
     }
 }

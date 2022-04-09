@@ -17,7 +17,7 @@ final class DeleteEmployeeCommandHandler implements CommandHandlerInterface
     public function __invoke(DeleteEmployeeCommand $command): void
     {
         $this->delector->__invoke(
-            employeeId: new EmployeeId($command->id()),
+            employeeId: new EmployeeId($command->id),
         );
     }
 }
