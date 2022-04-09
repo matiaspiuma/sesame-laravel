@@ -17,10 +17,12 @@ use function count;
 
 final class EloquentEmployeeRepository extends EloquentRepository implements EmployeeRepository
 {
+    private string $table = 'employees';
+
     public function findAll(): EmployeeCollection
     {
         $employees = DB::select(
-            query: 'SELECT * FROM employees WHERE deletedAt IS NULL'
+            query: 'SELECT * FROM {$table} WHERE deletedAt IS NULL'
         );
 
         return new EmployeeCollection(array_map(
@@ -37,9 +39,7 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
 
     public function create(Employee $employee): void
     {
-        $query = 'INSERT INTO
-            employees (id, name, email, createdAt, updatedAt)
-            VALUES (?, ?, ?, ?, ?)';
+        $query = 'INSERT INTO {$table} (id, name, email, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?)';
 
         DB::insert(
             query: $query,
@@ -55,8 +55,7 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
 
     public function findById(EmployeeId $employeeId): ?Employee
     {
-        $query = 'SELECT * FROM employees
-            WHERE id = ? AND deletedAt IS NULL LIMIT 1';
+        $query = 'SELECT * FROM {$table} WHERE id = ? AND deletedAt IS NULL LIMIT 1';
 
         $employees = DB::select(
             query: $query,
@@ -80,7 +79,7 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
 
     public function update(Employee $employee): void
     {
-        $query = 'UPDATE employees SET name = ?, email = ?, updatedAt = ? WHERE id = ? AND deletedAt IS NULL';
+        $query = 'UPDATE {$table} SET name = ?, email = ?, updatedAt = ? WHERE id = ? AND deletedAt IS NULL';
 
 
         DB::update(
@@ -96,7 +95,7 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
 
     public function delete(Employee $employee): void
     {
-        $query = 'UPDATE employees SET deletedAt = ? WHERE id = ? AND deletedAt IS NULL';
+        $query = 'UPDATE {$table} SET deletedAt = ? WHERE id = ? AND deletedAt IS NULL';
 
 
         DB::update(
