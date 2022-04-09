@@ -10,7 +10,10 @@ use Api\V1\EmployeeContext\Domain\EmployeeRepository;
 use Api\V1\SharedContext\Domain\Employee\EmployeeId;
 use Api\V1\SharedContext\Infrastructure\ORM\EloquentRepository;
 use App\Exceptions\RecordNotFoundException;
+use Exception;
 use Illuminate\Support\Facades\DB;
+use function array_map;
+use function count;
 
 final class EloquentEmployeeRepository extends EloquentRepository implements EmployeeRepository
 {
@@ -20,7 +23,7 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
             query: 'SELECT * FROM employees WHERE deletedAt IS NULL'
         );
 
-        return new EmployeeCollection(\array_map(
+        return new EmployeeCollection(array_map(
             fn ($employee) => Employee::fromPrimitives(
                 id: $employee->id,
                 name: $employee->name,
@@ -34,29 +37,25 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
 
     public function create(Employee $employee): void
     {
-        $query = 'INSERT INTO 
-            employees (id, name, email, createdAt, updatedAt) 
+        $query = 'INSERT INTO
+            employees (id, name, email, createdAt, updatedAt)
             VALUES (?, ?, ?, ?, ?)';
 
-        try {
-            DB::insert(
-                query: $query,
-                bindings: [
-                    $employee->id,
-                    $employee->name(),
-                    $employee->email(),
-                    $employee->createdAt,
-                    $employee->updatedAt(),
-                ]
-            );
-        } catch (\Exception $e) {
-            throw new \Exception('Error creating employee');
-        }
+        DB::insert(
+            query: $query,
+            bindings: [
+                $employee->id,
+                $employee->name(),
+                $employee->email(),
+                $employee->createdAt,
+                $employee->updatedAt(),
+            ]
+        );
     }
 
     public function findById(EmployeeId $employeeId): ?Employee
     {
-        $query = 'SELECT * FROM employees 
+        $query = 'SELECT * FROM employees
             WHERE id = ? AND deletedAt IS NULL LIMIT 1';
 
         $employees = DB::select(
@@ -66,7 +65,7 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
             ]
         );
 
-        if (\count($employees) === 0) {
+        if (count($employees) === 0) {
             throw new RecordNotFoundException('Error finding employee');
         }
 
@@ -83,35 +82,29 @@ final class EloquentEmployeeRepository extends EloquentRepository implements Emp
     {
         $query = 'UPDATE employees SET name = ?, email = ?, updatedAt = ? WHERE id = ? AND deletedAt IS NULL';
 
-        try {
-            DB::update(
-                query: $query,
-                bindings: [
-                    $employee->name(),
-                    $employee->email(),
-                    (string) $employee->updatedAt(),
-                    $employee->id,
-                ]
-            );
-        } catch (\Exception $e) {
-            throw new \Exception('Error updating employee');
-        }
+
+        DB::update(
+            query: $query,
+            bindings: [
+                $employee->name(),
+                $employee->email(),
+                (string) $employee->updatedAt(),
+                $employee->id,
+            ]
+        );
     }
 
     public function delete(Employee $employee): void
     {
         $query = 'UPDATE employees SET deletedAt = ? WHERE id = ? AND deletedAt IS NULL';
 
-        try {
-            DB::update(
-                query: $query,
-                bindings: [
-                    (string) $employee->deletedAt(),
-                    $employee->id,
-                ]
-            );
-        } catch (\Exception $e) {
-            throw new \Exception('Error deleting employee');
-        }
+
+        DB::update(
+            query: $query,
+            bindings: [
+                (string) $employee->deletedAt(),
+                $employee->id,
+            ]
+        );
     }
 }
