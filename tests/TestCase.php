@@ -2,10 +2,10 @@
 
 namespace Tests;
 
-use Api\V1\EmployeeContext\Domain\Employee;
-use Api\V1\EmployeeContext\Domain\EmployeeRepository;
-use Api\V1\WorkEntryContext\Domain\WorkEntry;
-use Api\V1\WorkEntryContext\Domain\WorkEntryRepository;
+use Api\V1\EmployeeContext\Employee\Domain\Employee;
+use Api\V1\EmployeeContext\Employee\Domain\EmployeeRepository;
+use Api\V1\EmployeeContext\WorkEntry\Domain\WorkEntry;
+use Api\V1\EmployeeContext\WorkEntry\Domain\WorkEntryRepository;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
@@ -46,7 +46,7 @@ abstract class TestCase extends BaseTestCase
     {
         $employee = $this->makeAnEmployee();
 
-        DB::insert('INSERT INTO employees (id, name, email, createdAt, updatedAt, deletedAt) 
+        DB::insert('INSERT INTO employees (id, name, email, createdAt, updatedAt, deletedAt)
             VALUES (?, ?, ?, ?, ?, ?)', [
             $employee['id'],
             $employee['name'],
@@ -99,7 +99,7 @@ abstract class TestCase extends BaseTestCase
     {
         $workEntry = $this->makeAnWorkEntry();
 
-        DB::insert('INSERT INTO work_entries (id, employeeId, startDate, endDate, createdAt, updatedAt, deletedAt) 
+        DB::insert('INSERT INTO work_entries (id, employeeId, startDate, endDate, createdAt, updatedAt, deletedAt)
             VALUES (?, ?, ?, ?, ?, ?, ?)', [
             $workEntry['id'],
             $workEntry['employeeId'],

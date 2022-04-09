@@ -1,16 +1,14 @@
 <?php
 
-use Api\V1\EmployeeContext\Infrastructure\Controllers\CreateEmployeeController;
-use Api\V1\EmployeeContext\Infrastructure\Controllers\DeleteEmployeeController;
-use Api\V1\EmployeeContext\Infrastructure\Controllers\FindEmployeeController;
-use Api\V1\EmployeeContext\Infrastructure\Controllers\GetAllEmployeesController;
-use Api\V1\EmployeeContext\Infrastructure\Controllers\UpdateEmployeeController;
-
-use Api\V1\WorkEntryContext\Infrastructure\Controllers\CreateWorkEntryController;
-use Api\V1\WorkEntryContext\Infrastructure\Controllers\DeleteWorkEntryController;
-use Api\V1\WorkEntryContext\Infrastructure\Controllers\SearchWorkEntriesController;
-use Api\V1\WorkEntryContext\Infrastructure\Controllers\UpdateWorkEntryController;
-
+use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\CreateEmployeeController;
+use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\DeleteEmployeeController;
+use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\FindEmployeeController;
+use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\GetAllEmployeesController;
+use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\UpdateEmployeeController;
+use Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers\CreateWorkEntryController;
+use Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers\DeleteWorkEntryController;
+use Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers\SearchWorkEntriesController;
+use Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers\UpdateWorkEntryController;
 use Illuminate\Support\Facades\Route;
 
 /**

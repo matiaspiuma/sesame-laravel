@@ -2,16 +2,16 @@
 
 namespace App\Providers;
 
-use Api\V1\EmployeeContext\Domain\EmployeeRepository;
-use Api\V1\EmployeeContext\Infrastructure\Persistence\EloquentEmployeeRepository;
+use Api\V1\EmployeeContext\Employee\Domain\EmployeeRepository;
+use Api\V1\EmployeeContext\Employee\Infrastructure\Persistence\EloquentEmployeeRepository;
+use Api\V1\EmployeeContext\WorkEntry\Domain\WorkEntryRepository;
+use Api\V1\EmployeeContext\WorkEntry\Infrastructure\Persistence\EloquentWorkEntryRepository;
 use Api\V1\SharedContext\Application\CQRS\Command\CommandBusInterface;
 use Api\V1\SharedContext\Application\CQRS\Query\QueryBusInterface;
 use Api\V1\SharedContext\Application\RequestInterface;
 use Api\V1\SharedContext\Infrastructure\CQRS\Command\LaravelCommandBus;
 use Api\V1\SharedContext\Infrastructure\CQRS\Query\LaravelQueryBus;
 use Api\V1\SharedContext\Infrastructure\Request\LaravelRequest;
-use Api\V1\WorkEntryContext\Domain\WorkEntryRepository;
-use Api\V1\WorkEntryContext\Infrastructure\Persistence\EloquentWorkEntryRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
             concrete: EloquentWorkEntryRepository::class
         );
     }
-    
+
     public function boot(): void
     {
         //
