@@ -1,0 +1,10 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Api\V1\SharedContext\Infrastructure\Utils;
+
+interface Arrayable
+{
+    public function toArray(): array;
+}
