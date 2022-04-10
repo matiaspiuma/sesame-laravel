@@ -14,14 +14,16 @@ final class EmployeeCreator
 {
     public function __construct(
         private EmployeeRepository $repository
-    ) {
+    )
+    {
     }
 
     public function __invoke(
-        EmployeeId $employeeId,
-        EmployeeName $employeeName,
+        EmployeeId    $employeeId,
+        EmployeeName  $employeeName,
         EmployeeEmail $employeeEmail
-    ): Employee {
+    ): Employee
+    {
         $employee = Employee::create(
             $employeeId,
             $employeeName,

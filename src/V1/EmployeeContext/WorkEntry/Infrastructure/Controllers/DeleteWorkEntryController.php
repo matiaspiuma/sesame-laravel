@@ -7,6 +7,7 @@ namespace Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers;
 use Api\V1\EmployeeContext\WorkEntry\Application\DeleteWorkEntry\DeleteWorkEntryCommand;
 use Api\V1\SharedContext\Application\CQRS\Command\CommandBusInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class DeleteWorkEntryController
@@ -18,19 +19,15 @@ final class DeleteWorkEntryController
     }
 
     public function __invoke(
-        string $employeeId,
-        string $workEntryId
+        Request $request,
+        string  $employeeId,
+        string  $workEntryId
     ): JsonResponse
     {
         $this->commandBus->execute(
-            command: new DeleteWorkEntryCommand(
-                id: $workEntryId
-            )
+            new DeleteWorkEntryCommand($workEntryId, $employeeId)
         );
 
-        return new JsonResponse(
-            data: null,
-            status: Response::HTTP_NO_CONTENT
-        );
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 }

@@ -9,6 +9,7 @@ use Api\V1\EmployeeContext\WorkEntry\Domain\ValueObjects\WorkEntryEndDate;
 use Api\V1\EmployeeContext\WorkEntry\Domain\ValueObjects\WorkEntryId;
 use Api\V1\EmployeeContext\WorkEntry\Domain\ValueObjects\WorkEntryStartDate;
 use Api\V1\EmployeeContext\WorkEntry\Domain\WorkEntry;
+use Api\V1\EmployeeContext\WorkEntry\Domain\WorkEntryNotExistsException;
 use Api\V1\EmployeeContext\WorkEntry\Domain\WorkEntryRepository;
 
 final class WorkEntryUpdator
@@ -21,20 +22,21 @@ final class WorkEntryUpdator
 
     public function __invoke(
         WorkEntryId        $workEntryId,
+        EmployeeId         $employeeId,
         WorkEntryStartDate $workEntryStartDate,
-        WorkEntryEndDate   $workEntryEndDate,
-        EmployeeId         $employeeId
+        WorkEntryEndDate   $workEntryEndDate
     ): WorkEntry
     {
         $workEntry = $this->repository->findByIdAndEmployeeId(
-            workEntryId: $workEntryId,
-            employeeId: $employeeId
+            $workEntryId,
+            $employeeId
         );
 
-        $workEntry->update(
-            startDate: $workEntryStartDate,
-            endDate: $workEntryEndDate,
-        );
+        if (null === $workEntry) {
+            throw new WorkEntryNotExistsException();
+        }
+
+        $workEntry->update($workEntryStartDate, $workEntryEndDate);
 
         $this->repository->update($workEntry);
 

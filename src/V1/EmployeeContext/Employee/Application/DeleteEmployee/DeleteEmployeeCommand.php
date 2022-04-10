@@ -10,6 +10,7 @@ final class DeleteEmployeeCommand implements CommandInterface
 {
     public function __construct(
         public readonly string $id
-    ) {
+    )
+    {
     }
 }

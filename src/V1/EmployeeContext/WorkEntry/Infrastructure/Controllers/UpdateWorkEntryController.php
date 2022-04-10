@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers;
 
+use Api\V1\EmployeeContext\Employee\Infrastructure\Responses\WorkEntryResponse;
 use Api\V1\EmployeeContext\WorkEntry\Application\UpdateWorkEntry\UpdateWorkEntryCommand;
 use Api\V1\EmployeeContext\WorkEntry\Domain\WorkEntry;
 use Api\V1\SharedContext\Application\CQRS\Command\CommandBusInterface;
 use Api\V1\SharedContext\Application\CQRS\Query\QueryBusInterface;
-use App\Http\Requests\Api\V1\EmployeeContext\WorkEntry\Infrastructure\Requests\UpdateWorkEntryRequest;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 final class UpdateWorkEntryController
 {
@@ -22,26 +21,18 @@ final class UpdateWorkEntryController
     }
 
     public function __invoke(
-        UpdateWorkEntryRequest $request,
-        string                 $employeeId,
-        string                 $workEntryId
-    ): JsonResponse
+        Request $request,
+        string  $employeeId,
+        string  $workEntryId
+    ): WorkEntry
     {
-        /** @var WorkEntry $workEntry */
-        $workEntry = $this->commandBus->execute(
-            command: new UpdateWorkEntryCommand(
-                id: $workEntryId,
-                startDate: $request->startDate,
-                endDate: $request->endDate
+        return $this->commandBus->execute(
+            new UpdateWorkEntryCommand(
+                $workEntryId,
+                $employeeId,
+                $request->get('startDate'),
+                $request->get('endDate')
             )
-        );
-
-        return new JsonResponse(
-            data: [
-                'data' => $workEntry->toPrimitives(),
-                'meta' => []
-            ],
-            status: Response::HTTP_OK
         );
     }
 }

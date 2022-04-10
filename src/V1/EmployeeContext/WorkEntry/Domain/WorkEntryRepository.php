@@ -11,7 +11,7 @@ interface WorkEntryRepository
 {
     public function create(WorkEntry $workEntry): void;
 
-    public function findAllByEmployeeId(EmployeeId $employeeId): array;
+    public function findAllByEmployeeId(EmployeeId $employeeId): WorkEntries;
 
     public function findByIdAndEmployeeId(WorkEntryId $workEntryId, EmployeeId $employeeId): ?WorkEntry;
 

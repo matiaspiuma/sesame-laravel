@@ -10,6 +10,7 @@ final class FindEmployeeByIdQuery implements QueryInterface
 {
     public function __construct(
         public readonly string $id
-    ) {
+    )
+    {
     }
 }

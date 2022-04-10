@@ -9,9 +9,15 @@ use Symfony\Component\Uid\Uuid;
 final class WorkEntryId implements \Stringable
 {
     public function __construct(
-        public readonly string $id
-    ) {
+        private string $id
+    )
+    {
         $this->validate($id);
+    }
+
+    public function value(): string
+    {
+        return $this->id;
     }
 
     public static function make(): self

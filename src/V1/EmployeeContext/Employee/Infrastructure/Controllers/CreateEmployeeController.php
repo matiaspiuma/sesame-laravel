@@ -6,13 +6,12 @@ namespace Api\V1\EmployeeContext\Employee\Infrastructure\Controllers;
 
 use Api\V1\EmployeeContext\Employee\Application\CreateEmployee\CreateEmployeeCommand;
 use Api\V1\EmployeeContext\Employee\Domain\Employee;
-use Api\V1\EmployeeContext\Employee\Infrastructure\Responses\EmployeeResponse;
+use Api\V1\EmployeeContext\Employee\Infrastructure\Responses\EmployeeResponseInterface;
 use Api\V1\EmployeeContext\Shared\Domain\Employee\EmployeeId;
 use Api\V1\SharedContext\Application\CQRS\Command\CommandBusInterface;
 use Api\V1\SharedContext\Application\CQRS\Query\QueryBusInterface;
-use App\Http\Requests\Api\V1\EmployeeContext\Employee\Infrastructure\Requests\CreateEmployeeRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 final class CreateEmployeeController
 {
@@ -24,23 +23,17 @@ final class CreateEmployeeController
     }
 
     public function __invoke(
-        CreateEmployeeRequest $request
-    ): JsonResponse
+        Request $request
+    ): Employee
     {
         $employeeId = EmployeeId::make();
 
-        /** @var Employee $employee */
-        $employee = $this->commandBus->execute(
-            command: new CreateEmployeeCommand(
-                id: $employeeId->id,
-                name: $request->name,
-                email: $request->email,
+        return $this->commandBus->execute(
+            new CreateEmployeeCommand(
+                $employeeId->id,
+                $request->get('name'),
+                $request->get('email'),
             )
         );
-
-        return (new EmployeeResponse(
-            employee: $employee,
-            status: Response::HTTP_CREATED
-        ))->response();
     }
 }

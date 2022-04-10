@@ -11,13 +11,14 @@ final class DeleteEmployeeCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private EmployeeDeletor $delector
-    ) {
+    )
+    {
     }
 
     public function __invoke(DeleteEmployeeCommand $command): void
     {
         $this->delector->__invoke(
-            employeeId: new EmployeeId($command->id),
+            new EmployeeId($command->id),
         );
     }
 }

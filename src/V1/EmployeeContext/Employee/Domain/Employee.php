@@ -10,84 +10,24 @@ use Api\V1\EmployeeContext\Employee\Domain\ValueObjects\EmployeeEmail;
 use Api\V1\EmployeeContext\Employee\Domain\ValueObjects\EmployeeName;
 use Api\V1\EmployeeContext\Employee\Domain\ValueObjects\EmployeeUpdatedAt;
 use Api\V1\EmployeeContext\Shared\Domain\Employee\EmployeeId;
-use Api\V1\SharedContext\Infrastructure\Utils\Arrayable;
 use DateTimeImmutable;
 
-final class Employee implements Arrayable
+final class Employee
 {
     public function __construct(
-        public                     readonly EmployeeId $id,
+        private EmployeeId         $id,
         private EmployeeName       $name,
         private EmployeeEmail      $email,
-        public                     readonly EmployeeCreatedAt $createdAt,
+        private EmployeeCreatedAt  $createdAt,
         private EmployeeUpdatedAt  $updatedAt,
         private ?EmployeeDeletedAt $deletedAt = null
     )
     {
     }
 
-    public static function create(
-        EmployeeId    $id,
-        EmployeeName  $name,
-        EmployeeEmail $email
-    ): Employee
+    public function id(): EmployeeId
     {
-        $now = new DateTimeImmutable();
-
-        return new self(
-            id: $id,
-            name: $name,
-            email: $email,
-            createdAt: new EmployeeCreatedAt($now),
-            updatedAt: new EmployeeUpdatedAt($now),
-        );
-    }
-
-    public function update(
-        EmployeeName  $name,
-        EmployeeEmail $email,
-    ): void
-    {
-        $this->name = $name;
-        $this->email = $email;
-        $this->updatedAt = new EmployeeUpdatedAt(
-            value: new DateTimeImmutable()
-        );
-    }
-
-    public function delete(): void
-    {
-        $this->deletedAt = new EmployeeDeletedAt(
-            value: new DateTimeImmutable()
-        );
-    }
-
-    public static function fromPrimitives(
-        string $id,
-        string $name,
-        string $email,
-        string $createdAt,
-        string $updatedAt
-    ): Employee
-    {
-        return new self(
-            id: new EmployeeId($id),
-            name: new EmployeeName($name),
-            email: new EmployeeEmail($email),
-            createdAt: new EmployeeCreatedAt(new DateTimeImmutable($createdAt)),
-            updatedAt: new EmployeeUpdatedAt(new DateTimeImmutable($updatedAt))
-        );
-    }
-
-    public function toPrimitives(): array
-    {
-        return [
-            'id' => $this->id->value(),
-            'name' => $this->name()->value(),
-            'email' => $this->email()->value(),
-            'createdAt' => (string)$this->createdAt,
-            'updatedAt' => (string)$this->updatedAt,
-        ];
+        return $this->id;
     }
 
     public function name(): EmployeeName
@@ -100,6 +40,11 @@ final class Employee implements Arrayable
         return $this->email;
     }
 
+    public function createdAt(): EmployeeCreatedAt
+    {
+        return $this->createdAt;
+    }
+
     public function updatedAt(): EmployeeUpdatedAt
     {
         return $this->updatedAt;
@@ -110,14 +55,68 @@ final class Employee implements Arrayable
         return $this->deletedAt;
     }
 
-    public function toArray(): array
+
+    public static function create(
+        EmployeeId    $id,
+        EmployeeName  $name,
+        EmployeeEmail $email
+    ): Employee
+    {
+        $now = new DateTimeImmutable();
+
+        return new self(
+            $id,
+            $name,
+            $email,
+            new EmployeeCreatedAt($now),
+            new EmployeeUpdatedAt($now),
+        );
+    }
+
+    public function update(
+        EmployeeName  $name,
+        EmployeeEmail $email,
+    ): void
+    {
+        $this->name = $name;
+        $this->email = $email;
+        $this->updatedAt = new EmployeeUpdatedAt(
+            new DateTimeImmutable()
+        );
+    }
+
+    public function delete(): void
+    {
+        $this->deletedAt = new EmployeeDeletedAt(
+            new DateTimeImmutable()
+        );
+    }
+
+    public static function fromPrimitives(
+        string $id,
+        string $name,
+        string $email,
+        string $createdAt,
+        string $updatedAt
+    ): Employee
+    {
+        return new self(
+            new EmployeeId($id),
+            new EmployeeName($name),
+            new EmployeeEmail($email),
+            new EmployeeCreatedAt(new DateTimeImmutable($createdAt)),
+            new EmployeeUpdatedAt(new DateTimeImmutable($updatedAt))
+        );
+    }
+
+    public function toPrimitives(): array
     {
         return [
             'id' => $this->id->value(),
             'name' => $this->name()->value(),
             'email' => $this->email()->value(),
-            'createdAt' => $this->createdAt->value(),
-            'updatedAt' => $this->updatedAt()->value(),
+            'createdAt' => (string)$this->createdAt,
+            'updatedAt' => (string)$this->updatedAt,
         ];
     }
 }

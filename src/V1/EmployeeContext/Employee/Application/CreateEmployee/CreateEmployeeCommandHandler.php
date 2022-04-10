@@ -14,7 +14,8 @@ final class CreateEmployeeCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private EmployeeCreator $creator
-    ) {
+    )
+    {
     }
 
     public function __invoke(CreateEmployeeCommand $command): Employee

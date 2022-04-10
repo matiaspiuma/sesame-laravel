@@ -12,6 +12,7 @@ final class CreateEmployeeCommand implements CommandInterface
         public readonly string $id,
         public readonly string $name,
         public readonly string $email
-    ) {
+    )
+    {
     }
 }

@@ -14,7 +14,8 @@ final class UpdateEmployeeCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private EmployeeUpdator $employeeUpdator
-    ) {
+    )
+    {
     }
 
     public function __invoke(UpdateEmployeeCommand $command): Employee

@@ -15,26 +15,21 @@ final class UpdateWorkEntryCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private WorkEntryUpdator $updator
-    ) {
+    )
+    {
     }
 
     public function __invoke(UpdateWorkEntryCommand $command): WorkEntry
     {
         return $this->updator->__invoke(
             new WorkEntryId($command->id),
+            new EmployeeId($command->employeeId),
             new WorkEntryStartDate(
-                value: \DateTimeImmutable::createFromFormat(
-                    'Y-m-d H:i:s',
-                    $command->startDate
-                )
+                \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $command->startDate)
             ),
             new WorkEntryEndDate(
-                value: \DateTimeImmutable::createFromFormat(
-                    'Y-m-d H:i:s',
-                    $command->endDate
-                )
+                \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $command->endDate)
             ),
-            new EmployeeId(id: $command->employeeId)
         );
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
+use Api\V1\EmployeeContext\Employee\Domain\EmployeeNotExistsException;
+use Api\V1\EmployeeContext\WorkEntry\Domain\WorkEntryNotExistsException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -18,11 +20,14 @@ class Handler extends ExceptionHandler
         'password',
         'password_confirmation',
     ];
-    
+
     public function register(): void
     {
         $this->reportable(function (Throwable $e) {
-            if ($e instanceof RecordNotFoundException) {
+            if ($e instanceof EmployeeNotExistsException) {
+                return true;
+            }
+            if ($e instanceof WorkEntryNotExistsException) {
                 return true;
             }
         });
