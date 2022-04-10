@@ -1,36 +1,34 @@
 <?php
 
-use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\CreateEmployeeController;
-use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\DeleteEmployeeController;
-use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\FindEmployeeController;
-use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\GetAllEmployeesController;
-use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\UpdateEmployeeController;
+use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\UpdateEmployeeByIdController;
 use Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers\CreateWorkEntryController;
 use Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers\DeleteWorkEntryController;
-use Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers\SearchWorkEntriesController;
+use Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers\FindWorkEntriesByEmployeeIdController;
 use Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers\UpdateWorkEntryController;
 use Illuminate\Support\Facades\Route;
 
 /**
  * Employee API
  */
-Route::get(uri: '/employees', action: GetAllEmployeesController::class);
+Route::get('/employees', \App\Http\Controllers\Api\V1\Employees\GetEmployeesController::class);
 
-Route::post(uri: '/employees', action: CreateEmployeeController::class);
+Route::get('/employees/{employeeId}', \App\Http\Controllers\Api\V1\Employees\GetEmployeeController::class);
 
-Route::get(uri: '/employees/{employeeId}', action: FindEmployeeController::class);
+Route::post('/employees', \App\Http\Controllers\Api\V1\Employees\PostEmployeeController::class);
 
-Route::put(uri: '/employees/{employeeId}', action: UpdateEmployeeController::class);
+Route::put('/employees/{employeeId}', \App\Http\Controllers\Api\V1\Employees\PutEmployeeController::class);
 
-Route::delete(uri: '/employees/{employeeId}', action: DeleteEmployeeController::class);
+Route::delete('/employees/{employeeId}', \App\Http\Controllers\Api\V1\Employees\DeleteEmployeeController::class);
 
 /**
  * Work Entries API
  */
-Route::get(uri: '/employees/{employeeId}/workentries', action: SearchWorkEntriesController::class);
+Route::get('/employees/{employeeId}/workentries', \App\Http\Controllers\Api\V1\Employees\GetEmployeeWorkEntriesController::class);
 
-Route::post(uri: '/employees/{employeeId}/workentries', action: CreateWorkEntryController::class);
+Route::get('/employees/{employeeId}/workentries/{workEntryId}', \App\Http\Controllers\Api\V1\Employees\GetEmployeeWorkEntryController::class);
 
-Route::put(uri: '/employees/{employeeId}/workentries/{workEntryId}', action: UpdateWorkEntryController::class);
+Route::post('/employees/{employeeId}/workentries', \App\Http\Controllers\Api\V1\Employees\PostEmployeeWorkEntryController::class);
 
-Route::delete(uri: '/employees/{employeeId}/workentries/{workEntryId}', action: DeleteWorkEntryController::class);
+Route::put('/employees/{employeeId}/workentries/{workEntryId}', \App\Http\Controllers\Api\V1\Employees\PutEmployeeWorkEntryController::class);
+
+Route::delete('/employees/{employeeId}/workentries/{workEntryId}', \App\Http\Controllers\Api\V1\Employees\DeleteEmployeeWorkEntryController::class);
