@@ -42,7 +42,7 @@ final class WorkEntry
         return $this->startDate;
     }
 
-    public function endDate(): WorkEntryEndDate
+    public function endDate(): ?WorkEntryEndDate
     {
         return $this->endDate;
     }

@@ -26,7 +26,7 @@ final class WorkEntryCreator
         WorkEntryId        $workEntryId,
         EmployeeId         $employeeId,
         WorkEntryStartDate $workEntryStartDate,
-        WorkEntryEndDate   $workEntryEndDate,
+        ?WorkEntryEndDate  $workEntryEndDate = null,
     ): WorkEntry
     {
         $employee = $this->employeeRepository->findById($employeeId);

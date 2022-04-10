@@ -17,7 +17,7 @@ final class CreateWorkEntryRequest extends FormRequest
     {
         return [
             'startDate' => 'required|date|before:now',
-            'endDate' => 'required|date|after:startDate',
+            'endDate' => 'nullable|date|after:startDate',
         ];
     }
 }

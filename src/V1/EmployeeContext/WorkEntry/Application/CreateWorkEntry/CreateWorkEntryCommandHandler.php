@@ -15,7 +15,8 @@ final class CreateWorkEntryCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private WorkEntryCreator $creator
-    ) {
+    )
+    {
     }
 
     public function __invoke(CreateWorkEntryCommand $command): WorkEntry
@@ -26,9 +27,9 @@ final class CreateWorkEntryCommandHandler implements CommandHandlerInterface
             new WorkEntryStartDate(
                 new \DateTimeImmutable($command->startDate)
             ),
-            new WorkEntryEndDate(
+            $command->endDate ? new WorkEntryEndDate(
                 new \DateTimeImmutable($command->endDate)
-            ),
+            ) : null,
         );
     }
 }
