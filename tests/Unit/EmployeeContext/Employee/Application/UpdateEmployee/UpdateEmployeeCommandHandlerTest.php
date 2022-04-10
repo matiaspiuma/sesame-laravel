@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\EmployeeContext\Application\UpdateEmployee;
+namespace Tests\Unit\EmployeeContext\Employee\Application\UpdateEmployee;
 
 use Api\V1\EmployeeContext\Employee\Application\UpdateEmployee\EmployeeUpdator;
 use Api\V1\EmployeeContext\Employee\Application\UpdateEmployee\UpdateEmployeeCommand;
@@ -15,14 +15,12 @@ final class UpdateEmployeeCommandHandlerTest extends TestCase
     public function it_should_update_an_employee(): void
     {
         // Given
-        $employee = $this->makeAnEmployee();
+        $employee = $this->makeEmployee();
 
         $this->employeeRepository()
             ->shouldReceive('findById')
             ->once()
-            ->andReturn(
-                $this->makeAnEmployeeAsObject($employee)
-            );
+            ->andReturn($employee);
 
         $this->employeeRepository()
             ->shouldReceive('update')
@@ -30,16 +28,16 @@ final class UpdateEmployeeCommandHandlerTest extends TestCase
             ->andReturnNull();
 
         // When
-        $commad = new UpdateEmployeeCommandHandler(
-            employeeUpdator: new EmployeeUpdator(
+        $command = new UpdateEmployeeCommandHandler(
+            new EmployeeUpdator(
                 $this->employeeRepository()
             )
         );
 
-        $commad(new UpdateEmployeeCommand(
-            $employee['id'],
-            $employee['name'],
-            $employee['email'],
+        $command(new UpdateEmployeeCommand(
+            $employee->id()->value(),
+            $employee->name()->value(),
+            $employee->email()->value(),
         ));
     }
 }

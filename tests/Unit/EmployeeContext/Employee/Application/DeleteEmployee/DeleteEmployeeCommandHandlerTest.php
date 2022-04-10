@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\EmployeeContext\Application\DeleteEmployee;
+namespace Tests\Unit\EmployeeContext\Employee\Application\DeleteEmployee;
 
 use Api\V1\EmployeeContext\Employee\Application\DeleteEmployee\DeleteEmployeeCommand;
 use Api\V1\EmployeeContext\Employee\Application\DeleteEmployee\DeleteEmployeeCommandHandler;
@@ -15,14 +15,12 @@ final class DeleteEmployeeCommandHandlerTest extends TestCase
     public function it_should_delete_an_employee(): void
     {
         // Given
-        $employee = $this->makeAnEmployee();
+        $employee = $this->makeEmployee();
 
         $this->employeeRepository()
             ->shouldReceive('findById')
             ->once()
-            ->andReturn(
-                $this->makeAnEmployeeAsObject($employee)
-            );
+            ->andReturn($employee);
 
         $this->employeeRepository()
             ->shouldReceive('delete')
@@ -30,14 +28,14 @@ final class DeleteEmployeeCommandHandlerTest extends TestCase
             ->andReturnNull();
 
         // When
-        $commad = new DeleteEmployeeCommandHandler(
-            delector: new EmployeeDeletor(
+        $command = new DeleteEmployeeCommandHandler(
+            new EmployeeDeletor(
                 $this->employeeRepository()
             )
         );
 
-        $commad(new DeleteEmployeeCommand(
-            $employee['id']
+        $command(new DeleteEmployeeCommand(
+            $employee->id()->value()
         ));
     }
 }

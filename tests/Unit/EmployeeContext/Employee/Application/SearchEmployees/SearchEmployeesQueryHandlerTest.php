@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\EmployeeContext\Application\SearchEmployees;
+namespace Tests\Unit\EmployeeContext\Employee\Application\SearchEmployees;
 
-use Api\V1\EmployeeContext\Employee\Application\SearchEmployees\EmployeesFinder;
-use Api\V1\EmployeeContext\Employee\Application\SearchEmployees\SearchEmployeesQuery;
-use Api\V1\EmployeeContext\Employee\Application\SearchEmployees\SearchEmployeesQueryHandler;
+use Api\V1\EmployeeContext\Employee\Application\FindAllEmployees\EmployeesFinder;
+use Api\V1\EmployeeContext\Employee\Application\FindAllEmployees\FindAllEmployeesQuery;
+use Api\V1\EmployeeContext\Employee\Application\FindAllEmployees\FindAllEmployeesQueryHandler;
+use Api\V1\EmployeeContext\Employee\Domain\Employees;
 use Tests\TestCase;
 
 final class SearchEmployeesQueryHandlerTest extends TestCase
@@ -15,19 +16,20 @@ final class SearchEmployeesQueryHandlerTest extends TestCase
     public function it_should_find_all_employee(): void
     {
         // Given
-        $employee = $this->makeAnEmployee();
+        $this->makeEmployee();
 
         $this->employeeRepository()
             ->shouldReceive('findAll')
-            ->once();
+            ->once()
+            ->andReturn($this->mock(Employees::class));
 
         // When
-        $query = new SearchEmployeesQueryHandler(
-            employeesFinder: new EmployeesFinder(
+        $query = new FindAllEmployeesQueryHandler(
+            new EmployeesFinder(
                 $this->employeeRepository()
             )
         );
 
-        $query(new SearchEmployeesQuery());
+        $query(new FindAllEmployeesQuery());
     }
 }

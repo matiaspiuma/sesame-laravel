@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\EmployeeContext\Application\CreateEmployee;
+namespace Tests\Unit\EmployeeContext\Employee\Application\CreateEmployee;
 
 use Api\V1\EmployeeContext\Employee\Application\CreateEmployee\CreateEmployeeCommand;
 use Api\V1\EmployeeContext\Employee\Application\CreateEmployee\CreateEmployeeCommandHandler;
@@ -15,7 +15,7 @@ final class CreateEmployeeCommandHandlerTest extends TestCase
     public function it_should_create_an_employee(): void
     {
         // Given
-        $employee = $this->makeAnEmployee();
+        $employee = $this->makeEmployee();
 
         $this->employeeRepository()
             ->shouldReceive('create')
@@ -23,16 +23,16 @@ final class CreateEmployeeCommandHandlerTest extends TestCase
             ->andReturnNull();
 
         // When
-        $commad = new CreateEmployeeCommandHandler(
-            creator: new EmployeeCreator(
+        $command = new CreateEmployeeCommandHandler(
+            new EmployeeCreator(
                 $this->employeeRepository()
             )
         );
 
-        $commad(new CreateEmployeeCommand(
-            $employee['id'],
-            $employee['name'],
-            $employee['email'],
+        $command(new CreateEmployeeCommand(
+            $employee->id()->value(),
+            $employee->name()->value(),
+            $employee->email()->value(),
         ));
     }
 }

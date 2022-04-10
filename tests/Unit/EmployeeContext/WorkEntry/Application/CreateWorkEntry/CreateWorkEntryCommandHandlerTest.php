@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\WorkEntry\Application\CreateWorkEntry;
+namespace Tests\Unit\EmployeeContext\WorkEntry\Application\CreateWorkEntry;
 
+use Api\V1\EmployeeContext\Employee\Domain\Employee;
 use Api\V1\EmployeeContext\WorkEntry\Application\CreateWorkEntry\CreateWorkEntryCommand;
 use Api\V1\EmployeeContext\WorkEntry\Application\CreateWorkEntry\CreateWorkEntryCommandHandler;
 use Api\V1\EmployeeContext\WorkEntry\Application\CreateWorkEntry\WorkEntryCreator;
@@ -15,25 +16,31 @@ final class CreateWorkEntryCommandHandlerTest extends TestCase
     public function it_should_create_a_work_entry(): void
     {
         // Given
-        $workEntry = $this->makeAnWorkEntry();
+        $employee = $this->makeEmployee(false);
+        $workEntry = $this->makeWorkEntry(false);
 
         $this->workEntryRepository()
             ->shouldReceive('create')
+            ->once();
+
+        $this->employeeRepository()
+            ->shouldReceive('findById')
             ->once()
-            ->andReturnNull();
+            ->andReturn($employee);
 
         // When
-        $commad = new CreateWorkEntryCommandHandler(
-            creator: new WorkEntryCreator(
-                repository: $this->workEntryRepository()
+        $command = new CreateWorkEntryCommandHandler(
+            new WorkEntryCreator(
+                $this->workEntryRepository(),
+                $this->employeeRepository()
             )
         );
 
-        $commad(new CreateWorkEntryCommand(
-            employeeId: $workEntry['employeeId'],
-            id: $workEntry['id'],
-            startDate: $workEntry['startDate'],
-            endDate: $workEntry['endDate']
+        $command(new CreateWorkEntryCommand(
+            $workEntry->id()->value(),
+            $employee->id()->value(),
+            (string)$workEntry->startDate(),
+            (string)$workEntry->endDate()
         ));
     }
 }

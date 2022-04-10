@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\EmployeeContext\Application\FindEmployee;
+namespace Tests\Unit\EmployeeContext\Employee\Application\FindEmployee;
 
 use Api\V1\EmployeeContext\Employee\Application\FindEmployeeById\EmployeeFinderById;
 use Api\V1\EmployeeContext\Employee\Application\FindEmployeeById\FindEmployeeByIdQuery;
@@ -15,24 +15,22 @@ final class FindEmployeeQueryHandlerTest extends TestCase
     public function it_should_find_an_employee(): void
     {
         // Given
-        $employee = $this->makeAnEmployee();
+        $employee = $this->makeEmployee();
 
         $this->employeeRepository()
             ->shouldReceive('findById')
             ->once()
-            ->andReturn(
-                $this->makeAnEmployeeAsObject($employee)
-            );
+            ->andReturn($employee);
 
         // When
         $query = new FindEmployeeByIdQueryHandler(
-            employeeFinder: new EmployeeFinderById(
+            new EmployeeFinderById(
                 $this->employeeRepository()
             )
         );
 
         $query(new FindEmployeeByIdQuery(
-            id: $employee['id']
+            $employee->id()->value()
         ));
     }
 }

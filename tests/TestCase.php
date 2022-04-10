@@ -20,99 +20,72 @@ abstract class TestCase extends BaseTestCase
 
     private $workEntryRepository;
 
-    protected function makeAnEmployee(): array
+    protected function makeEmployee($persist = false, $deleted = false): Employee
     {
-        return [
-            'id' => $this->faker->uuid(),
-            'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-        ];
-    }
-
-    protected function makeAnEmployeeAsObject(?array $employee = null): Employee
-    {
-        $employee = $employee ?? $this->makeAnEmployee();
-
-        return Employee::fromPrimitives(
-            id: $employee['id'],
-            name: $employee['name'],
-            email: $employee['email'],
-            createdAt: now(),
-            updatedAt: now(),
+        $employee = Employee::fromPrimitives(
+            $this->faker->uuid(),
+            $this->faker->name(),
+            $this->faker->unique()->safeEmail(),
+            now()->format('Y-m-d H:i:s'),
+            now()->format('Y-m-d H:i:s'),
         );
-    }
 
-    protected function createAnEmployee(bool $deleted = false): array
-    {
-        $employee = $this->makeAnEmployee();
-
-        DB::insert('INSERT INTO employees (id, name, email, createdAt, updatedAt, deletedAt)
-            VALUES (?, ?, ?, ?, ?, ?)', [
-            $employee['id'],
-            $employee['name'],
-            $employee['email'],
-            now(),
-            now(),
-            $deleted ? now() : null,
-        ]);
+        if ($persist) {
+            $this->persistEmployee($employee, $deleted);
+        }
 
         return $employee;
     }
 
-    protected function makeAnWorkEntry(
-        ?array $employee = null,
-        bool $asObject = false,
-    ): array|WorkEntry {
-        $employee = $employee ?? $this->makeAnEmployee();
-
-        $entry = $this->faker->dateTimeBetween('-1 years', 'now');
-
-        $workEntry = [
-            'id' => $this->faker->uuid(),
-            'employeeId' => $employee['id'],
-            'startDate' => $entry->format('Y-m-d H:i:s'),
-            'endDate' => $entry->add(
-                \DateInterval::createFromDateString(
-                    $this->faker->numberBetween(60, 600) . ' minutes'
-                )
-            )->format('Y-m-d H:i:s'),
-        ];
-
-        return $asObject
-            ? $this->convertWorkEntryToObject($workEntry)
-            : $workEntry;
-    }
-
-    protected function convertWorkEntryToObject(array $workEntry): WorkEntry
+    protected function persistEmployee(Employee $employee, bool $deleted = false): void
     {
-        return WorkEntry::fromPrimitives(
-            id: $workEntry['id'],
-            employeeId: $workEntry['employeeId'],
-            startDate: $workEntry['startDate'],
-            endDate: $workEntry['endDate'],
-            createdAt: now(),
-            updatedAt: now(),
-        );
-    }
-
-    protected function createAnWorkEntry(bool $deleted = false, bool $asObject = false): array|WorkEntry
-    {
-        $workEntry = $this->makeAnWorkEntry();
-
-        DB::insert('INSERT INTO work_entries (id, employeeId, startDate, endDate, createdAt, updatedAt, deletedAt)
-            VALUES (?, ?, ?, ?, ?, ?, ?)', [
-            $workEntry['id'],
-            $workEntry['employeeId'],
-            $workEntry['startDate'],
-            $workEntry['endDate'],
+        DB::insert('INSERT INTO employees (id, name, email, createdAt, updatedAt, deletedAt) VALUES (?, ?, ?, ?, ?, ?)', [
+            $employee->id()->value(),
+            $employee->name()->value(),
+            $employee->email()->value(),
             now(),
             now(),
             $deleted ? now() : null,
         ]);
+    }
 
-        return $asObject
-            ? $this->convertWorkEntryToObject($workEntry)
-            : $workEntry;
+    protected function makeWorkEntry($persist = false, $deleted = false): WorkEntry
+    {
+        $employee = $this->makeEmployee();
+
+        if ($persist) {
+            $this->persistEmployee($employee);
+        }
+
+        $entry = $this->faker->dateTimeBetween('-1 years', 'now');
+
+        $workEntry = WorkEntry::fromPrimitives(
+            $this->faker->uuid(),
+            $employee->id()->value(),
+            $entry->format('Y-m-d H:i:s'),
+            now()->format('Y-m-d H:i:s'),
+            now()->format('Y-m-d H:i:s'),
+            $entry->add(
+                \DateInterval::createFromDateString(
+                    $this->faker->numberBetween(60, 600) . ' minutes'
+                )
+            )->format('Y-m-d H:i:s'),
+        );
+
+        if ($persist) {
+            DB::insert('INSERT INTO work_entries (id, employeeId, startDate, endDate, createdAt, updatedAt, deletedAt)
+            VALUES (?, ?, ?, ?, ?, ?, ?)', [
+                $workEntry->id()->value(),
+                $workEntry->employeeId()->value(),
+                $workEntry->startDate()->value(),
+                $workEntry->endDate()->value(),
+                $workEntry->createdAt()->value(),
+                $workEntry->updatedAt()->value(),
+                $deleted ? now() : null,
+            ]);
+        }
+
+        return $workEntry;
     }
 
     protected function employeeRepository(): EmployeeRepository|MockInterface|null

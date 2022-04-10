@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\WorkEntry\Application\FindWorkEntry;
+namespace Tests\Unit\EmployeeContext\WorkEntry\Application\FindWorkEntry;
 
-use Api\V1\EmployeeContext\WorkEntry\Application\FindWorkEntry\FindWorkEntryQuery;
-use Api\V1\EmployeeContext\WorkEntry\Application\FindWorkEntry\FindWorkEntryQueryHandler;
-use Api\V1\EmployeeContext\WorkEntry\Application\FindWorkEntry\WorkEntryFinder;
+use Api\V1\EmployeeContext\WorkEntry\Application\FindWorkEntryById\FindWorkEntryByIdAndEmployeeIdQuery;
+use Api\V1\EmployeeContext\WorkEntry\Application\FindWorkEntryById\FindWorkEntryByIdAndEmployeeIdQueryHandler;
+use Api\V1\EmployeeContext\WorkEntry\Application\FindWorkEntryById\WorkEntryByIdFinder;
 use Tests\TestCase;
 
 final class FindWorkEntryQueryHandlerTest extends TestCase
@@ -15,22 +15,21 @@ final class FindWorkEntryQueryHandlerTest extends TestCase
     public function it_should_find_an_work_entry(): void
     {
         // Given
-        $workEntry = $this->makeAnWorkEntry(asObject: true);
+        $workEntry = $this->makeWorkEntry();
 
         $this->workEntryRepository()
-            ->shouldReceive('findById')
+            ->shouldReceive('findByIdAndEmployeeId')
             ->once()
             ->andReturn($workEntry);
 
         // When
-        $query = new FindWorkEntryQueryHandler(
-            finder: new WorkEntryFinder(
-                repository: $this->workEntryRepository()
-            )
+        $query = new FindWorkEntryByIdAndEmployeeIdQueryHandler(
+            new WorkEntryByIdFinder($this->workEntryRepository())
         );
 
-        $query(new FindWorkEntryQuery(
-            id: (string) $workEntry->id
+        $query(new FindWorkEntryByIdAndEmployeeIdQuery(
+            $workEntry->id()->value(),
+            $workEntry->employeeId()->value()
         ));
     }
 }

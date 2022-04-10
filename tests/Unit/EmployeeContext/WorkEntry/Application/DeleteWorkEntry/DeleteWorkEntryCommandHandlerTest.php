@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\WorkEntry\Application\DeleteWorkEntry;
+namespace Tests\Unit\EmployeeContext\WorkEntry\Application\DeleteWorkEntry;
 
 use Api\V1\EmployeeContext\WorkEntry\Application\DeleteWorkEntry\DeleteWorkEntryCommand;
 use Api\V1\EmployeeContext\WorkEntry\Application\DeleteWorkEntry\DeleteWorkEntryCommandHandler;
@@ -15,10 +15,10 @@ final class DeleteWorkEntryCommandHandlerTest extends TestCase
     public function it_should_delete_a_work_entry(): void
     {
         // Given
-        $workEntry = $this->makeAnWorkEntry(asObject: true);
+        $workEntry = $this->makeWorkEntry();
 
         $this->workEntryRepository()
-            ->shouldReceive('findById')
+            ->shouldReceive('findByIdAndEmployeeId')
             ->once()
             ->andReturn($workEntry);
 
@@ -28,14 +28,15 @@ final class DeleteWorkEntryCommandHandlerTest extends TestCase
             ->andReturnNull();
 
         // When
-        $commad = new DeleteWorkEntryCommandHandler(
-            workEntryDelector: new WorkEntryDeletor(
-                repository: $this->workEntryRepository()
-            )
+        $command = new DeleteWorkEntryCommandHandler(
+            new WorkEntryDeletor($this->workEntryRepository())
         );
 
-        $commad(new DeleteWorkEntryCommand(
-            id: (string) $workEntry->id
-        ));
+        $command(
+            new DeleteWorkEntryCommand(
+                $workEntry->id()->value(),
+                $workEntry->employeeId()->value()
+            )
+        );
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\WorkEntry\Application\FindAddWorkEntriesByEmployeeId;
+namespace Tests\Unit\EmployeeContext\WorkEntry\Application\FindAddWorkEntriesByEmployeeId;
 
 use Api\V1\EmployeeContext\WorkEntry\Application\FindAllWorkEntriesByEmployeeId\FindAllWorkEntriesByEmployeeIdQuery;
 use Api\V1\EmployeeContext\WorkEntry\Application\FindAllWorkEntriesByEmployeeId\FindAllWorkEntriesByEmployeeIdQueryHandler;
@@ -15,7 +15,7 @@ final class FindAllWorkEntriesByEmployeeIdQueryHandlerTest extends TestCase
     public function it_should_find_all_work_entries_by_employeeId(): void
     {
         // Given
-        $workEntry = $this->makeAnWorkEntry();
+        $workEntry = $this->makeWorkEntry();
 
         $this->workEntryRepository()
             ->shouldReceive('findAllByEmployeeId')
@@ -23,13 +23,13 @@ final class FindAllWorkEntriesByEmployeeIdQueryHandlerTest extends TestCase
 
         // When
         $query = new FindAllWorkEntriesByEmployeeIdQueryHandler(
-            finder: new WorkEntriesByEmployeeIdFinder(
-                repository: $this->workEntryRepository()
-            )
+            new WorkEntriesByEmployeeIdFinder($this->workEntryRepository())
         );
 
-        $query(new FindAllWorkEntriesByEmployeeIdQuery(
-            employeeId: $workEntry['employeeId']
-        ));
+        $query(
+            new FindAllWorkEntriesByEmployeeIdQuery(
+                $workEntry->employeeId()->value()
+            )
+        );
     }
 }
