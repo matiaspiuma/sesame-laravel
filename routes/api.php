@@ -1,16 +1,12 @@
 <?php
 
-use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\UpdateEmployeeByIdController;
-use Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers\CreateWorkEntryController;
-use Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers\DeleteWorkEntryController;
-use Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers\FindWorkEntriesByEmployeeIdController;
-use Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers\UpdateWorkEntryController;
+use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\SearchEmployeesController;
 use Illuminate\Support\Facades\Route;
 
 /**
  * Employee API
  */
-Route::get('/employees', \App\Http\Controllers\Api\V1\Employees\GetEmployeesController::class);
+Route::get('/employees', SearchEmployeesController::class);
 
 Route::get('/employees/{employeeId}', \App\Http\Controllers\Api\V1\Employees\GetEmployeeController::class);
 

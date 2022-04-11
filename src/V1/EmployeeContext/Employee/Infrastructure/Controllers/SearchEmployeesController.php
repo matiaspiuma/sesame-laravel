@@ -10,6 +10,8 @@ use Api\V1\EmployeeContext\Employee\Domain\Employees;
 use Api\V1\EmployeeContext\Employee\Infrastructure\Responses\EmployeeResponseInterface;
 use Api\V1\EmployeeContext\Employee\Infrastructure\Responses\EmployeesResponse;
 use Api\V1\SharedContext\Application\CQRS\Query\QueryBusInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 final class SearchEmployeesController
 {
@@ -19,10 +21,18 @@ final class SearchEmployeesController
     {
     }
 
-    public function __invoke(): Employees
+    public function __invoke(): JsonResponse
     {
-        return $this->queryBus->execute(
+        /** @var Employees $response */
+        $response = $this->queryBus->execute(
             new FindAllEmployeesQuery()
+        );
+
+        return new JsonResponse(
+            [
+                'data' => $response->toPrimitives(),
+            ],
+            Response::HTTP_OK,
         );
     }
 }
