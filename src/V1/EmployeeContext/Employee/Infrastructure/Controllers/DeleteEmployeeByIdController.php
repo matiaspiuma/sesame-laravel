@@ -6,7 +6,8 @@ namespace Api\V1\EmployeeContext\Employee\Infrastructure\Controllers;
 
 use Api\V1\EmployeeContext\Employee\Application\DeleteEmployee\DeleteEmployeeCommand;
 use Api\V1\SharedContext\Application\CQRS\Command\CommandBusInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 final class DeleteEmployeeByIdController
 {
@@ -17,14 +18,16 @@ final class DeleteEmployeeByIdController
     }
 
     public function __invoke(
-        Request $request,
         string  $employeeId
-    ): void
+    ): JsonResponse
     {
         $this->commandBus->execute(
-            command: new DeleteEmployeeCommand(
-                id: $employeeId
-            )
+            new DeleteEmployeeCommand($employeeId)
+        );
+
+        return new JsonResponse(
+            null,
+            status: Response::HTTP_NO_CONTENT
         );
     }
 }

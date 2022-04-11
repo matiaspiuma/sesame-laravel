@@ -1,5 +1,6 @@
 <?php
 
+use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\DeleteEmployeeByIdController;
 use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\FindEmployeeByIdController;
 use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\SearchEmployeesController;
 use Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers\FindWorkEntriesByEmployeeIdController;
@@ -17,7 +18,7 @@ Route::post('/employees', \App\Http\Controllers\Api\V1\Employees\PostEmployeeCon
 
 Route::put('/employees/{employeeId}', \App\Http\Controllers\Api\V1\Employees\PutEmployeeController::class);
 
-Route::delete('/employees/{employeeId}', \App\Http\Controllers\Api\V1\Employees\DeleteEmployeeController::class);
+Route::delete('/employees/{employeeId}', DeleteEmployeeByIdController::class);
 
 /**
  * Work Entries API
