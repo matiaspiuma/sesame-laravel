@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class CreateEmployeeController
+final class PostEmployeeController
 {
     public function __construct(
         private CommandBusInterface $commandBus,

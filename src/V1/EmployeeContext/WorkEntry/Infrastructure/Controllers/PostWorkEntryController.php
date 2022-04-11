@@ -12,7 +12,7 @@ use Api\V1\SharedContext\Application\CQRS\Command\CommandBusInterface;
 use App\Http\Requests\Api\V1\EmployeeContext\WorkEntry\Infrastructure\Requests\CreateWorkEntryRequest;
 use Symfony\Component\HttpFoundation\Request;
 
-final class CreateWorkEntryController
+final class PostWorkEntryController
 {
     public function __construct(
         private CommandBusInterface $commandBus

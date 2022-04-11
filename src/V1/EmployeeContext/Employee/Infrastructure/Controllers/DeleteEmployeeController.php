@@ -9,7 +9,7 @@ use Api\V1\SharedContext\Application\CQRS\Command\CommandBusInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-final class DeleteEmployeeByIdController
+final class DeleteEmployeeController
 {
     public function __construct(
         private CommandBusInterface $commandBus

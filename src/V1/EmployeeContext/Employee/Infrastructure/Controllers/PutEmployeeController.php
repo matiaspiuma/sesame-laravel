@@ -9,7 +9,7 @@ use Api\V1\EmployeeContext\Employee\Domain\Employee;
 use Api\V1\SharedContext\Application\CQRS\Command\CommandBusInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-final class UpdateEmployeeByIdController
+final class PutEmployeeController
 {
     public function __construct(
         private CommandBusInterface $commandBus,

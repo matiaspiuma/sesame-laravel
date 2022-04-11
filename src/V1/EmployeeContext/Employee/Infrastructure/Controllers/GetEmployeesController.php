@@ -13,7 +13,7 @@ use Api\V1\SharedContext\Application\CQRS\Query\QueryBusInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-final class SearchEmployeesController
+final class GetEmployeesController
 {
     public function __construct(
         private QueryBusInterface $queryBus
