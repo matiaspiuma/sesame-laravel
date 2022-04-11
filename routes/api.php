@@ -3,6 +3,7 @@
 use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\FindEmployeeByIdController;
 use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\SearchEmployeesController;
 use Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers\FindWorkEntriesByEmployeeIdController;
+use Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers\FindWorkEntryByIdController;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -23,7 +24,7 @@ Route::delete('/employees/{employeeId}', \App\Http\Controllers\Api\V1\Employees\
  */
 Route::get('/employees/{employeeId}/workentries', FindWorkEntriesByEmployeeIdController::class);
 
-Route::get('/employees/{employeeId}/workentries/{workEntryId}', \App\Http\Controllers\Api\V1\Employees\GetEmployeeWorkEntryController::class);
+Route::get('/employees/{employeeId}/workentries/{workEntryId}', FindWorkEntryByIdController::class);
 
 Route::post('/employees/{employeeId}/workentries', \App\Http\Controllers\Api\V1\Employees\PostEmployeeWorkEntryController::class);
 

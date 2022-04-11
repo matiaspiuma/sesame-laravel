@@ -7,7 +7,7 @@ namespace Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers;
 use Api\V1\EmployeeContext\WorkEntry\Application\FindWorkEntryById\FindWorkEntryByIdAndEmployeeIdQuery;
 use Api\V1\EmployeeContext\WorkEntry\Domain\WorkEntry;
 use Api\V1\SharedContext\Application\CQRS\Query\QueryBusInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 final class FindWorkEntryByIdController
 {
@@ -18,13 +18,17 @@ final class FindWorkEntryByIdController
     }
 
     public function __invoke(
-        Request $request,
         string  $employeeId,
         string  $workEntryId
-    ): WorkEntry
+    ): JsonResponse
     {
-        return $this->queryBus->execute(
+        /** @var WorkEntry $response */
+        $response = $this->queryBus->execute(
             new FindWorkEntryByIdAndEmployeeIdQuery($workEntryId, $employeeId)
         );
+
+        return new JsonResponse([
+            'data' => $response->toPrimitives()
+        ]);
     }
 }
