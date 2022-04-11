@@ -7,7 +7,6 @@ namespace Api\V1\EmployeeContext\WorkEntry\Infrastructure\Controllers;
 use Api\V1\EmployeeContext\WorkEntry\Application\DeleteWorkEntry\DeleteWorkEntryCommand;
 use Api\V1\SharedContext\Application\CQRS\Command\CommandBusInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class DeleteWorkEntryController
@@ -19,7 +18,6 @@ final class DeleteWorkEntryController
     }
 
     public function __invoke(
-        Request $request,
         string  $employeeId,
         string  $workEntryId
     ): JsonResponse
