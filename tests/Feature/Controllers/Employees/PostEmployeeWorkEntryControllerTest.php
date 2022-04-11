@@ -57,7 +57,7 @@ final class PostEmployeeWorkEntryControllerTest extends TestCase
     {
         $employee = $this->makeEmployee(true);
 
-        $response = $this->post('/api/v1/employees/'.$employee->id(), [], [
+        $response = $this->post('/api/v1/employees/'.$employee->id().'/workentries', [], [
             'Accept' => 'application/json'
         ]);
 
