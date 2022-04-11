@@ -1,5 +1,6 @@
 <?php
 
+use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\FindEmployeeByIdController;
 use Api\V1\EmployeeContext\Employee\Infrastructure\Controllers\SearchEmployeesController;
 use Illuminate\Support\Facades\Route;
 
@@ -8,7 +9,7 @@ use Illuminate\Support\Facades\Route;
  */
 Route::get('/employees', SearchEmployeesController::class);
 
-Route::get('/employees/{employeeId}', \App\Http\Controllers\Api\V1\Employees\GetEmployeeController::class);
+Route::get('/employees/{employeeId}', FindEmployeeByIdController::class);
 
 Route::post('/employees', \App\Http\Controllers\Api\V1\Employees\PostEmployeeController::class);
 

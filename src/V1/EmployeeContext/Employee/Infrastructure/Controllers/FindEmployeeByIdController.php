@@ -6,9 +6,9 @@ namespace Api\V1\EmployeeContext\Employee\Infrastructure\Controllers;
 
 use Api\V1\EmployeeContext\Employee\Application\FindEmployeeById\FindEmployeeByIdQuery;
 use Api\V1\EmployeeContext\Employee\Domain\Employee;
-use Api\V1\EmployeeContext\Employee\Infrastructure\Responses\EmployeeResponseInterface;
 use Api\V1\SharedContext\Application\CQRS\Query\QueryBusInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 final class FindEmployeeByIdController
 {
@@ -19,12 +19,17 @@ final class FindEmployeeByIdController
     }
 
     public function __invoke(
-        Request $request,
         string  $employeeId
-    ): Employee
+    ): JsonResponse
     {
-        return $this->queryBus->execute(
+        /** @var Employee $reponse */
+        $response = $this->queryBus->execute(
             new FindEmployeeByIdQuery($employeeId)
         );
+
+        return new JsonResponse([
+            'data' => $response->toPrimitives(),
+            Response::HTTP_OK
+        ]);
     }
 }
